@@ -1,7 +1,44 @@
 # Projeto-Movie_Eaters
-No Brasil, os filmes fazem parte do cotidiano da maioria das pessoas. Seja por meio da televisão aberta ou dos serviços de streaming, o acesso a esse tipo de lazer se tornou mais democrático. Além disso, assistir a filmes frequentemente está ligado a momentos sociais: noites entre amigos, sessões em grupo ou idas ao cinema que acabam fortalecendo laços e criando memórias. É uma experiência coletiva que vai além da tela. No entanto, com o passar do tempo, especialmente na vida adulta, esses momentos se tornam mais raros. A rotina corrida, a falta de tempo e as mudanças de prioridade acabam dificultando encontros presenciais e experiências compartilhadas como antes.
-É nesse contexto que surge o projeto Movie Eaters. A proposta é simples: resgatar a experiência coletiva do cinema, mesmo à distância. Através da plataforma, os usuários podem criar grupos de filmes com amigos e, a cada semana, um membro é responsável por escolher o filme que todos deverão assistir. Além disso, o projeto oferece um espaço dedicado para avaliações, comentários e troca de opiniões, em um modelo inspirado em plataformas como o Letterboxd.
-Para tornar a experiência ainda mais envolvente, a dinâmica inclui um sistema de pontuação que adiciona um aspecto competitivo ao processo. Os participantes acumulam pontos ao assistir o filme da semana, ao produzir avaliações bem recebidas e também quando suas indicações agradam ao grupo. Dessa forma, não apenas assistir ao filme se torna importante, mas também participar ativamente da experiência.
-Ao final de cada ciclo, o próprio grupo pode definir recompensas para o participante com melhor desempenho, desde algo simbólico até prêmios mais concretos, como ingressos de cinema ou combos de pipoca, tornando tudo ainda mais divertido e motivador.
-Assim, o Movie Eaters transforma o simples ato de assistir a um filme em uma experiência compartilhada, interativa e contínua, fortalecendo conexões e trazendo de volta o sentimento de assistir “junto”, mesmo quando cada um está em um lugar diferente.
 
+Sobre o projeto
+
+No Brasil, os filmes fazem parte do cotidiano da maioria das pessoas. Seja por meio da televisão aberta ou dos serviços de streaming, o acesso a esse tipo de lazer se tornou mais democrático.
+
+Além do entretenimento, assistir a filmes também representa uma experiência social importante, frequentemente associada a momentos entre amigos, sessões em grupo e idas ao cinema, que contribuem para o fortalecimento de laços e a criação de memórias.
+
+Entretanto, ao longo da vida adulta, esses momentos tendem a se tornar menos frequentes, principalmente em função da rotina, da falta de tempo e das mudanças de prioridade, o que dificulta a realização de experiências coletivas como anteriormente.
+
+Proposta
+
+O Movie Eaters surge com o objetivo de resgatar a experiência coletiva do cinema, mesmo à distância.
+
+A plataforma permite que usuários criem grupos de filmes com seus amigos, nos quais, a cada semana, um participante é responsável por escolher o filme que será assistido por todos. Dessa forma, promove-se uma dinâmica contínua de participação e compartilhamento.
+
+Funcionalidades
+
+O sistema contempla:
+
+Criação de grupos de filmes
+Definição semanal de um responsável pela escolha do filme
+Espaço para avaliações e comentários sobre o filme
+Interação entre os participantes do grupo
+Estímulo à descoberta de novos gêneros e preferências
+Sistema de Pontuação
+
+Com o objetivo de aumentar o engajamento, a plataforma incorpora um sistema de pontuação baseado na participação dos usuários. Os pontos podem ser obtidos por meio de ações como:
+
+Assistir ao filme da semana
+Ter o review mais curtido pelos amigos
+Indicar filmes que sejam bem recebidos pelo grupo
+
+Essa dinâmica incentiva uma participação mais ativa e constante dentro da plataforma.
+
+Competição
+
+O sistema de pontuação também introduz um elemento competitivo entre os participantes, por meio de rankings internos aos grupos.
+
+Ao final de cada ciclo, os próprios usuários podem definir recompensas para o participante com melhor desempenho, que podem variar desde reconhecimentos simbólicos até premiações mais concretas, como ingressos de cinema ou outros benefícios acordados entre o grupo.
+
+Objetivo
+
+O Movie Eaters tem como objetivo transformar o ato de assistir a filmes em uma experiência compartilhada, interativa e contínua, fortalecendo conexões sociais e resgatando o sentimento de assistir em grupo, independentemente da distância física entre os participantes.

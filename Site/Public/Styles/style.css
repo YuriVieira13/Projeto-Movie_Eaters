@@ -11,7 +11,6 @@
 }
 
 
-
 body {
 
     margin: 0px;
@@ -43,6 +42,7 @@ html {
     background-position: center;
     background-repeat: no-repeat;
 }
+
 
 .home_fundo h2 {
 
@@ -115,6 +115,7 @@ p {
 
     font-family: 'DM Sans', sans-serif;
     font-size: 20.6px;
+    
 
 }
 
@@ -127,21 +128,44 @@ p {
 .navbar {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     gap: 120px;
     padding-right: 50px;
-}
+}   
 
 .navbar a {
     text-decoration: none;
     color: white
 }
 
+.navbar a:hover {
+    text-decoration: none;
+    color: #ffc700
+}
+
 .navbar li {
     list-style: none;
     color: white
 }
+
+.navbar li:hover {
+
+  transform: scale(1.03);
+    transition: 0.3s;
+  cursor: pointer;
+
+}
+
+.estetico {
+
+    border-radius: 20px;
+    background:#810000;
+    padding: 6px 20px;
+    text-decoration: none;
+}
+
+
 
 /* ======================= BANNER ======================= */
 
@@ -196,7 +220,7 @@ p {
 
     height: 100vh;
     width: 100%;
-    margin-top: 60px;
+    margin-top: 40px;
 
 
     display: flex;
@@ -216,7 +240,7 @@ p {
 
 .sobreNos img {
 
-    width: 450px;
+    width: 480px;
     height: auto;
     padding-top: 5px;
     padding-bottom: 20px;
@@ -243,6 +267,7 @@ p {
     width: 460px;
     height: 100px;
     padding: 20px;
+    margin-top: 20px;
 
 }
 
@@ -252,7 +277,7 @@ p {
 
     height: 100vh;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 80px;
 
 
     display: flex;
@@ -368,4 +393,75 @@ p {
     font-weight: 100;
     padding-bottom: 20px;
     text-align: center;
+}
+
+/* ======================= footer ======================= */
+
+.footer {
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    background-color: black;
+    gap: 1px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-texto {
+    text-align: right;
+    color: white;
+    font-size: 10px;    
+    padding-right: 20px;
+}
+
+.footer img {
+    width: 250px;
+    height: auto;
+    padding-left: 80px;
+}
+
+.footer .navbar {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+    padding-left: 200px;
+    white-space: nowrap;
+    font-size: 25px;
+}   
+
+.footer .navbar a {
+    text-decoration: none;
+    color: white
+}
+
+.footer .navbar a:hover {
+    text-decoration: none;
+    color: #ffc700
+}
+
+.footer .navbar li {
+    list-style: none;
+    color: white
+}
+
+.footer .navbar li:hover {
+
+  transform: scale(1.03);
+    transition: 0.3s;
+  cursor: pointer;
+}
+
+.footer span {
+
+font-family: 'Courier New', Courier, monospace;
+color: white;
+
+
 }

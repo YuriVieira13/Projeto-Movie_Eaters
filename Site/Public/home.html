@@ -14,14 +14,16 @@
 
         <div class="home_fundo">
 
+             <!-- <video id="video_banner" class="video-bg" src="../Public/ASSETS/Video/videobanner.mp4"></video> -->
+
             <div class="header">
-                <img src="../Public/ASSETS/logo.png" alt="Logotipo MovieEaters">
+                <img src="../Public/ASSETS/logonova.png" alt="Logotipo MovieEaters">
 
                 <ul class="navbar">
-                    <li><a href="">HOME</a></li>
+                    <li class="ativo"><a href="">HOME</a></li>
                     <li><a href="#sobreNos">SOBRE NÓS</a></li>
                     <li><a href="">LOGIN</a></li>
-                    <li><a href="">CRIAR CONTA</a></li>
+                    <li class="estetico"><a href="">CRIAR CONTA</a></li>
                 </ul>
             </div>
 
@@ -53,12 +55,12 @@
 
             <h1>Assirtir juntos nunca dependeu do mesmo sofá.</h1>
 
-            <img src="../Public/ASSETS/Posters/logoC.png" alt="Logotipo MovieEaters">
+            <img src="../Public/ASSETS/logonova.png" alt="Logotipo MovieEaters">
 
             <p> A Movie Eaters surge para aproximar pessoas através dos filmes, porque assistir junto vai muito além de
                 estar no mesmo lugar.</p>
 
-            <button class=" button"> Convide seus amigos</button>
+            <button class=" button" onclick="copiarLink()"> Convide seus amigos</button>
 
         </div>
 
@@ -101,9 +103,55 @@
 
         </div>
 
+    </div>
+
+    <div class="footer">
+
+        <div class="footer-top">
+            <img src="../Public/ASSETS/logo.png">
+
+            <ul class="navbar">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#sobreNos">SOBRE NÓS</a></li>
+                <li><a href="#">LOGIN</a></li>
+                <li><a href="#">CRIAR CONTA</a></li>
+            </ul>
+        </div>
+
+        <span class="footer-texto">
+            © movieEaters Limited. Feito por um estudante que curte filmes.
+        </span>
+
+    </div>
+
+    </div>
+
 
 
 
 </body>
 
 </html>
+
+<script>
+
+    function copiarLink() {
+
+        let link = window.location.href;
+
+        navigator.clipboard.writeText(link)
+            .then(() => {
+                alert("Link copiado!");
+            })
+    }
+
+
+function ativarVideo() {
+    const video = document.getElementById("video_banner");
+
+    video.style.display = "block";
+    video.play();
+}
+
+
+</script>

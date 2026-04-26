@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie Eaters | Login</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/styleLogin.css">
+    <link rel="icon" href="./assets/icon/favicon2.ico">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <a href="./index.html">
+            <img src="./ASSETS/logonova.png" alt="">
+        </a>
+    </div>
+
+    <!-- 🔴 DIV ALERTA DE ERRO -->
+    <div class="alerta_erro">
+        <div class="card_erro" id="cardErro" style="display: none;">
+            <span id="mensagem_erro"></span>
+        </div>
+    </div>
+
+    <div class="login">
+        <div class="card-login">
+            <h2>Bem-vindo de Volta!</h2>
+
+            <div class="formulario">
+
+                <div class="campo">
+                    <div class="linha-esquerda">
+                        <span>EMAIL:</span>
+                    </div>
+                    <input id="email_input" type="text">
+                </div>
+
+                <div class="campo">
+                    <div class="linha-esquerda">
+                        <span>SENHA:</span>
+                    </div>
+                    <input id="senha_input" type="password">
+                    <div class="linha-direita">
+                        <span>Inicie sua jornada</span>
+                    </div>
+                </div>
+
+                <button class="botaoEntrar" onclick="entrar()">ENTRAR</button>
+
+                <div class="ou">ou</div>
+
+                <button onclick="window.location.href='Cadastro.html'" class="botaoCadastrar">
+                    CRIE UMA CONTA
+                </button>
+
+            </div>
+
+            <!-- DIV AGUARDAR -->
+            <div id="div_aguardar" class="loading-div" style="display: none;">
+                <img src="./assets/circle-loading.gif" id="loading-gif">
+            </div>
+
+            <div id="div_erros_login"></div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
+<script>
+    function entrar() {
+        aguardar();
+
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML = "Preencha todos os campos!";
+            finalizarAguardar();
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000);
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                resposta.json().then(json => {
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+                    /* sessionStorage.AQUARIOS = JSON.stringify(json.aquarios); */
+
+                    setTimeout(function () {
+                        window.location = "./dashboard/cards.html";
+                    }, 1000);
+                });
+
+            } else {
+
+                resposta.text().then(texto => {
+                    cardErro.style.display = "block";
+                    mensagem_erro.innerHTML = "Email ou senha inválidos!";
+                    finalizarAguardar();
+                });
+
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+    }
+</script>

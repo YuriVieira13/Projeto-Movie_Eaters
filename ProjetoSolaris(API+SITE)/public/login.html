@@ -16,65 +16,64 @@
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <div class="logo">
-        <a href="./index.html">
-            <img src="./ASSETS/logonova.png" alt="">
-        </a>
-    </div>
-
-    <!-- 🔴 DIV ALERTA DE ERRO -->
-    <div class="alerta_erro">
-        <div class="card_erro" id="cardErro" style="display: none;">
-            <span id="mensagem_erro"></span>
+        <div class="logo">
+            <a href="./index.html">
+                <img src="./ASSETS/logonova.png" alt="">
+            </a>
         </div>
-    </div>
 
-    <div class="login">
-        <div class="card-login">
-            <h2>Bem-vindo de Volta!</h2>
+        <div class="login">
+            <div class="card-login">
+                <h2>Bem-vindo de Volta!</h2>
 
-            <div class="formulario">
+                <div class="formulario">
 
-                <div class="campo">
-                    <div class="linha-esquerda">
-                        <span>EMAIL:</span>
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>EMAIL:</span>
+                        </div>
+                        <input id="email_input" type="text">
                     </div>
-                    <input id="email_input" type="text">
+
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>SENHA:</span>
+                        </div>
+                        <input id="senha_input" type="password">
+                        <div class="linha-direita">
+                            <span>Inicie sua jornada</span>
+                        </div>
+                    </div>
+
+                    <button class="botaoEntrar" onclick="entrar()">ENTRAR</button>
+
+                    <div class="ou">ou</div>
+
+                    <button onclick="window.location.href='Cadastro.html'" class="botaoCadastrar">
+                        CRIE UMA CONTA
+                    </button>
+
                 </div>
 
-                <div class="campo">
-                    <div class="linha-esquerda">
-                        <span>SENHA:</span>
-                    </div>
-                    <input id="senha_input" type="password">
-                    <div class="linha-direita">
-                        <span>Inicie sua jornada</span>
+                <!-- DIV AGUARDAR -->
+                <div id="div_aguardar" class="loading-div" style="display: none;">
+                    <img src="./assets/circle-loading.gif" id="loading-gif">
+                </div>
+
+                <div class="alerta_erro" id="alertaErro">
+                    <div class="card_erro" id="cardErro"> 
+                        <h2>Atenção, um erro foi encontrado!</h2>
+                        <span id="mensagem_erro"></span>
                     </div>
                 </div>
 
-                <button class="botaoEntrar" onclick="entrar()">ENTRAR</button>
-
-                <div class="ou">ou</div>
-
-                <button onclick="window.location.href='Cadastro.html'" class="botaoCadastrar">
-                    CRIE UMA CONTA
-                </button>
 
             </div>
-
-            <!-- DIV AGUARDAR -->
-            <div id="div_aguardar" class="loading-div" style="display: none;">
-                <img src="./assets/circle-loading.gif" id="loading-gif">
-            </div>
-
-            <div id="div_erros_login"></div>
-
         </div>
-    </div>
 
-</div>
+    </div>
 
 </body>
 
@@ -88,7 +87,7 @@
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block";
+            alertaErro.style.display = "flex";
             mensagem_erro.innerHTML = "Preencha todos os campos!";
             finalizarAguardar();
             return false;
@@ -126,7 +125,7 @@
             } else {
 
                 resposta.text().then(texto => {
-                    cardErro.style.display = "block";
+                    alertaErro.style.display = "flex";
                     mensagem_erro.innerHTML = "Email ou senha inválidos!";
                     finalizarAguardar();
                 });
@@ -141,6 +140,6 @@
     }
 
     function sumirMensagem() {
-        cardErro.style.display = "none";
+        alertaErro.style.display = "none";
     }
 </script>

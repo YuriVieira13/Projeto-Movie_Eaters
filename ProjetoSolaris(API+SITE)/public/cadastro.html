@@ -6,67 +6,181 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Movie Eaters| Cadastro</title>
+  <title>Movie Eaters | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
   <link rel="stylesheet" href="./css/styleLogin.css" />
 </head>
 
- <div class="container1">
+<body>
 
-        <div class="header">
+  <div class="container1">
 
-        <div class ="voltar"> <a href="index.html"> <img src="/assets/voltar.png" alt=""> </a> </div>
+    <div class="header">
 
-       <div class="logo"> <a href="index.html"> <img class="logo" src="/assets/logonova.png" alt=""> </a> </div>
+      <div class="voltar"> <a href="index.html"> <img src="/assets/voltar.png" alt=""> </a> </div>
 
-
-
-        </div>
-
-        <div class="cadastro">
-            <div class="card-cadastro">
-                <h2>Crie a sua conta</h2>
-                <div class="formulario">
-                <div class="campo">
-                    <div class="linha-esquerda">
-                    <span>Nome:</span>
-                    </div>
-                    <input id="nome_input" type="text" placeholder="Seu nome" />
-                </div>
-                <div class="campo">
-                    <div class="linha-esquerda">
-                    <span>E-mail:</span>
-                    </div>
-                    <input id="email_input" type="text" placeholder="meuemail@dominio.com" />
-                </div>
-                <div class="campo">
-                      <div class="linha-esquerda">
-                    <span>Senha:</span>
-                    </div>
-                    <input id="senha_input" type="password" placeholder="******" />
-                </div>
-                <div class="campo">
-                       <div class="linha-esquerda">
-                    <span>Confirmar Senha:</span>
-                    </div>
-                    <input id="confirmacao_senha_input" type="password" placeholder="******" />
-                </div>
-                <button class="botao" onclick="cadastrar()">CADASTRAR</button>
-            </div>
-            <div class="mensagem"> Já possui uma conta? 
-                <a href="./login.html" class="link-login">Faça login!</a>
-            </div>
-
-        </div>
+      <div class="logo"> <a href="index.html"> <img class="logo" src="/assets/logonova.png" alt=""> </a> </div>
 
     </div>
+
+    <div class="cadastro">
+      <div class="card-cadastro">
+        <h2>Crie a sua conta</h2>
+        <div class="formulario">
+          <div class="campo">
+            <div class="linha-esquerda">
+              <span>Nome:</span>
+            </div>
+            <input id="nome_input" type="text" placeholder="Seu nome" />
+          </div>
+          <div class="campo">
+            <div class="linha-esquerda">
+              <span>E-mail:</span>
+            </div>
+            <input id="email_input" type="email" placeholder="meuemail@dominio.com" />
+          </div>
+          <div class="campo">
+            <div class="linha-esquerda">
+              <span>Senha:</span>
+            </div>
+            <input id="senha_input" type="password" placeholder="******" />
+          </div>
+          <div class="campo">
+            <div class="linha-esquerda">
+              <span>Confirmar Senha:</span>
+            </div>
+            <input id="confirmacao_senha_input" type="password" placeholder="******" />
+          </div>
+          <button class="botao" onclick="cadastrar()">CADASTRAR</button>
+        </div>
+        <div class="mensagem"> Já possui uma conta?
+          <a href="./login.html" class="link-login">Faça login!</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="alerta_erro" id="alertaErro">
+      <div class="card_erro" id="cardErro">
+        <h2>Atenção, um erro foi encontrado!</h2>
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
+
 </body>
 
 </html>
 
 <script>
+
+  function validarCampos() {
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == ""
+    ) {
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML =
+        "Algum dos campos não está preenchido";
+
+      return false;
+
+    } else if (nomeVar.length <= 1) {
+
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML =
+        "O nome precisa conter mais de um caractere";
+
+      return false;
+
+    } else if (!(emailVar.includes("@") && emailVar.includes("."))) {
+
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML =
+        "o e-mail precisa conter '@' e '.'";
+
+      return false;
+
+
+    } else if (senhaVar.length <= 6) {
+
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML =
+        "A senha precisa conter mais do que 6 caracteres";
+
+      return false;
+
+
+    } else if (!(confirmacaoSenhaVar == senhaVar)) {
+
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML =
+        "As senhas estão divergindo";
+
+      return false;
+
+    }
+
+    // chamar a função de validarSenha
+    if (!validarSenha()) {
+      return false;
+    }
+    return true;
+  }
+
+
+  function validarSenha() {
+
+    let senhaVar = senha_input.value;
+
+    let temMinuscula = false;
+    let temMaiuscula = false;
+
+    for (let i = 0; i < senhaVar.length; i++) {
+
+      if (senhaVar[i] >= "a" && senhaVar[i] <= "z") {
+        temMinuscula = true;
+      }
+
+      if (senhaVar[i] >= "A" && senhaVar[i] <= "Z") {
+        temMaiuscula = true;
+      }
+    }
+    if (!temMinuscula) {
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 letra minúscula.";
+      return false;
+    }
+
+    if (!temMaiuscula) {
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 letra maiúscula.";
+      return false;
+
+    } if (!/[0-9]/.test(senhaVar)) {
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 número."
+
+      return false;;
+
+    } if (!/[^a-zA-Z0-9]/.test(senhaVar)) {
+      alertaErro.style.display = "flex";
+      mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 caractere especial."
+
+      return false;
+
+    } return true;
+
+  }
 
   function cadastrar() {
     // aguardar();
@@ -78,22 +192,12 @@
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
+    // chamar a função de validação
+    if (!validarCampos()) {
       return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
     }
+
+    setTimeout(sumirMensagem, 5000);
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -113,10 +217,10 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
+          alertaErro.style.display = "flex";
 
           mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+            "Cadastro realizado! Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "login.html";
@@ -136,8 +240,7 @@
     return false;
   }
 
-
   function sumirMensagem() {
-    cardErro.style.display = "none";
+    alertaErro.style.display = "none";
   }
 </script>

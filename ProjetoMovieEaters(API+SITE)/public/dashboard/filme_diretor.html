@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filme da semana</title>
+
+    <link rel="stylesheet" href="../css/styleFilme.css" />
+    <link rel="icon" href="assets/icons" />
+
+
+</head>
+
+<body>
+
+    <div class="container1">
+
+        <div class="header">
+
+            <div class="left">
+                Bem vindo, Yuri
+            </div>
+
+            <div class="center">
+                <ul class="navbar">
+                    <li class="ativo"><a href="">FILME DA SEMANA</a></li>
+                    <li><a href="">RANKING</a></li>
+                    <li><a href="">HISTÓRICO</a></li>
+                    <li><a href="">REVIEWS</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="diretor">
+            <span>Mantenha segredo se quiser</span>
+            <h1>VOCÊ É O DIRETOR DA SEMANA</h1>
+        </div>
+
+        <div class="cadastro">
+            <div class="card-cadastro">
+                <h2>Escolha o filme</h2>
+                <div class="formulario">
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>Nome do filme:</span>
+                        </div>
+                        <input id="nome_input" type="text" placeholder="Avatar" />
+                    </div>
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>Diretor:</span>
+                        </div>
+                        <input id="diretor_input" type="text" placeholder="James Cameron" />
+                    </div>
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>Ano de Lançamento:</span>
+                        </div>
+                        <input id="ano_input" type="number" placeholder="2009" />
+                    </div>
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>Onde assistir:</span>
+                        </div>
+                        <input id="onde_assistir_input" type="text" placeholder="Disney Plus" />
+                    </div>
+                    <button onclick="cadastrarFilme()" class="botao">DECIDIR</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="rodape">“LEMBRE-SE: COM GRANDES PODERES VÊM GRANDES RESPONSABILIDADES.”</div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+
+function cadastrarFilme() {
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nome = nome_input.value;
+    var diretor = diretor_input.value;
+    var ano = ano_input.value;
+    var ondeAssistir = onde_assistir_input.value;
+    var idUsuario = sessionStorage.getItem("ID_USUARIO");
+    var idGrupo = 1;
+
+
+    // Enviando o valor da nova input
+    fetch("/filmes/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nome: nome,
+        diretor: diretor,
+        ano: ano,
+        ondeAssistir: ondeAssistir,
+        idUsuario: idUsuario,
+        idGrupo: idGrupo
+
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Cadastro do filme realizado com sucesso")
+
+         /* setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar(); */
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro do filme!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+</script>

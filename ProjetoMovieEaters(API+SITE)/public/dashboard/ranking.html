@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../css/styleRanking.css">
+    <link rel="icon" href="assets/icons" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body onload="carregarNome()">
+
+    <div class="container">
+
+        <div class="header">
+
+            <div class="left">
+                Bem vindo, Yuri
+            </div>
+
+            <div class="center">
+                <ul class="navbar">
+                    <li><a href="../dashboard/filme_diretor.html">FILME DA SEMANA</a></li>
+                    <li class="ativo"><a href="">RANKING</a></li>
+                    <li><a href="">HISTÓRICO</a></li>
+                    <li><a href="">REVIEWS</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="kpis">
+
+            <div class="indicativo">
+                <span class="titulo">Posição:</span>
+                <span class="valor">1</span>
+            </div>
+
+            <div class="indicativo">
+                <span class="titulo">Pontuação:</span>
+                <span class="valor">78 Pontos</span>
+            </div>
+
+            <div class="indicativo">
+                <span class="titulo">Líder atual:</span>
+                <span class="valor">Yuri</span>
+            </div>
+
+            <div class="indicativo">
+                <span class="titulo">Distância do 1º:</span>
+                <span class="valor">0 Pontos</span>
+            </div>
+
+        </div>
+
+        <div class="graficos">
+           <div class="grafico1"> <canvas class="graficoEvolucao" id="graficoEvolucao"></canvas> </div>
+             <div class="grafico2"> </div><canvas class="graficoRanking" id="graficoRanking"></canvas> </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>
+
+
+<script>
+
+    function carregarNome() {
+        var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+        document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+    }
+
+    const grafico1 = document.getElementById('graficoEvolucao');
+
+     new Chart(grafico1, { // Cria um novo gráfico usando o canvas 'grafico2'
+
+        type: 'line', //
+
+        data: {
+            labels: ['1º', '2º', '3º', '4º'], // eixo y
+
+            datasets: [{
+                label: 'semanas', // eixo x
+
+                data: [78, 60, 45, 30], // Valores correspondentes a cada nome
+
+                backgroundColor: '#2c6794',
+            }]
+        },
+
+        options: {
+            indexAxis: 'y', // Faz o gráfico ficar horizontal (eixo principal vira o Y)
+
+            responsive: true, // Faz o gráfico se adaptar ao tamanho da tela/container
+
+            plugins: {
+                legend: {
+                    display: false // Esconde a legenda (já que só tem um dataset)
+                },
+
+                title: {
+                    display: true, // Mostra o título
+                    text: 'Evolução do Ranking ao Longo das Semanas', // Texto do título
+                    color: '#ffffff', // Cor do título
+                    font: {
+                        size: 20 // Tamanho da fonte do título
+                    }
+                },
+
+                tooltip: {
+                    enabled: true // Ativa o tooltip ao passar o mouse nas barras
+                }
+            },
+
+            scales: {
+                x: {
+                    beginAtZero: true, // Começa o eixo X no zero
+
+                    ticks: {
+                        color: '#ccc', // Cor dos números do eixo X
+                    },
+
+                    grid: {
+                        color: 'rgba(255,255,255,0.1)' // Cor das linhas de fundo (grade)
+                    },
+
+                    title: {
+                        display: true, // Mostra o título do eixo X
+                        text: 'Pontuação', // Texto do eixo
+                        color: '#ccc' // Cor do texto
+                    }
+                },
+
+                y: {
+                    ticks: {
+                        color: '#ccc' // Cor dos nomes (Yuri, Ana, etc.)
+                    },
+
+                    grid: {
+                        display: false // Remove as linhas de grade horizontais
+                    }
+                }
+            }
+        }
+    });
+
+    const grafico2 = document.getElementById('graficoRanking');
+
+    new Chart(grafico2, { // Cria um novo gráfico usando o canvas 'grafico2'
+
+        type: 'bar', //
+
+        data: {
+            labels: ['Yuri', 'Ana', 'Velma', 'Lucas'], // eixo y
+
+            datasets: [{
+                label: 'Pontuação', // eixo x
+
+                data: [78, 60, 45, 30], // Valores correspondentes a cada nome
+
+                backgroundColor: '#2c6794',
+
+                borderRadius: 20,
+
+                barThickness: 35 // Define a altura das barras
+            }]
+        },
+
+        options: {
+            indexAxis: 'y', // Faz o gráfico ficar horizontal (eixo principal vira o Y)
+
+            responsive: true, // Faz o gráfico se adaptar ao tamanho da tela/container
+
+            plugins: {
+                legend: {
+                    display: false // Esconde a legenda (já que só tem um dataset)
+                },
+
+                title: {
+                    display: true, // Mostra o título
+                    text: 'Ranking', // Texto do título
+                    color: '#ffffff', // Cor do título
+                    font: {
+                        size: 20 // Tamanho da fonte do título
+                    }
+                },
+
+                tooltip: {
+                    enabled: true // Ativa o tooltip ao passar o mouse nas barras
+                }
+            },
+
+            scales: {
+                x: {
+                    beginAtZero: true, // Começa o eixo X no zero
+
+                    ticks: {
+                        color: '#ccc', // Cor dos números do eixo X
+                    },
+
+                    grid: {
+                        color: 'rgba(255,255,255,0.1)' // Cor das linhas de fundo (grade)
+                    },
+
+                    title: {
+                        display: true, // Mostra o título do eixo X
+                        text: 'Pontuação', // Texto do eixo
+                        color: '#ccc' // Cor do texto
+                    }
+                },
+
+                y: {
+                    ticks: {
+                        color: '#ccc' // Cor dos nomes (Yuri, Ana, etc.)
+                    },
+
+                    grid: {
+                        display: false // Remove as linhas de grade horizontais
+                    }
+                }
+            }
+        }
+    });
+
+</script>

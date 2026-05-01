@@ -36,8 +36,14 @@ CREATE TABLE usuarioGrupo (
     (1, 1, "diretor"),
     (2, 1, "watcher");
     
+    INSERT INTO usuarioGrupo VALUES
+    (3, 1, "watcher");
+    
     SELECT * FROM usuarioGrupo;
 
+	Select u.id, u.nome, u.email, ug.papel
+    FROM usuario AS u JOIN usuarioGrupo as ug
+    ON u.id = ug.fkUsuario;
 
 CREATE TABLE filme (
     idfilme INT PRIMARY KEY AUTO_INCREMENT,

@@ -12,7 +12,7 @@
 
 </head>
 
-<body>
+<body onload="carregarNome()">
 
     <div class="container1">
 
@@ -78,6 +78,13 @@
 </html>
 
 <script>
+
+function carregarNome() {
+
+    var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+    document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+
+}
 
 function cadastrarFilme() {
 

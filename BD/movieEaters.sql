@@ -12,13 +12,32 @@ id INT PRIMARY KEY AUTO_INCREMENT,
     SELECT * FROM usuario;
     
     
-CREATE TABLE grupo (
+	CREATE TABLE grupo (
 	idGrupo INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR (30),
     qnt_pessoas INT);
     
-INSERT INTO grupo VALUES
-(default, 'Turma A', '4');
+    SELECT * FROM grupo;
+    
+	INSERT INTO grupo VALUES
+	(default, 'Turma A', '4');
+    
+CREATE TABLE usuarioGrupo (
+	fkUsuario INT,
+    fkGrupo INT,
+    papel varchar(45),
+    constraint ck_papel CHECK (papel in ("diretor", "watcher")),
+    PRIMARY KEY (fkUsuario, fkGrupo),
+    FOREIGN KEY (fkUsuario) REFERENCES usuario (id),
+    FOREIGN KEY (fkGrupo) REFERENCES grupo (idGrupo)
+);
+
+	INSERT INTO usuarioGrupo VALUES
+    (1, 1, "diretor"),
+    (2, 1, "watcher");
+    
+    SELECT * FROM usuarioGrupo;
+
 
 CREATE TABLE filme (
     idfilme INT PRIMARY KEY AUTO_INCREMENT,
@@ -36,6 +55,7 @@ CREATE TABLE filme (
 
 
 SELECT * FROM filme;
+
 
 
     

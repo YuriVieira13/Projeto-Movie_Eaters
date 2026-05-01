@@ -54,7 +54,7 @@
                     <button onclick="window.location.href='Cadastro.html'" class="botaoCadastrar">
                         CRIE UMA CONTA
                     </button>
-
+                        
                 </div>
 
                 <!-- DIV AGUARDAR -->
@@ -115,10 +115,16 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.PAPEL = json.papel;
                     /* sessionStorage.AQUARIOS = JSON.stringify(json.aquarios); */
 
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
+                        var papel = sessionStorage.getItem("PAPEL");
+                        if (papel == "diretor") {
+                        window.location = "./dashboard/filme_diretor.html";
+                        } else {
+                        window.location = "./dashboard/filme_watcher.html"
+                        }
                     }, 1000);
                 });
 

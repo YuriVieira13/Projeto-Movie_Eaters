@@ -82,6 +82,8 @@ CREATE TABLE historico_pontos (
   --  UNIQUE (usuario_id, tipo, referencia_id)
 );
 
+SELECT * FROM historico_pontos;
+
     
     
     

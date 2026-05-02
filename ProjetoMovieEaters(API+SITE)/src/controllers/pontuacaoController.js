@@ -10,13 +10,13 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-    var idDiretor = req.body.idDiretor;
-    var idUsuario = req.body.idUsuario;
-    var idGrupo = req.body.idGrupo;
+    var idDiretor = Number(req.body.idDiretor);
+    var idUsuario = Number(req.body.idUsuario);
+    var idGrupo = Number(req.body.idGrupo);
     var pontos = Number(req.body.pontos);
     var tipo = req.body.tipo;
     var tipoUsuario = req.body.tipoUsuario;
-    var idReferencia = req.body.idReferencia;
+    var idReferencia = Number(req.body.idReferencia);
 
 
     if (idDiretor == undefined) {

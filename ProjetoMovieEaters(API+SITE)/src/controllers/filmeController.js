@@ -10,8 +10,8 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-    var nome = req.body.nome;
-    var diretor = req.body.diretor;
+    var nome = req.body.nome; // AVATAR
+    var diretor = req.body.diretor; // James Cameron
     var ano = Number(req.body.ano);
     var ondeAssistir = req.body.ondeAssistir;
     var idUsuario = req.body.idUsuario;

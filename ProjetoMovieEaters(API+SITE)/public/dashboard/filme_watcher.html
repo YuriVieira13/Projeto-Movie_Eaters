@@ -63,7 +63,7 @@
                     <h2>O QUE VOCÊ ACHOU DO FILME:</h2>
                     <div class="alinhar">
                         <div class="bloco1">
-                            <img src="../assets/icons/pipoca.webp" alt="botão pipoca" onclick="">
+                            <img src="../assets/icons/pipoca.webp" alt="botão pipoca" onclick="mandarPontuacao()">
                             <span>CURTI MUITO</span>
                         </div>
                         <div class="bloco2">
@@ -90,6 +90,8 @@
 
 <script>
 
+    let idDiretor = 0;
+
     function carregadorDados () {
     var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
 
@@ -101,6 +103,8 @@
 
         var filme = dados[0];
 
+        idDiretor = filme.fkUsuario;
+
         document.getElementById("nome_filme").innerText = filme.nome.toUpperCase();
         document.getElementById("nome_diretor").innerText = filme.diretor.toUpperCase();
         document.getElementById("ano_filme").innerText = filme.ano.toUpperCase();
@@ -111,6 +115,11 @@
     .catch(erro => {
         console.log("Erro:", erro);
     });
+
+}
+
+function mandarPontuacao() {
+
 
 }
 </script>

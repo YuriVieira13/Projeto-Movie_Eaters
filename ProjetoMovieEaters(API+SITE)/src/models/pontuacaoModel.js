@@ -3,9 +3,15 @@ var database = require("../database/config")
 
 function listar() {
     var instrucao = `
-        SELECT * FROM filme
-        ORDER BY idfilme DESC
-        LIMIT 1;
+        SELECT
+	nome,
+    fkUsuario AS player,
+    SUM(pontos) AS total
+    FROM usuario u JOIN historico_pontos hp
+    ON u.id = hp.fkUsuario
+    WHERE fkGrupo = 1
+    GROUP BY fkUsuario
+    ORDER BY total DESC;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

@@ -8,7 +8,7 @@ router.post("/cadastrar", function (req, res) {
 });
 
 router.get("/listar", function (req, res) {
-    pontuacaoControllerController.listar(req, res);
+    pontuacaoController.listar(req, res);
 });
 
 module.exports = router;

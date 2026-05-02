@@ -63,7 +63,7 @@
                     <h2>O QUE VOCÊ ACHOU DO FILME:</h2>
                     <div class="alinhar">
                         <div class="bloco1">
-                            <img src="../assets/icons/pipoca.webp" alt="botão pipoca" onclick="mandarPontuacao()">
+                            <img src="../assets/icons/pipoca.webp" alt="botão pipoca" onclick="mandarPontuacao(10, 'curtida_filme')">
                             <span>CURTI MUITO</span>
                         </div>
                         <div class="bloco2">
@@ -71,7 +71,7 @@
                             <span>NÃO ASSISTI</span>
                         </div>
                         <div class="bloco3">
-                            <img src="../assets/icons/tomate.png" alt="botão tomate" onclick="">
+                            <img src="../assets/icons/tomate.png" alt="botão tomate" onclick="mandarPontuacao(-5, 'detestou_filme')">
                             <span>NÃO CURTI</span>
                         </div>
                     </div>
@@ -90,7 +90,8 @@
 
 <script>
 
-    let idDiretor = 0;
+    let idDiretor1 = 0;
+    let idFilme = 0;
 
     function carregadorDados () {
     var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
@@ -103,7 +104,8 @@
 
         var filme = dados[0];
 
-        idDiretor = filme.fkUsuario;
+        idDiretor1 = filme.fkUsuario;
+        idFilme = filme.idfilme;
 
         document.getElementById("nome_filme").innerText = filme.nome.toUpperCase();
         document.getElementById("nome_diretor").innerText = filme.diretor.toUpperCase();
@@ -118,10 +120,60 @@
 
 }
 
-function mandarPontuacao() {
+function mandarPontuacao(pontuacao, motivo) {
 
+    var idDiretor = idDiretor1; // ID DA PESSOA QUE INDICOU O FILME
+    var idUsuario = sessionStorage.getItem("ID_USUARIO"); // ID DE QUEM ESTÁ FAZENDO A AVALIAÇÃO
+    var idGrupo = 1;
+    var pontos = pontuacao;
+    var tipo = motivo;
+    var tipoUsuario = "Assistiu_filme"
+    var idReferencia = idFilme; // filme que foi referenciado
+    
 
-}
+    // Enviando o valor da nova input
+    fetch("/pontuacao/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        idDiretor: idDiretor,
+        idUsuario: idUsuario,
+        idGrupo: idGrupo,
+        pontos: pontos,
+        tipo: tipo,
+        tipoUsuario: tipoUsuario,
+        idReferencia: idReferencia
+
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Boa avaliação")
+
+         /* setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar(); */
+        } else {
+          throw "Houve um erro ao tentar realizar a avaliaçao!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
 </script>
 
 

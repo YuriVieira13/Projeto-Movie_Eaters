@@ -1,0 +1,59 @@
+var pontuacaoModel = require("../models/pontuacaoModel");
+
+function listar(req, res) {
+    pontuacaoModel.listar().then(function (resultado) {
+        // precisamos informar que o resultado voltará para o front-end como uma resposta em json
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function cadastrar(req, res) {
+    var idDiretor = req.body.idDiretor;
+    var idUsuario = req.body.idUsuario;
+    var idGrupo = req.body.idGrupo;
+    var pontos = Number(req.body.pontos);
+    var tipo = req.body.tipo;
+    var tipoUsuario = req.body.tipoUsuario;
+    var idReferencia = req.body.idReferencia;
+
+
+    if (idDiretor == undefined) {
+        res.status(400).send("O idDiretor está undefined!");
+    }
+
+    else if (idUsuario == undefined) {
+        res.status(400).send("O idUsuario está undefined!");
+    }
+
+    else if (idGrupo == undefined) {
+        res.status(400).send("O idGrupo está undefined!");
+    }
+
+    else if (pontos == undefined) {
+        res.status(400).send("pontos está undefined!");
+    }
+    else if (tipo == undefined) {
+        res.status(400).send("tipo está undefined!");
+    }
+
+    else if (tipoUsuario == undefined) {
+        res.status(400).send("tipo Usuario está undefined!");
+    }
+
+    else if (idReferencia == undefined) {
+        res.status(400).send("idReferencia está undefined!");
+    }
+
+    pontuacaoModel.cadastrar(idDiretor, idGrupo, idUsuario, pontos, tipo, tipoUsuario, idReferencia).then(function (resposta) {
+        res.status(200).send("Avaliado com sucesso");
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+module.exports = {
+    listar,
+    cadastrar
+}

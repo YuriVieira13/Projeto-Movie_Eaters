@@ -13,7 +13,8 @@ function cadastrar(req, res) {
     var idDiretor = Number(req.body.idDiretor);
     var idUsuario = Number(req.body.idUsuario);
     var idGrupo = Number(req.body.idGrupo);
-    var pontos = Number(req.body.pontos);
+    var pontosDiretor = Number(req.body.pontosDiretor);
+    var pontosUsuario = Number(req.body.pontosUsuario);
     var tipo = req.body.tipo;
     var tipoUsuario = req.body.tipoUsuario;
     var idReferencia = Number(req.body.idReferencia);
@@ -31,7 +32,10 @@ function cadastrar(req, res) {
         res.status(400).send("O idGrupo está undefined!");
     }
 
-    else if (pontos == undefined) {
+    else if (pontosDiretor == undefined) {
+        res.status(400).send("pontos está undefined!");
+    }
+     else if (pontosUsuario == undefined) {
         res.status(400).send("pontos está undefined!");
     }
     else if (tipo == undefined) {
@@ -46,7 +50,7 @@ function cadastrar(req, res) {
         res.status(400).send("idReferencia está undefined!");
     }
 
-    pontuacaoModel.cadastrar(idDiretor, idGrupo, idUsuario, pontos, tipo, tipoUsuario, idReferencia).then(function (resposta) {
+    pontuacaoModel.cadastrar(idDiretor, idGrupo, idUsuario, pontosDiretor, pontosUsuario, tipo, tipoUsuario, idReferencia).then(function (resposta) {
         res.status(200).send("Avaliado com sucesso");
     }).catch(function (erro) {
         res.status(500).json(erro.sqlMessage);

@@ -84,6 +84,16 @@ CREATE TABLE historico_pontos (
 
 SELECT * FROM historico_pontos;
 
+SELECT
+	nome,
+    fkUsuario AS player,
+    SUM(pontos) AS total
+FROM usuario u JOIN historico_pontos hp
+ON u.id = hp.fkUsuario
+WHERE fkGrupo = 1
+GROUP BY fkUsuario
+ORDER BY total DESC;
+
     
     
     

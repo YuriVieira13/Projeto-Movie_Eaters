@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filme da semana</title>
-
+    
+    <script src="../js/validar.js"></script>
     <link rel="stylesheet" href="../css/styleFilme.css" />
-    <link rel="icon" href="assets/icons" />
+    <link rel="icon" href="/assets/logonova.png">
 
 
 </head>
@@ -28,6 +29,7 @@
                     <li><a href="../dashboard/ranking.html">RANKING</a></li>
                     <li><a href="">HISTÓRICO</a></li>
                     <li><a href="">REVIEWS</a></li>
+                    <li class="direita"><a href="#" onclick="sair()">SAIR</a></li>
                 </ul>
             </div>
         </div>
@@ -125,7 +127,8 @@ function mandarPontuacao(pontuacao, motivo) {
     var idDiretor = idDiretor1; // ID DA PESSOA QUE INDICOU O FILME
     var idUsuario = sessionStorage.getItem("ID_USUARIO"); // ID DE QUEM ESTÁ FAZENDO A AVALIAÇÃO
     var idGrupo = 1;
-    var pontos = pontuacao;
+    var pontosDiretor = pontuacao;
+    var pontosUsuario = 10;
     var tipo = motivo;
     var tipoUsuario = "Assistiu_filme"
     var idReferencia = idFilme; // filme que foi referenciado
@@ -143,7 +146,8 @@ function mandarPontuacao(pontuacao, motivo) {
         idDiretor: idDiretor,
         idUsuario: idUsuario,
         idGrupo: idGrupo,
-        pontos: pontos,
+        pontosDiretor: pontosDiretor,
+        pontosUsuario: pontosUsuario,
         tipo: tipo,
         tipoUsuario: tipoUsuario,
         idReferencia: idReferencia

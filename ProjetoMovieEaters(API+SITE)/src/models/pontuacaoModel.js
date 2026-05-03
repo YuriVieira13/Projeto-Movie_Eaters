@@ -17,12 +17,12 @@ function listar() {
     return database.executar(instrucao);
 }
 
-function cadastrar(idDiretor, idGrupo, idUsuario, pontos, tipo, tipoUsuario, idReferencia) {
+function cadastrar(idDiretor, idGrupo, idUsuario, pontosDiretor, pontosUsuario, tipo, tipoUsuario, idReferencia) {
     var instrucao1 = `
-        INSERT INTO historico_pontos (fkUsuario, fkGrupo, pontos, tipo, idReferencia) VALUES ('${idDiretor}', '${idGrupo}', ${pontos}, '${tipo}', ${idReferencia});
+        INSERT INTO historico_pontos (fkUsuario, fkGrupo, pontos, tipo, idReferencia) VALUES ('${idDiretor}', '${idGrupo}', ${pontosDiretor}, '${tipo}', ${idReferencia});
 `
  var instrucao2 = `
-        INSERT INTO historico_pontos (fkUsuario, fkGrupo, pontos, tipo, idReferencia) VALUES ('${idUsuario}', '${idGrupo}', ${pontos}, '${tipoUsuario}', ${idReferencia});
+        INSERT INTO historico_pontos (fkUsuario, fkGrupo, pontos, tipo, idReferencia) VALUES ('${idUsuario}', '${idGrupo}', ${pontosUsuario}, '${tipoUsuario}', ${idReferencia});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao1);
 

@@ -16,6 +16,8 @@ function cadastrar(req, res) {
     var ondeAssistir = req.body.ondeAssistir;
     var idUsuario = req.body.idUsuario;
     var idGrupo = req.body.idGrupo;
+    var poster = req.file.filename; // filename porque é como vêm no arquivo do DataForm o nome salvo no banco pós hex no config
+    // multer aqui serve para receber o dataform divindo o que é body - texto do que é file - arquivo
 
     if (nome == undefined) {
         res.status(400).send("O nome do filme está undefined!");
@@ -40,7 +42,11 @@ function cadastrar(req, res) {
         res.status(400).send("idGrupo  está undefined!");
     }
 
-    filmeModel.cadastrar(nome, diretor, ano, ondeAssistir, idUsuario, idGrupo).then(function(resposta){
+        else if (poster == undefined) {
+        res.status(400).send("Poster  está undefined!");
+    }
+
+    filmeModel.cadastrar(nome, diretor, ano, ondeAssistir, idUsuario, idGrupo, poster).then(function(resposta){
         res.status(200).send("Filme cadastrado com sucesso");
     }).catch(function(erro){
         res.status(500).json(erro.sqlMessage);

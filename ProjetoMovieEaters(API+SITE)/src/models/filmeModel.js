@@ -11,9 +11,9 @@ function listar() {
     return database.executar(instrucao);
 }
 
-function cadastrar(nome, diretor, ano, ondeAssistir, idUsuario, idGrupo) {
+function cadastrar(nome, diretor, ano, ondeAssistir, idUsuario, idGrupo, poster) {
     var instrucao = `
-        INSERT INTO filme (nome, diretor, ano, onde_assistir, fkUsuario, fkGrupo) VALUES ('${nome}', '${diretor}', ${ano}, '${ondeAssistir}', ${idUsuario}, ${idGrupo});
+        INSERT INTO filme (nome, diretor, ano, onde_assistir, fkUsuario, fkGrupo, poster) VALUES ('${nome}', '${diretor}', ${ano}, '${ondeAssistir}', ${idUsuario}, ${idGrupo}, '${poster}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

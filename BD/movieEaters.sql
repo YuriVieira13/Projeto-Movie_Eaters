@@ -84,6 +84,8 @@ CREATE TABLE historico_pontos (
 
 SELECT * FROM historico_pontos;
 
+-- SELECT PARA FAZER O RANKING
+
 SELECT
 	nome,
     fkUsuario AS player,

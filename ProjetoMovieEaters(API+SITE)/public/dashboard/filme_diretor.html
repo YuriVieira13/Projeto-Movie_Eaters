@@ -67,6 +67,12 @@
                         </div>
                         <input id="onde_assistir_input" type="text" placeholder="Disney Plus" />
                     </div>
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>Adicione o poster do filme:</span>
+                        </div>
+                        <input class="upload" id="poster_input" type="file" name="poster" />
+                    </div>
                     <button onclick="cadastrarFilme()" class="botao">DECIDIR</button>
                 </div>
             </div>
@@ -81,65 +87,58 @@
 
 <script>
 
-function carregarNome() {
+    function carregarNome() {
 
-    var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
-    document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+        var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+        document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
 
-}
+    }
 
-function cadastrarFilme() {
+    function cadastrarFilme() {
 
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nome = nome_input.value;
-    var diretor = diretor_input.value;
-    var ano = ano_input.value;
-    var ondeAssistir = onde_assistir_input.value;
-    var idUsuario = sessionStorage.getItem("ID_USUARIO");
-    var idGrupo = 1;
+        var nome = nome_input.value;
+        var diretor = diretor_input.value;
+        var ano = ano_input.value;
+        var ondeAssistir = onde_assistir_input.value;
+        var idUsuario = sessionStorage.getItem("ID_USUARIO");
+        var idGrupo = 1;
+        var poster = document.getElementById("poster_input").files[0];
 
-
-    // Enviando o valor da nova input
-    fetch("/filmes/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nome: nome,
-        diretor: diretor,
-        ano: ano,
-        ondeAssistir: ondeAssistir,
-        idUsuario: idUsuario,
-        idGrupo: idGrupo
-
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-
-          alert("Cadastro do filme realizado com sucesso")
-
-         /* setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar(); */
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro do filme!";
+        if (!nome || !diretor || !ano || !ondeAssistir || !poster) // valida se for null, "", undefined 
+        {
+            alert("Preencha todos os campos e selecione uma imagem!");
+            return;
         }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
 
-    return false;
-  }
+        var formData = new FormData(); // substitui o JSON aqui porque o JSON não envia imagem, usa o formData que é para ser usado junto com o Multer
+
+        formData.append("nome", nome);
+        formData.append("diretor", diretor);
+        formData.append("ano", ano);
+        formData.append("ondeAssistir", ondeAssistir);
+        formData.append("idUsuario", idUsuario);
+        formData.append("idGrupo", idGrupo);
+        formData.append("poster", poster);
+
+        fetch("/filmes/cadastrar", {
+            method: "POST",
+            body: formData
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Cadastro do filme realizado com sucesso");
+                } else {
+                    throw "Erro ao cadastrar filme";
+                }
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+
+        return false;
+    }
+
 
 </script>

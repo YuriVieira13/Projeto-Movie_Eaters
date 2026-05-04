@@ -37,7 +37,7 @@
         <div class="box">
 
             <div class="box_left">
-                <img src="../assets/hailmary.png" alt="">
+                <img id="imagem" src="" alt="">
             </div>
 
             <div class="box_right">
@@ -114,6 +114,8 @@
         document.getElementById("ano_filme").innerText = filme.ano.toUpperCase();
         document.getElementById("assistir_filme").innerText = filme.onde_assistir.toUpperCase();
         document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+
+        document.getElementById("imagem").src = "../uploads/" + filme.poster
 
     })
     .catch(erro => {

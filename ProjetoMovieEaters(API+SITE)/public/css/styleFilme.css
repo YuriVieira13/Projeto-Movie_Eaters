@@ -119,6 +119,7 @@ h3 {
 
     width: 700px;
     height: 500px;
+    padding-top: 12px;
 
     display: flex;
     flex-direction: column;
@@ -175,6 +176,13 @@ h3 {
     padding-left: 10px;
 }
 
+.upload {
+
+    padding-top: 8px;
+    color: #eaeae5;
+    font-family: 'DM SANS';
+}
+
 .botao {
     margin-top: 15px;
     height: 60px;
@@ -203,7 +211,7 @@ h3 {
 
 .rodape {
 
-        margin-bottom: 100px;
+    margin-top: 30px;   
 }
 
 /* ======================= watcher ======================= */

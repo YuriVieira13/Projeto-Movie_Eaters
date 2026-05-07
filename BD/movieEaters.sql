@@ -61,6 +61,11 @@ CREATE TABLE filme (
 	FOREIGN KEY (FkGrupo) REFERENCES grupo(idGrupo)
 );
 
+ALTER TABLE filme MODIFY COLUMN poster VARCHAR(255);
+DESC filme;
+
+ALTER TABLE filme ADD COLUMN dt_insercao DATE DEFAULT (CURRENT_DATE());
+
 SELECT * FROM filme;
 
 CREATE TABLE historico_pontos (
@@ -84,6 +89,24 @@ CREATE TABLE historico_pontos (
 
 SELECT * FROM historico_pontos;
 
+SELECT
+    nome,
+    YEARWEEK(dataPontuacao, 1) AS semana,
+    fkUsuario AS player,
+    SUM(pontos) AS total,
+    (
+        SELECT COUNT(DISTINCT YEARWEEK(dataPontuacao, 1))
+        FROM historico_pontos
+        WHERE fkGrupo = 1
+    ) AS qtdSemanas
+
+FROM usuario u
+JOIN historico_pontos hp
+ON u.id = hp.fkUsuario
+WHERE fkGrupo = 1
+GROUP BY nome, semana, fkUsuario
+ORDER BY semana ASC, total DESC;
+
 -- SELECT PARA FAZER O RANKING
 
 SELECT
@@ -96,6 +119,12 @@ WHERE fkGrupo = 1
 GROUP BY fkUsuario
 ORDER BY total DESC;
 
-    
+INSERT INTO historico_pontos
+(fkUsuario, fkGrupo, pontos, tipo, dataPontuacao)
+VALUES
+(1, 1, 200, 'curtida_review', '2026-05-12 10:00:00'),
+(2, 1, 150, 'curtida_review', '2026-05-12 10:00:00'),
+(3, 1, 100, 'curtida_review', '2026-05-12 10:00:00'),
+(4, 1, 50,  'curtida_review', '2026-05-12 10:00:00');
     
     

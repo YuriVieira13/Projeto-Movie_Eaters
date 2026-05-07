@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="../js/validar.js"></script>
+    <link rel="stylesheet" href="../Dashboard/Styles/styleRanking.css">
+    <link rel="icon" href="/assets/logonova.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body onload="carregadorDados()">
+
+    <div class="container">
+
+        <div class="header">
+
+            <div class="left">
+                Bem vindo, Yuri
+            </div>
+
+            <div class="center">
+                <ul class="navbar">
+                    <li>
+                        <a href="#" onclick="conferir()">FILME DA SEMANA</a>
+                    </li>
+                    <li class="ativo"><a href="">RANKING</a></li>
+                    <li><a href="">HISTÓRICO</a></li>
+                    <li><a href="">REVIEWS</a></li>
+                     <li class="direita"><a href="#" onclick="sair()">SAIR</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="kpis">
+
+            <div class="indicativo">
+                <span class="titulo">Posição:</span>
+                <span class="valor" id="posicao">1</span>
+            </div>
+
+            <div class="indicativo">
+                <span class="titulo">Pontuação:</span>
+                <span class="valor" id="total">78 Pontos</span>
+            </div>
+
+            <div class="indicativo">
+                <span class="titulo">Líder atual:</span>
+                <span class="valor" id="lider">Yuri</span>
+            </div>
+
+            <div class="indicativo">
+                <span class="titulo">Distância do 1º:</span>
+                <span class="valor" id="distancia">0 Pontos</span>
+            </div>
+
+        </div>
+
+        <div class="graficos">
+            <div class="grafico1"> <canvas class="graficoEvolucao" id="graficoEvolucao"></canvas> </div>
+            <div class="grafico2"><canvas class="graficoRanking" id="graficoRanking"></canvas>  </div>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+
+const grafico2 = document.getElementById('graficoRanking');
+
+new Chart(grafico2, {
+    type: 'bar',
+    data: {
+        labels: ["Yuri", "Lucas", "Victor", "Ana"],
+        datasets: [{
+            label: 'Pontuação',
+            data: [31, 32, 41, 25],
+            backgroundColor: '#2c6794',
+            borderRadius: 20,
+            barThickness: 35
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Ranking',
+                color: '#ffffff',
+                font: { size: 20 }
+            }
+        }
+    }
+});
+    const grafico1 = document.getElementById('graficoEvolucao');
+
+    new Chart(grafico1, {
+        type: 'line',
+        data: {
+            labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"], // eixo x
+            datasets: [
+                {
+                    label: "Yuri",
+                    data: [2, 3, 4, 1],
+                    borderColor: "#4A90E2", // cor individual
+                    backgroundColor: "#4A90E2",
+                    borderWidth: 3,
+                    tension: 0.3 // curva leve
+                },
+                {
+                    label: "Ana",
+                    data: [1, 2, 1, 2],
+                    borderColor: "#B084F5",
+                    backgroundColor: "#B084F5",
+                    borderWidth: 3,
+                    tension: 0.3
+                },
+                {
+                    label: "Velma",
+                    data: [3, 4, 3, 3],
+                    borderColor: "#F5A623",
+                    backgroundColor: "#F5A623",
+                    borderWidth: 3,
+                    tension: 0.3
+                },
+                {
+                    label: "Lucas",
+                    data: [4, 1, 2, 4],
+                    borderColor: "#F8E71C",
+                    backgroundColor: "#F8E71C",
+                    borderWidth: 3,
+                    tension: 0.3
+                }
+            ]
+        },
+        options:
+
+        {
+            plugins: {
+                legend: {
+                    position: "bottom"
+                },
+
+                title: {
+                    display: true, // Mostra o título
+                    text: 'Evolução do Ranking ao Longo das Semanas', // Texto do título
+                    color: '#ffffff', // Cor do título
+                    font: {
+                        size: 20 // Tamanho da fonte do título
+                    }
+                },
+
+                tooltip: {
+                    enabled: true // Ativa o tooltip ao passar o mouse nas barras
+                }
+            },
+            scales: {
+                y: {
+                    reverse: true,
+                    min: 0,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function (value) {
+                            if (value == 0 || value == 5) {
+                                return "";
+                            }
+                            return value + "º";
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    );
+
+
+
+</script>

@@ -23,6 +23,7 @@ var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
 var filmesRouter = require("./src/routes/filmes");
 var pontuacaoRouter = require("./src/routes/pontuacao");
+var rankingRouter = require("./src/routes/ranking");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,6 +39,7 @@ app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 app.use("/filmes", filmesRouter);
 app.use("/pontuacao", pontuacaoRouter);
+app.use("/ranking", rankingRouter);
 
 
 app.listen(PORTA_APP, function () {

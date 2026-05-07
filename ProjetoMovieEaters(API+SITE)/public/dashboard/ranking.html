@@ -14,7 +14,7 @@
 
 </head>
 
-<body onload="carregadorDados()">
+<body onload="carregadorDados(), carregarGrafico()">
 
     <div class="container">
 
@@ -32,7 +32,7 @@
                     <li class="ativo"><a href="">RANKING</a></li>
                     <li><a href="">HISTÓRICO</a></li>
                     <li><a href="">REVIEWS</a></li>
-                     <li class="direita"><a href="#" onclick="sair()">SAIR</a></li>
+                    <li class="direita"><a href="#" onclick="sair()">SAIR</a></li>
                 </ul>
             </div>
         </div>
@@ -138,7 +138,7 @@
 
                             title: {
                                 display: true, // Mostra o título
-                                text: 'Ranking', // Texto do título
+                                text: 'Ranking geral da competição', // Texto do título
                                 color: '#ffffff', // Cor do título
                                 font: {
                                     size: 20 // Tamanho da fonte do título
@@ -191,88 +191,149 @@
 
     }
 
-    const grafico1 = document.getElementById('graficoEvolucao');
 
-    new Chart(grafico1, {
-        type: 'line',
-        data: {
-            labels: ["Semana 1", "Semana 2", "Semana 3", "Semana 4"], // eixo x
-            datasets: [
-                {
-                    label: "Yuri",
-                    data: [2, 3, 4, 1],
-                    borderColor: "#4A90E2", // cor individual
-                    backgroundColor: "#4A90E2",
-                    borderWidth: 3,
-                    tension: 0.3 // curva leve
-                },
-                {
-                    label: "Ana",
-                    data: [1, 2, 1, 2],
-                    borderColor: "#B084F5",
-                    backgroundColor: "#B084F5",
-                    borderWidth: 3,
-                    tension: 0.3
-                },
-                {
-                    label: "Velma",
-                    data: [3, 4, 3, 3],
-                    borderColor: "#F5A623",
-                    backgroundColor: "#F5A623",
-                    borderWidth: 3,
-                    tension: 0.3
-                },
-                {
-                    label: "Lucas",
-                    data: [4, 1, 2, 4],
-                    borderColor: "#F8E71C",
-                    backgroundColor: "#F8E71C",
-                    borderWidth: 3,
-                    tension: 0.3
-                }
-            ]
-        },
-        options:
+    function carregarGrafico() {
 
-        {
-            plugins: {
-                legend: {
-                    position: "bottom"
-                },
+        let play1 = []
+        let play2 = []
+        let play3 = []
+        let play4 = []
+        let semanas = []
+        let layout = ["semana 1", "semana 2", "semana 3", "semana 4"]
 
-                title: {
-                    display: true, // Mostra o título
-                    text: 'Evolução do Ranking ao Longo das Semanas', // Texto do título
-                    color: '#ffffff', // Cor do título
-                    font: {
-                        size: 20 // Tamanho da fonte do título
-                    }
-                },
+        fetch("/ranking/listar")
+            .then(res => res.json())
+            .then(dados => {
 
-                tooltip: {
-                    enabled: true // Ativa o tooltip ao passar o mouse nas barras
-                }
-            },
-            scales: {
-                y: {
-                    reverse: true,
-                    min: 0,
-                    max: 5,
-                    ticks: {
-                        stepSize: 1,
-                        callback: function (value) {
-                            if (value == 0 || value == 5) {
-                                return "";
+            console.log(dados)
+
+        let nome1 = dados[0].nome;
+        let nome2 = dados[1].nome;
+        let nome3 = dados[2].nome;
+        let nome4 = dados[3].nome;
+        let qntSemanas = dados[0].qtdSemanas;
+
+        // automatizar o número de semanas no gráfico
+          for (let i = 1; i <= qntSemanas; i++) {
+            semanas.push("Semana " + i)
+
+            if (i > 4) {layout = semanas}
+        
+        } 
+
+         // lógica para definir a pontuação por semana
+
+          for (let i = 0; i < dados.length; i++) {
+
+                    if (dados[i].nome == nome1) {
+                        let posicao = i % 4 + 1;
+                        play1.push(posicao)
+                    } else if (dados[i].nome == nome2) {
+                        let posicao = i % 4 + 1;
+                        play2.push(posicao)
+                }  else if (dados[i].nome == nome3) {
+                        let posicao = i % 4 + 1;
+                        play3.push(posicao)
+                } else {
+                        let posicao = i % 4 + 1;
+                        play4.push(posicao)
+            }
+          }
+
+
+                // construção do gráfico 1
+                const grafico1 = document.getElementById('graficoEvolucao');
+
+                new Chart(grafico1, {
+                    type: 'line',
+                    data: {
+                        labels: layout, // eixo x
+                        datasets: [
+                            {
+                                label: nome1,
+                                data: play1,
+                                borderColor: "#4A90E2", // cor individual
+                                backgroundColor: "#4A90E2",
+                                borderWidth: 3, // grossura da linha
+                                tension: 0.3 // curva leve
+                            },
+                            {
+                                label: nome2,
+                                data: play2,
+                                borderColor: "#B084F5",
+                                backgroundColor: "#B084F5",
+                                borderWidth: 3,
+                                tension: 0.3
+                            },
+                            {
+                                label: nome3,
+                                data: play3,
+                                borderColor: "#F5A623",
+                                backgroundColor: "#F5A623",
+                                borderWidth: 3,
+                                tension: 0.3
+                            },
+                            {
+                                label: nome4,
+                                data: play4,
+                                borderColor: "#F8E71C",
+                                backgroundColor: "#F8E71C",
+                                borderWidth: 3,
+                                tension: 0.3
                             }
-                            return value + "º";
+                        ]
+                    },
+                    options:
+
+                    {
+                        plugins: {
+                            legend: {
+                                position: "bottom"
+                            },
+
+                            title: {
+                                display: true, // Mostra o título
+                                text: 'Classificação Semanal (Quem fez mais pontos naquela semana)', // Texto do título
+                                color: '#ffffff', // Cor do título
+                                font: {
+                                    size: 20 // Tamanho da fonte do título
+                                }
+                            },
+
+                            tooltip: {
+                                enabled: true // Ativa o tooltip ao passar o mouse nas barras
+                            }
+                        },
+                        scales: {
+                            y: {
+                                reverse: true,
+                                min: 0,
+                                max: 5,
+                                ticks: {
+                                    stepSize: 1,
+                                    callback: function (value) {
+                                        if (value == 0 || value == 5) {
+                                            return "";
+                                        }
+                                        return value + "º";
+                                    }
+                                }
+                            }
                         }
                     }
+
                 }
-            }
-        }
+                );
+
+
+            })
+            .catch(erro => {
+                console.log("Erro:", erro);
+            });
+
+
 
     }
-    );
 
 
 

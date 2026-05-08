@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filme da semana</title>
+
+    <script src="../js/validar.js"></script>
+    <link rel="stylesheet" href="../css/styleReview.css" />
+    <link rel="icon" href="/assets/logonova.png">
+
+
+</head>
+
+<body onload="carregarDados()">
+
+    <div class="container1">
+
+        <div class="header">
+
+            <div class="left">
+                Bem vindo, Yuri
+            </div>
+
+            <div class="center">
+                <ul class="navbar">
+                    <a href="#" onclick="conferir()">FILME DA SEMANA</a>
+                    <li><a href="../dashboard/ranking.html">RANKING</a></li>
+                    <li><a href="">HISTÓRICO</a></li>
+                    <li class="ativo"><a href="">REVIEWS</a></li>
+                    <li class="direita"><a href="#" onclick="sair()">SAIR</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cadastro">
+            <div class="card-cadastro">
+                <h2>Hora da Review</h2>
+                <div class="formulario">
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>Nota:</span>
+                        </div>
+                        <input id="nota_input" type="text" placeholder="0 a 10" />
+                    </div>
+                    <div class="campo">
+                        <div class="linha-esquerda">
+                            <span>Review:</span>
+                        </div>
+                        <textarea class="review" id="review_input"></textarea>
+                    </div>
+                    <button onclick="cadastrarReview()" class="botao">Enviar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function carregarDados() {
+
+        var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+        document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+
+
+        fetch("/filmes/listar")
+            .then(res => res.json())
+            .then(dados => {
+
+                console.log(dados);
+                var filme = dados[0];
+                sessionStorage.ID_FILME = filme.idfilme;
+            })
+            .catch(erro => {
+                console.log("Erro:", erro);
+            });
+    }
+    function cadastrarReview() {
+
+        var nota = nota_input.value;
+        var review = review_input.value;
+        var idFilme = sessionStorage.ID_FILME;
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        if (!nota || !review) // valida se for null, "", undefined 
+        {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        fetch("/review/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nota: nota,
+                review: review,
+                idFilme: idFilme,
+                idUsuario: idUsuario
+            }),
+        })
+            .then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    alert("Review realizada com sucesso");
+
+                } else {
+
+                    return resposta.text().then(texto => { // resposta é o que vem do controller em caso de erro, mas vem como objeto, preciso transformar em texto;
+                        throw new Error(texto); // faz parte do try catch, manda o erro para o catch
+                    });
+
+                }
+            })
+
+            .catch(function (erro) {
+
+                console.log(erro);
+                alert(erro);
+
+            });
+    }
+
+
+</script>

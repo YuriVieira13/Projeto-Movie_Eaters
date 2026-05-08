@@ -126,5 +126,19 @@ VALUES
 (2, 1, 150, 'curtida_review', '2026-05-12 10:00:00'),
 (3, 1, 100, 'curtida_review', '2026-05-12 10:00:00'),
 (4, 1, 50,  'curtida_review', '2026-05-12 10:00:00');
+
+CREATE TABLE review (
+    idReview INT PRIMARY KEY AUTO_INCREMENT,
+    nota DECIMAL (3,1),
+    review VARCHAR(200),
+	fkFilme INT NOT NULL,
+    fkUsuario INT,
+	CONSTRAINT chkNota
+	CHECK (nota >= 1 AND nota <= 10),
+	CONSTRAINT ck_fkfilme
+	FOREIGN KEY (fkFilme) REFERENCES filme(idfilme),
+	CONSTRAINT ck_fkusuario
+	FOREIGN KEY (fkUsuario) REFERENCES Usuario(id)
+);
     
     

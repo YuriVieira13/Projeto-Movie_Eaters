@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+    background-color: #20223a;
+    color:white;
+    
+}
+
+.container1 {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+/* ======================= HEADER ======================= */
+
+.header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10.8px;
+    padding: 0 20px;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.left {
+
+    margin-left: 20px;
+
+}
+
+
+
+.navbar {
+
+    margin-right: 100px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+   
+}   
+
+.navbar a {
+    text-decoration: none;
+    color: white
+}
+
+.navbar a:hover {
+    text-decoration: none;
+    color: #ffc700
+}
+
+.navbar li {
+    list-style: none;
+    color: white
+}
+
+.navbar li:hover {
+
+  transform: scale(1.03);
+    transition: 0.3s;
+  cursor: pointer;
+
+}
+
+.ativo {
+font-weight: 900;
+}
+
+
+/* ======================= Cadastro ======================= */
+
+.card-cadastro {
+
+    margin-top: 23px;
+    width: 700px;
+    height: 500px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.formulario {
+
+    gap: 10px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    font-weight: 600;
+    margin-bottom: 5px;
+    padding: 10px, 20px;
+
+    font-size: 9.8px;
+}
+
+
+.campo .linha-esquerda {
+    margin-bottom: 4px;
+    margin-top: 4px;
+    width: 90%;
+
+}
+
+.cadastro .campo input {
+    height: 40px;
+    width: 90%;
+
+    background-color: #eaeae5;
+
+    border: none;
+    box-sizing: border-box;
+
+    justify-self: center;
+    text-align: left;
+    font-size: 16px;
+
+    padding-left: 10px;
+}
+
+.review {
+
+    height: 100px;
+    width: 90%;
+
+    background-color: #eaeae5;
+
+    border: none;
+    box-sizing: border-box;
+
+    justify-self: center;
+    text-align: left;
+    font-size: 16px;
+
+    padding-left: 10px;
+
+
+}
+
+
+.botao {
+    margin-top: 15px;
+    height: 60px;
+    width: 90%;
+
+    background-color: rgba(129, 0, 0, 0.86);
+
+    border-radius: 10px;
+    border: none;
+    box-sizing: border-box;
+
+
+    font-size: 15.4px;
+    color: white;
+    text-align: center;
+
+}
+
+.botao:hover {
+
+    transform: scale(1.03);
+    cursor: pointer;
+    color: #ffc500;
+
+}
+
+

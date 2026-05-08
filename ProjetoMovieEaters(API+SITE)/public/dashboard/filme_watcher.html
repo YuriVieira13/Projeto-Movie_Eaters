@@ -25,10 +25,10 @@
 
             <div class="center">
                 <ul class="navbar">
-                    <li class="ativo"><a href="">FILME DA SEMANA</a></li>
+                    <a href="#" onclick="conferir()">FILME DA SEMANA</a>
                     <li><a href="../dashboard/ranking.html">RANKING</a></li>
                     <li><a href="">HISTÓRICO</a></li>
-                    <li><a href="">REVIEWS</a></li>
+                    <li><a href="./review.html">REVIEWS</a></li>
                     <li class="direita"><a href="#" onclick="sair()">SAIR</a></li>
                 </ul>
             </div>
@@ -50,7 +50,7 @@
                             ONDE ASSISTIR: <span id="assistir_filme"></span>
                         </p>
                     </div>
-                        <button class="botao">FAZER REVIEW</button>
+                        <button class="botao" onclick="salvar()">FAZER REVIEW</button>
                 </div>
 
                 <div class="sistema_pontos">
@@ -106,14 +106,16 @@
 
         var filme = dados[0];
 
+        sessionStorage.ID_FILME = filme.idfilme; // salvar id do Filme
+
         idDiretor1 = filme.fkUsuario;
         idFilme = filme.idfilme;
 
-        document.getElementById("nome_filme").innerText = filme.nome.toUpperCase();
-        document.getElementById("nome_diretor").innerText = filme.diretor.toUpperCase();
-        document.getElementById("ano_filme").innerText = filme.ano.toUpperCase();
-        document.getElementById("assistir_filme").innerText = filme.onde_assistir.toUpperCase();
-        document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+        document.getElementById("nome_filme").innerHTML = filme.nome.toUpperCase();
+        document.getElementById("nome_diretor").innerHTML = filme.diretor.toUpperCase();
+        document.getElementById("ano_filme").innerHTML = filme.ano.toUpperCase();
+        document.getElementById("assistir_filme").innerHTML = filme.onde_assistir.toUpperCase();
+        document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
 
         document.getElementById("imagem").src = "../uploads/" + filme.poster
 

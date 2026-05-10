@@ -54,19 +54,22 @@
                 </div>
             </div>
         </div>
-
-    </div>
+        <h4>Mural de Reviews</h4>
+        <div class="mural">
+            <div id="feed_container" class="feed-container">
+            </div>
+        </div>
 </body>
 
 </html>
 
 <script>
 
+
     function carregarDados() {
 
-        var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+        var nomeUsuario = sessionStorage.NOME_USUARIO;
         document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
-
 
         fetch("/filmes/listar")
             .then(res => res.json())
@@ -74,12 +77,19 @@
 
                 console.log(dados);
                 var filme = dados[0];
-                sessionStorage.ID_FILME = filme.idfilme;
+                let idFilme = filme.idfilme;
+                console.log(idFilme)
+
+                carregarReview(idFilme)
+
             })
             .catch(erro => {
                 console.log("Erro:", erro);
             });
+
+
     }
+
     function cadastrarReview() {
 
         var nota = nota_input.value;
@@ -111,7 +121,8 @@
 
                 if (resposta.ok) {
 
-                    alert("Review realizada com sucesso");
+                    alert("Review realizada com sucesso")
+                    window.location = "./review.html";
 
                 } else {
 
@@ -130,5 +141,100 @@
             });
     }
 
+    function carregarReview(variavel) {
 
+        fetch(`/review/listar/${variavel}`)
+            .then(res => res.json())
+            .then(dados => {
+
+                console.log(dados);
+
+                var review = dados;
+
+                var feed = document.getElementById("feed_container");
+                feed.innerHTML = "";
+
+                review.forEach((publicacao) => { // função específica que considera um item de cada vez para criar elementos, então para cada objeto no meu vetor review ele vai trabalhar isoladamente + função arrow
+
+                    var divPublicacao = document.createElement("div");
+                    var spanID = document.createElement("span");
+                    var spanTitulo = document.createElement("span");
+                    var spanNome = document.createElement("span");
+                    var spanNota = document.createElement("span");
+                    var divDescricao = document.createElement("div");
+                    var divButtons = document.createElement("div");
+                    var btnEditar = document.createElement("button");
+                    var btnDeletar = document.createElement("button");
+
+                    // -- criando texto
+
+                    // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";
+                    spanTitulo.innerHTML = "Título: <b>" + publicacao.Filme + "</b>";
+                    spanNome.innerHTML = "Autor: <b>" + publicacao.Usuario + "</b>";
+                    spanNota.innerHTML = "Nota: <b>" + publicacao.nota + "</b>";
+                    divDescricao.innerHTML = "Descrição: <b>" + publicacao.review + "</b>";
+                    btnEditar.innerHTML = "Curtir";
+                    btnDeletar.innerHTML = "Deletar";
+
+                    // -- criando classe
+                    divPublicacao.className = "publicacao";
+                    spanTitulo.id = "inputNumero" + publicacao.idReview;
+                    spanNome.className = "publicacao-nome";
+                    spanNota.className = "publicacao-nota";
+                    spanTitulo.className = "publicacao-titulo";
+                    divDescricao.className = "publicacao-descricao";
+
+                    divButtons.className = "div-buttons"
+
+                    btnEditar.className = "publicacao-btn-editar"
+                    btnEditar.id = "btnEditar" + publicacao.idAviso;
+                    btnEditar.setAttribute("onclick", `editar(${publicacao.idReview})`);
+
+                    btnDeletar.className = "publicacao-btn-editar"
+                    btnDeletar.id = "btnDeletar" + publicacao.idReview;
+                    btnDeletar.setAttribute("onclick", `deletar(${publicacao.idReview})`);
+
+
+                    // Definindo a hierarquia
+                    divPublicacao.appendChild(spanID);
+                    divPublicacao.appendChild(spanNome);
+                    divPublicacao.appendChild(spanNota);
+                    divPublicacao.appendChild(spanTitulo);
+                    divPublicacao.appendChild(divDescricao);
+                    divPublicacao.appendChild(divButtons);
+                    divButtons.appendChild(btnEditar);
+                    divButtons.appendChild(btnDeletar);
+                    feed.appendChild(divPublicacao);
+
+                })
+
+            })
+            .catch(erro => {
+                console.log("Erro:", erro);
+            });
+
+
+    }
+
+      function deletar(idReview) {
+        
+        fetch(`/review/deletar/${idReview}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post deletado com sucesso");
+                window.location = "./review.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem!")
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }     
 </script>

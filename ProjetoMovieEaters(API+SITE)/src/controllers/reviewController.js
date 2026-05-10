@@ -1,7 +1,8 @@
 var reviewModel = require("../models/ReviewModel");
 
 function listar(req, res) {
-    reviewModel.listar().then(function(resultado){
+    var idFilme = req.params.idFilme
+    reviewModel.listar(idFilme).then(function(resultado){
         // precisamos informar que o resultado voltará para o front-end como uma resposta em json
         res.status(200).json(resultado);
     }).catch(function(erro){
@@ -37,7 +38,7 @@ function cadastrar(req, res) {
         
        if (erro.code == "ER_DUP_ENTRY") { // erro para testar se não tem duplicação das revies
 
-        res.status(400).send("Você já avaliou esse filme"); // res vai ser a resposta que eu vou enviar para meu front
+        res.status(400).send("Você não pode fazer duas reviews do mesmo filme"); // res vai ser a resposta que eu vou enviar para meu front
 
     } else {
 
@@ -48,9 +49,27 @@ function cadastrar(req, res) {
 })
 }
 
+function deletar(req, res) {
+    var idReview = req.params.idReview;
+
+    reviewModel.deletar(idReview)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    deletar
 }

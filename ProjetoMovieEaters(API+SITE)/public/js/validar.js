@@ -13,9 +13,4 @@ function sair() {
     window.location = "../login.html";
 }
 
-function salvar() {
 
-    
-
-
-}

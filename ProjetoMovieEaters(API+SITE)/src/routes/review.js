@@ -9,9 +9,13 @@ router.post("/cadastrar", function (req, res) {
     reviewController.cadastrar(req, res);
 });
 
-router.get("/listar",  function (req, res) {
+router.get("/listar/:idFilme",  function (req, res) {
     // função a ser chamada quando acessar /filmes/listar
     reviewController.listar(req, res);
+});
+
+router.delete("/deletar/:idReview", function (req, res) {
+    reviewController.deletar(req, res);
 });
 
 module.exports = router;

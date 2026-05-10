@@ -140,5 +140,18 @@ CREATE TABLE review (
 	CONSTRAINT ck_fkusuario
 	FOREIGN KEY (fkUsuario) REFERENCES Usuario(id)
 );
-    
-    
+
+ALTER TABLE review MODIFY COLUMN review varchar(1000);
+
+ALTER TABLE review
+ADD CONSTRAINT ck_unique UNIQUE (fkUsuario, fkFilme);
+
+TRUNCATE review;
+SELECT * FROM review;
+
+SELECT r.idReview, u.nome, f.nome, r.nota, r.review
+FROM review r JOIN filme f
+ON r.fkFilme = f.idFilme
+JOIN usuario u
+ON r.fkUsuario = u.id
+WHERE IDfilme = 11;

@@ -29,7 +29,7 @@ function cadastrar(req, res) {
     }
 
       else if (idUsuario == undefined) {
-        res.status(400).send("idUsuario está undefined!");
+        res.status(400).send("fkUsuario está undefined!");
     }
 
     reviewModel.cadastrar(nota, review, idFilme, idUsuario).then(function(resposta){
@@ -67,9 +67,43 @@ function deletar(req, res) {
         );
 }
 
+function curtir(req, res) {
+    var fkUsuario = req.body.fkUsuario; 
+    var idGrupo = req.body.idGrupo; 
+    var pontos = Number(req.body.pontos);
+    var tipo = req.body.tipo;  
+    var idReferencia = req.body.idReferencia;
+
+
+    if (fkUsuario == undefined) {
+        res.status(400).send("O fkUsuario do filme está undefined!");
+    }
+
+    else if (idGrupo == undefined) {
+        res.status(400).send("O idGrupo está undefined!");
+    }
+
+     else if (pontos == undefined) {
+        res.status(400).send("Os pontos está undefined!");
+    }
+
+     else if (tipo == undefined) {
+        res.status(400).send("O tipo assistir está undefined!");
+    }
+      else if (idReferencia == undefined) {
+        res.status(400).send("idReferencia está undefined!");
+    }
+
+    reviewModel.curtir(fkUsuario, idGrupo, pontos, tipo, idReferencia).then(function(resposta){
+        res.status(200).send("Filme cadastrado com sucesso");
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
 
 module.exports = {
     listar,
     cadastrar,
-    deletar
+    deletar,
+    curtir
 }

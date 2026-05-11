@@ -3,7 +3,7 @@ var database = require("../database/config")
 
 function listar(idFilme) {
     var instrucao = `
-        SELECT r.idReview, u.nome as Usuario, f.nome as Filme, r.nota, r.review
+        SELECT r.idReview, u.nome as Usuario, f.nome as Filme, r.nota, r.review, r.fkUsuario, fkFilme
         FROM review r JOIN filme f
         ON r.fkFilme = f.idFilme
         JOIN usuario u
@@ -31,8 +31,18 @@ function deletar(idReview) {
     return database.executar(instrucaoSql);
 }
 
+function curtir(fkUsuario, idGrupo, pontos, tipo, idReferencia) {
+    var instrucao = `
+        INSERT INTO historico_pontos (fkUsuario, fkGrupo, pontos, tipo, idReferencia) VALUES ('${fkUsuario}', '${idGrupo}', ${pontos}, '${tipo}', ${idReferencia});
+`;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
 module.exports = {
     cadastrar,
     listar,
-    deletar
+    deletar,
+    curtir
 };

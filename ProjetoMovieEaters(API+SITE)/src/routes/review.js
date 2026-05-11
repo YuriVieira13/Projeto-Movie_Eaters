@@ -18,4 +18,9 @@ router.delete("/deletar/:idReview", function (req, res) {
     reviewController.deletar(req, res);
 });
 
+router.post("/curtir",  function (req, res) {
+    reviewController.curtir(req, res);
+});
+
+
 module.exports = router;

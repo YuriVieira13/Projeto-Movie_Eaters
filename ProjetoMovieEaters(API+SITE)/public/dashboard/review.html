@@ -80,7 +80,7 @@
                 let idFilme = filme.idfilme;
                 console.log(idFilme)
 
-                carregarReview(idFilme)
+                carregarReview(idFilme, nomeUsuario)
 
             })
             .catch(erro => {
@@ -141,7 +141,7 @@
             });
     }
 
-    function carregarReview(variavel) {
+    function carregarReview(variavel, nome) {
 
         fetch(`/review/listar/${variavel}`)
             .then(res => res.json())
@@ -156,6 +156,7 @@
 
                 review.forEach((publicacao) => { // função específica que considera um item de cada vez para criar elementos, então para cada objeto no meu vetor review ele vai trabalhar isoladamente + função arrow
 
+
                     var divPublicacao = document.createElement("div");
                     var spanID = document.createElement("span");
                     var spanTitulo = document.createElement("span");
@@ -163,9 +164,8 @@
                     var spanNota = document.createElement("span");
                     var divDescricao = document.createElement("div");
                     var divButtons = document.createElement("div");
-                    var btnEditar = document.createElement("button");
+                    var btnCurtir = document.createElement("button");
                     var btnDeletar = document.createElement("button");
-
                     // -- criando texto
 
                     // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";
@@ -173,7 +173,7 @@
                     spanNome.innerHTML = "Autor: <b>" + publicacao.Usuario + "</b>";
                     spanNota.innerHTML = "Nota: <b>" + publicacao.nota + "</b>";
                     divDescricao.innerHTML = "Descrição: <b>" + publicacao.review + "</b>";
-                    btnEditar.innerHTML = "Curtir";
+                    btnCurtir.innerHTML = "Curtir";
                     btnDeletar.innerHTML = "Deletar";
 
                     // -- criando classe
@@ -186,11 +186,11 @@
 
                     divButtons.className = "div-buttons"
 
-                    btnEditar.className = "publicacao-btn-editar"
-                    btnEditar.id = "btnEditar" + publicacao.idAviso;
-                    btnEditar.setAttribute("onclick", `editar(${publicacao.idReview})`);
+                    btnCurtir.className = "publicacao-btn-Curtir"
+                    btnCurtir.id = "btnCurtir" + publicacao.idReview;
+                    btnCurtir.setAttribute("onclick", `curtir(${publicacao.fkUsuario}, ${publicacao.fkFilme})`);
 
-                    btnDeletar.className = "publicacao-btn-editar"
+                    btnDeletar.className = "publicacao-btn-Curtir"
                     btnDeletar.id = "btnDeletar" + publicacao.idReview;
                     btnDeletar.setAttribute("onclick", `deletar(${publicacao.idReview})`);
 
@@ -202,9 +202,23 @@
                     divPublicacao.appendChild(spanTitulo);
                     divPublicacao.appendChild(divDescricao);
                     divPublicacao.appendChild(divButtons);
-                    divButtons.appendChild(btnEditar);
+                    divButtons.appendChild(btnCurtir);
                     divButtons.appendChild(btnDeletar);
                     feed.appendChild(divPublicacao);
+
+                    // escondendo botão de quem não é o usuário
+
+                    if (nome != publicacao.Usuario) {
+
+                        let deletar = document.getElementById("btnDeletar" + publicacao.idReview);
+                        deletar.style.display = "none"
+                    }
+
+                     if (nome == publicacao.Usuario) {
+                        console.log(publicacao.Usuario)
+                        let Curtir = document.getElementById("btnCurtir" + publicacao.idReview);
+                        Curtir.style.display = "none"
+                    }
 
                 })
 
@@ -237,4 +251,40 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }     
+
+
+function curtir(fkUsuario, idFilme) {
+
+    var idGrupo = 1;
+    var pontos = 5;
+    var tipo = "curtida_review";
+    var idReferencia = idFilme;
+
+    fetch("/review/curtir", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            fkUsuario: fkUsuario,
+            idGrupo: idGrupo,
+            pontos: pontos,
+            tipo: tipo,
+            idReferencia: idReferencia
+        }),
+    })
+    .then(resposta => {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            alert("Boa avaliação");
+        } else {
+            throw "Houve um erro ao tentar realizar a avaliação!";
+        }
+    })
+    .catch(erro => {
+        console.log(`#ERRO: ${erro}`);
+    });
+}
+
 </script>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aba de Grupo</title>
+
+    <script src="../js/validar.js"></script>
+    <link rel="stylesheet" href="../css/styleGrupo.css" />
+    <link rel="icon" href="/assets/logonova.png">
+
+
+</head>
+
+<body onload="carregarNome()">
+
+    <div class="container">
+
+        <div class="header">
+
+            <div class="left">
+                Ola, Yuri
+            </div>
+            <div class="center">
+                <ul class="navbar">
+                    <li class="direita"><a href="#" onclick="sair()">SAIR</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="frase">
+            <h1>SEJA BEM-VINDO AO MOVIE EATERS</h1>
+        </div>
+        <div class="interacao">
+            <div class="entrar">
+                <div class="card-cadastro">
+                    <h2>Entrar</h2>
+                    <div class="formulario">
+                        <div class="campo">
+                            <div class="linha-esquerda">
+                                <span>Digite o código do grupo:</span>
+                            </div>
+                            <input id="inp_codigo" type="text" placeholder="ABC3D" />
+                        </div>
+                        <button onclick="cadastrarFilme()" class="botaoE">ENTRAR</button>
+                    </div>
+                    <div class="textosA">
+                            <span> Assitir filmes, boas indicações e boas reviews te garantem pontos.</span> <br>
+                            <span> O vencedor é o primeiro que atingir 500 pontos no ranking geral.</span> <br>
+                        </div>
+                </div>
+            </div>
+
+            <div class="criar">
+                <div class="card-cadastro">
+                    <h2>Crie um grupo</h2>
+                    <div class="formulario">
+                        <div class="campo">
+                            <div class="linha-esquerda">
+                                <span>Escolha o nome do grupo:</span>
+                            </div>
+                            <input id="inp_nomeGrupo" type="text" placeholder="ABC3D" />
+                        </div>
+                        <div class="botoes">
+                            <button onclick="cadastrarFilme()" class="botaoC">CRIAR</button>
+                            <button onclick="cadastrarFilme()" class="botaoV">VER GRUPOS</button>
+                        </div>
+                        <div class="textos">
+                            <span> O primeiro passo é criar um grupo para poder jogar com seus amigos.</span> <br>
+                            <span> Um grupo é composto por até 4 participante.</span> <br>
+                            <span>O grupo é formado por: <br>
+                                1 <tag style = "color:#ffc500"> Diretor </tag> e 3 Watchers <br>
+                                Cada semana, um novo diretor.</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function carregarNome() {
+
+        var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+        document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+
+    }
+
+    function cadastrarFilme() {
+
+        var nome = nome_input.value;
+        var diretor = diretor_input.value;
+        var ano = ano_input.value;
+        var ondeAssistir = onde_assistir_input.value;
+        var idUsuario = sessionStorage.getItem("ID_USUARIO");
+        var idGrupo = 1;
+        var poster = document.getElementById("poster_input").files[0];
+
+        if (!nome || !diretor || !ano || !ondeAssistir || !poster) // valida se for null, "", undefined 
+        {
+            alert("Preencha todos os campos e selecione uma imagem!");
+            return;
+        }
+
+        var formData = new FormData(); // substitui o JSON aqui porque o JSON não envia imagem, usa o formData que é para ser usado junto com o Multer
+
+        formData.append("nome", nome);
+        formData.append("diretor", diretor);
+        formData.append("ano", ano);
+        formData.append("ondeAssistir", ondeAssistir);
+        formData.append("idUsuario", idUsuario);
+        formData.append("idGrupo", idGrupo);
+        formData.append("poster", poster);
+
+        fetch("/filmes/cadastrar", {
+            method: "POST",
+            body: formData
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Cadastro do filme realizado com sucesso");
+                } else {
+                    throw "Erro ao cadastrar filme";
+                }
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+
+        return false;
+    }
+
+
+</script>

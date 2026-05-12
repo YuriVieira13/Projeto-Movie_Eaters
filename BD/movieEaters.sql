@@ -32,6 +32,9 @@ CREATE TABLE usuarioGrupo (
     FOREIGN KEY (fkGrupo) REFERENCES grupo (idGrupo)
 );
 
+	UPDATE usuarioGrupo set papel = "watcher" WHERE fkUsuario = 4;
+    
+    
 	INSERT INTO usuarioGrupo VALUES
     (1, 1, "diretor"),
     (2, 1, "watcher");
@@ -155,3 +158,12 @@ ON r.fkFilme = f.idFilme
 JOIN usuario u
 ON r.fkUsuario = u.id
 WHERE IDfilme = 11;
+
+SELECT r.idReview, u.nome, f.nome, r.nota, r.review, r.fkUsuario, fkFilme
+FROM review r JOIN filme f
+ON r.fkFilme = f.idFilme
+JOIN usuario u
+ON r.fkUsuario = u.id
+WHERE IDfilme = 11;
+
+DESC historico_pontos;

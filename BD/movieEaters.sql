@@ -17,10 +17,16 @@ id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR (30),
     qnt_pessoas INT);
     
+    ALTER TABLE grupo DROP COLUMN qnt_pessoas;
+    
+    ALTER TABLE grupo ADD COLUMN codigo CHAR(7);
+    
     SELECT * FROM grupo;
     
 	INSERT INTO grupo VALUES
 	(default, 'Turma A', '4');
+    
+    SELECT idGrupo FROM grupo WHERE codigo = "123";
     
 CREATE TABLE usuarioGrupo (
 	fkUsuario INT,
@@ -32,8 +38,9 @@ CREATE TABLE usuarioGrupo (
     FOREIGN KEY (fkGrupo) REFERENCES grupo (idGrupo)
 );
 
+	SELECT * from usuarioGrupo;
+
 	UPDATE usuarioGrupo set papel = "watcher" WHERE fkUsuario = 4;
-    
     
 	INSERT INTO usuarioGrupo VALUES
     (1, 1, "diretor"),
@@ -84,7 +91,7 @@ CREATE TABLE historico_pontos (
     FOREIGN KEY (fkUsuario) REFERENCES usuario (id),
   CONSTRAINT c_fk_grupo 
     FOREIGN KEY (fkGrupo) REFERENCES grupo (idgrupo)
-
+    
   -- evita duplicação de ação
   -- CONSTRAINT unique_acao 
   --  UNIQUE (usuario_id, tipo, referencia_id)

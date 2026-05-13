@@ -1,0 +1,65 @@
+var grupoModel = require("../models/grupoModel");
+
+function listar(req, res) {
+    var codigo = req.params.codigo
+
+    grupoModel.listar(codigo).then(function (resultado) {
+
+        if (resultado.length == 0) {
+            res.status(404).send("Grupo não encontrado");
+        } else { res.status(200).json(resultado); }
+    })
+
+        .catch(function (erro) {
+            res.status(500).json(erro.sqlMessage);
+        })
+}
+
+function cadastrar(req, res) {
+    var nomeGrupo = req.body.nomeGrupo;
+    var codigo = req.body.codigo;
+
+
+    if (nomeGrupo == undefined) {
+        res.status(400).send("O nomeGrupo está undefined!");
+    }
+
+    else if (codigo == undefined) {
+        res.status(400).send("O codigo está undefined!");
+    }
+
+    grupoModel.cadastrar(nomeGrupo, codigo).then(function (resposta) {
+        res.status(200).send("Grupo criado com sucesso");
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function entrar(req, res) {
+    var idGrupo = req.body.idGrupo;
+    var idUsuario = req.body.idUsuario;
+    var papel = req.body.papel;
+
+    if (idGrupo == undefined) {
+         res.status(400).send("O idGrupo está undefined!");
+    }
+
+    else if (idUsuario == undefined) {
+         res.status(400).send("O idUsuario está undefined!");
+    }
+      else if (papel == undefined) {
+         res.status(400).send("O papel está undefined!");
+    }
+
+    grupoModel.entrar(idUsuario, idGrupo, papel).then(function (resposta) {
+        res.status(200).send("Entrou no grupo");
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+module.exports = {
+    listar,
+    cadastrar,
+    entrar
+}

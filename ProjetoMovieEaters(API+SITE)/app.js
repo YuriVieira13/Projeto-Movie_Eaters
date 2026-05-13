@@ -25,6 +25,7 @@ var filmesRouter = require("./src/routes/filmes");
 var pontuacaoRouter = require("./src/routes/pontuacao");
 var rankingRouter = require("./src/routes/ranking");
 var reviewRouter =  require("./src/routes/review");
+var grupoRouter =  require("./src/routes/grupo");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -42,6 +43,7 @@ app.use("/filmes", filmesRouter);
 app.use("/pontuacao", pontuacaoRouter);
 app.use("/ranking", rankingRouter);
 app.use("/review", reviewRouter);
+app.use("/grupo", grupoRouter);
 
 
 app.listen(PORTA_APP, function () {

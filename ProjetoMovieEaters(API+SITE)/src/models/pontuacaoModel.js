@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
 
-function listar() {
+function listar(idGrupo) {
     var instrucao = `
         SELECT
 	nome,
@@ -9,7 +9,7 @@ function listar() {
     SUM(pontos) AS total
     FROM usuario u JOIN historico_pontos hp
     ON u.id = hp.fkUsuario
-    WHERE fkGrupo = 1
+    WHERE fkGrupo = ${idGrupo}
     GROUP BY fkUsuario
     ORDER BY total DESC;
     `;

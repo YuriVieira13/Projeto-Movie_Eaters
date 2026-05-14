@@ -7,7 +7,7 @@ router.post("/cadastrar", function (req, res) {
     pontuacaoController.cadastrar(req, res);
 });
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:idGrupo", function (req, res) {
     pontuacaoController.listar(req, res);
 });
 

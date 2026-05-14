@@ -133,7 +133,7 @@ function mandarPontuacao(pontuacao, motivo) {
 
     var idDiretor = idDiretor1; // ID DA PESSOA QUE INDICOU O FILME
     var idUsuario = sessionStorage.getItem("ID_USUARIO"); // ID DE QUEM ESTÁ FAZENDO A AVALIAÇÃO
-    var idGrupo = 1;
+    var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
     var pontosDiretor = pontuacao;
     var pontosUsuario = 10;
     var tipo = motivo;

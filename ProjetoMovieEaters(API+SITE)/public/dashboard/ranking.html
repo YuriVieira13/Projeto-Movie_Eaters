@@ -84,7 +84,7 @@
         let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
         console.log(idGrupo)
 
-        fetch("/pontuacao/listar/")
+        fetch(`/pontuacao/listar/${idGrupo}`)
             .then(res => res.json())
             .then(dados => {
 

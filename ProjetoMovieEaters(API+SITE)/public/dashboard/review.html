@@ -94,7 +94,8 @@
 
         var nota = nota_input.value;
         var review = review_input.value;
-        var idFilme = sessionStorage.ID_FILME;
+        var idFilme = Number(sessionStorage.ID_FILME);
+        console.log(idFilme)
         var idUsuario = sessionStorage.ID_USUARIO;
 
         if (!nota || !review) // valida se for null, "", undefined 

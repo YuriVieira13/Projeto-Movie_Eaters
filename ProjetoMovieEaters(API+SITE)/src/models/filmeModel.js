@@ -1,9 +1,10 @@
 var database = require("../database/config")
 
 
-function listar() {
+function listar(idGrupo) {
     var instrucao = `
         SELECT * FROM filme
+        WHERE fkGrupo = ${idGrupo}
         ORDER BY idfilme DESC
         LIMIT 1;
     `;

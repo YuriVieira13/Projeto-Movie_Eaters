@@ -26,6 +26,8 @@ id INT PRIMARY KEY AUTO_INCREMENT,
 	INSERT INTO grupo VALUES
 	(default, 'Turma A', '4');
     
+	UPDATE grupo set codigo = "teste" WHERE idGrupo = 1;
+    
     SELECT idGrupo FROM grupo WHERE codigo = "123";
     
 CREATE TABLE usuarioGrupo (
@@ -39,6 +41,7 @@ CREATE TABLE usuarioGrupo (
 );
 
 	SELECT * from usuarioGrupo;
+
     
     SELECT papel from usuarioGrupo where fkUsuario = 1 AND fkGrupo = 1;
     
@@ -179,3 +182,43 @@ ON r.fkUsuario = u.id
 WHERE IDfilme = 11;
 
 DESC historico_pontos;
+
+SELECT * FROM filme;
+
+    SELECT * FROM filme
+		WHERE fkGrupo = 1
+        ORDER BY idfilme DESC
+        LIMIT 1;
+        
+		  SELECT * FROM filme
+        WHERE fkGrupo = 1
+        ORDER BY idfilme DESC
+        LIMIT 1;
+        
+        
+                SELECT
+        nome,
+        YEARWEEK(dataPontuacao, 1) AS semana,
+        fkUsuario AS player,
+        SUM(pontos) AS total,
+        (
+            SELECT COUNT(DISTINCT YEARWEEK(dataPontuacao, 1))
+            FROM historico_pontos
+            WHERE fkGrupo = 11
+        ) AS qtdSemanas
+
+        FROM usuario u
+        JOIN historico_pontos hp
+        ON u.id = hp.fkUsuario
+
+        WHERE fkGrupo = 11
+
+        GROUP BY nome, semana, fkUsuario
+
+        ORDER BY semana ASC, total DESC;
+        
+        
+        INSERT INTO historico_pontos
+		(fkUsuario, fkGrupo, pontos, tipo, dataPontuacao)
+		VALUES
+		(2, 11, 200, 'curtida_review', '2026-05-12 10:00:00');

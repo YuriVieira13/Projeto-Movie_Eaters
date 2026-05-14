@@ -1,6 +1,6 @@
     var database = require("../database/config");
 
-
+    // função responsável por gerar dados para o gráfico 1
     function listar() {
         var instrucao = `
         SELECT

@@ -101,7 +101,7 @@
         var ano = ano_input.value;
         var ondeAssistir = onde_assistir_input.value;
         var idUsuario = sessionStorage.getItem("ID_USUARIO");
-        var idGrupo = 1;
+        let idGrupo =  sessionStorage.getItem("ID_GRUPO");
         var poster = document.getElementById("poster_input").files[0];
 
         if (!nome || !diretor || !ano || !ondeAssistir || !poster) // valida se for null, "", undefined 

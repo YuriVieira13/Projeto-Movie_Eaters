@@ -97,8 +97,10 @@
 
     function carregadorDados () {
     var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+    let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
+    console.log(idGrupo)
 
-    fetch("/filmes/listar")
+    fetch(`/filmes/listar/${idGrupo}`)
     .then(res => res.json())
     .then(dados => {
 
@@ -112,10 +114,10 @@
         idDiretor1 = filme.fkUsuario;
         idFilme = filme.idfilme;
 
-        document.getElementById("nome_filme").innerHTML = filme.nome.toUpperCase();
-        document.getElementById("nome_diretor").innerHTML = filme.diretor.toUpperCase();
-        document.getElementById("ano_filme").innerHTML = filme.ano.toUpperCase();
-        document.getElementById("assistir_filme").innerHTML = filme.onde_assistir.toUpperCase();
+       document.getElementById("nome_filme").innerHTML = (filme.nome || "Ainda não cadastrado").toUpperCase();
+       document.getElementById("nome_diretor").innerHTML = (filme.diretor || "Ainda não cadastrado").toUpperCase();
+        document.getElementById("ano_filme").innerHTML = (filme.ano || "Ainda não cadastrado").toUpperCase();
+        document.getElementById("assistir_filme").innerHTML = (filme.onde_assistir || "Ainda não cadastrado").toUpperCase();
         document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
 
         document.getElementById("imagem").src = "../uploads/" + filme.poster

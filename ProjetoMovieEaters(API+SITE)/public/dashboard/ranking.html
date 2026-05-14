@@ -81,12 +81,24 @@
 
     function carregadorDados() {
         var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+        let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
+        console.log(idGrupo)
 
-        fetch("/pontuacao/listar")
+        fetch("/pontuacao/listar/")
             .then(res => res.json())
             .then(dados => {
 
                 console.log(dados);
+
+                // validando se não veio vazio
+                if (dados.length == 0) {
+
+                    document.getElementById("posicao").innerText = "-";
+                    document.getElementById("total").innerText = "0";
+                    document.getElementById("lider").innerText = "SEM LÍDER";
+                    document.getElementById("distancia").innerText = "0 pontos";
+                    return;
+                }
 
                 for (let i = 0; i < dados.length; i++) {
 
@@ -99,24 +111,35 @@
 
                 document.getElementById("posicao").innerText = posicao;
                 document.getElementById("total").innerText = dados[index].total;
-                document.getElementById("lider").innerText = dados[0].nome.toUpperCase();
+                document.getElementById("lider").innerText = dados[0].nome.toUpperCase(); // dados 0 pq no order by desc o lider sempre vem 1º
                 document.getElementById("distancia").innerText = (dados[0].total - dados[index].total) + ' pontos';
                 document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
 
+                // 
 
-                const grafico2 = document.getElementById('graficoRanking');
+                    let labels = [];
+                    let valores = [];
 
-                new Chart(grafico2, { // Cria um novo gráfico usando o canvas 'grafico2'
+                    for (let i = 0; i < dados.length; i++) {
+
+                    labels.push(dados[i].nome);
+                    valores.push(dados[i].total);
+
+                    }
+
+                    const grafico2 = document.getElementById('graficoRanking');
+
+                    new Chart(grafico2, { // Cria um novo gráfico usando o canvas 'grafico2'
 
                     type: 'bar', //
 
                     data: {
-                        labels: [dados[0].nome, dados[1].nome, dados[2].nome, dados[3].nome], // eixo y
+                        labels: labels, // eixo y
 
                         datasets: [{
                             label: 'Pontuação', // eixo x
 
-                            data: [dados[0].total, dados[1].total, dados[2].total, dados[3].total], // Valores correspondentes a cada nome
+                            data: valores, // Valores correspondentes a cada nome
 
                             backgroundColor: '#2c6794',
 
@@ -207,10 +230,10 @@
 
                 console.log(dados)
 
-                let nome1 = dados[0].nome;
-                let nome2 = dados[1].nome;
-                let nome3 = dados[2].nome;
-                let nome4 = dados[3].nome;
+                let nome1 = dados[0].nome || "Player 1";
+                let nome2 = dados[1].nome || "Player 2"
+                let nome3 = dados[2].nome || "Player 3"
+                let nome4 = dados[3].nome || "Player 4"
                 let qntSemanas = dados[0].qtdSemanas;
 
                 // automatizar o número de semanas no gráfico
@@ -342,10 +365,10 @@
             .then(res => res.json())
             .then(dados => {
 
-            let papel = dados[0].papel
-            console.log(papel)
+                let papel = dados[0].papel
+                console.log(papel)
 
-            sessionStorage.PAPEL = papel
+                sessionStorage.PAPEL = papel
             })
             .catch(erro => {
                 console.log("Erro:", erro);

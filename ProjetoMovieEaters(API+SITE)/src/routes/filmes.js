@@ -10,7 +10,7 @@ router.post("/cadastrar", upload.single('poster'), function (req, res) {
     filmeController.cadastrar(req, res);
 });
 
-router.get("/listar",  function (req, res) {
+router.get("/listar/:idGrupo",  function (req, res) {
     // função a ser chamada quando acessar /filmes/listar
     filmeController.listar(req, res);
 });

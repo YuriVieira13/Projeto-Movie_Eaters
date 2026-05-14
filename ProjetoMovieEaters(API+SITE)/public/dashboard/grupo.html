@@ -209,9 +209,8 @@
             .then(dados => {
 
                 console.log(dados);
-
-                let idGrupo = dados[0].idGrupo;
                 sessionStorage.ID_GRUPO = dados[0].idGrupo;
+                let idGrupo =  sessionStorage.getItem("ID_GRUPO");
                 let idUsuario = sessionStorage.getItem("ID_USUARIO");
                 let papel = "watcher";
 

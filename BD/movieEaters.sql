@@ -39,6 +39,11 @@ CREATE TABLE usuarioGrupo (
 );
 
 	SELECT * from usuarioGrupo;
+    
+    SELECT papel from usuarioGrupo where fkUsuario = 1 AND fkGrupo = 1;
+    
+	INSERT INTO usuarioGrupo VALUES
+    (2, 9, "diretor");
 
 	UPDATE usuarioGrupo set papel = "watcher" WHERE fkUsuario = 4;
     

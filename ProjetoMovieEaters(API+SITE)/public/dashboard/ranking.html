@@ -14,7 +14,7 @@
 
 </head>
 
-<body onload="carregadorDados(), carregarGrafico()">
+<body onload="carregadorDados(), carregarGrafico(), descobrirPapel()">
 
     <div class="container">
 
@@ -205,25 +205,25 @@
             .then(res => res.json())
             .then(dados => {
 
-            console.log(dados)
+                console.log(dados)
 
-        let nome1 = dados[0].nome;
-        let nome2 = dados[1].nome;
-        let nome3 = dados[2].nome;
-        let nome4 = dados[3].nome;
-        let qntSemanas = dados[0].qtdSemanas;
+                let nome1 = dados[0].nome;
+                let nome2 = dados[1].nome;
+                let nome3 = dados[2].nome;
+                let nome4 = dados[3].nome;
+                let qntSemanas = dados[0].qtdSemanas;
 
-        // automatizar o número de semanas no gráfico
-          for (let i = 1; i <= qntSemanas; i++) {
-            semanas.push("Semana " + i)
+                // automatizar o número de semanas no gráfico
+                for (let i = 1; i <= qntSemanas; i++) {
+                    semanas.push("Semana " + i)
 
-            if (i > 4) {layout = semanas}
-        
-        } 
+                    if (i > 4) { layout = semanas }
 
-         // lógica para definir a pontuação por semana
+                }
 
-          for (let i = 0; i < dados.length; i++) {
+                // lógica para definir a pontuação por semana
+
+                for (let i = 0; i < dados.length; i++) {
 
                     if (dados[i].nome == nome1) {
                         let posicao = i % 4 + 1;
@@ -231,14 +231,14 @@
                     } else if (dados[i].nome == nome2) {
                         let posicao = i % 4 + 1;
                         play2.push(posicao)
-                }  else if (dados[i].nome == nome3) {
+                    } else if (dados[i].nome == nome3) {
                         let posicao = i % 4 + 1;
                         play3.push(posicao)
-                } else {
+                    } else {
                         let posicao = i % 4 + 1;
                         play4.push(posicao)
-            }
-          }
+                    }
+                }
 
 
                 // construção do gráfico 1
@@ -331,10 +331,27 @@
                 console.log("Erro:", erro);
             });
 
-
-
     }
 
+    function descobrirPapel() {
+
+        let idGrupo = sessionStorage.ID_GRUPO;
+        let idUsuario = sessionStorage.ID_USUARIO;
+
+        fetch(`/ranking/papel/${idUsuario}/${idGrupo}`)
+            .then(res => res.json())
+            .then(dados => {
+
+            let papel = dados[0].papel
+            console.log(papel)
+
+            sessionStorage.PAPEL = papel
+            })
+            .catch(erro => {
+                console.log("Erro:", erro);
+            });
+
+    }
 
 
 </script>

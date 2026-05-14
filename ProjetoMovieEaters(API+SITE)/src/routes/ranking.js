@@ -8,4 +8,8 @@ router.get("/listar", function (req, res) {
     rankingController.listar(req, res);
 });
 
+router.get("/papel/:idUsuario/:idGrupo", function (req, res) {
+    rankingController.papel(req, res);
+});
+
 module.exports = router;

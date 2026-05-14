@@ -42,7 +42,7 @@ function cadastrar(req, res) {
 
     } else {
 
-        res.status(500).json(erro.sqlMessage); // já estava no código do aquatech
+        res.status(500).json(erro.sqlMessage); //
 
     }   
 

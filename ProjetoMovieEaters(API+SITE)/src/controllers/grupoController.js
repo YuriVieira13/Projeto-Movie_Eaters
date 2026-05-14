@@ -54,6 +54,10 @@ function entrar(req, res) {
     grupoModel.entrar(idUsuario, idGrupo, papel).then(function (resposta) {
         res.status(200).send("Entrou no grupo");
     }).catch(function (erro) {
+
+          if (erro.code == "ER_DUP_ENTRY") { // no banco de dados, eu estou usando chave composta (fkUsuario e fkGrupo), esse erro é esperado e usado para não cadastrar novamente o usuário, direcionando ele direto para o grupo
+          return res.status(200).send("Já estava no grupo");
+      }
         res.status(500).json(erro.sqlMessage);
     })
 }

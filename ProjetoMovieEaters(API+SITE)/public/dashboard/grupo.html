@@ -45,7 +45,7 @@
                         </div>
                         <button onclick="entrarGrupo()" class="botaoE">ENTRAR</button>
                     </div>
-                    <div class="textosA">
+                    <div id = "blocoEntrar" class="textosA">
                         <span> Digite o <tag style="color:#ffc500"> código</tag> para acessar o grupo.</span> <br>
                         <span> Assitir filmes, boas indicações e boas reviews te garantem pontos.</span> <br>
                         <span> O vencedor é o primeiro que atingir 500 pontos no ranking geral.</span> <br>
@@ -202,7 +202,6 @@
 
             alert("Esqueceu de preencher o código");
             return;
-
         }
 
         fetch(`/grupo/listar/${codigo}`)
@@ -212,7 +211,7 @@
                 console.log(dados);
 
                 let idGrupo = dados[0].idGrupo;
-
+                sessionStorage.ID_GRUPO = dados[0].idGrupo;
                 let idUsuario = sessionStorage.getItem("ID_USUARIO");
                 let papel = "watcher";
 
@@ -233,15 +232,17 @@
 
                         if (resposta.ok) {
 
-                            alert("Entrou com sucesso");
+                        setTimeout(function () {
+                         window.location = "./ranking.html"
+                    }, 1000);
 
                         } else {
+
                             throw "Houve um erro ao tentar realizar a entrada!";
                         }
                     })
                     .catch(function (resposta) {
                         console.log(`#ERRO: ${resposta}`);
-                        alert(`#ERRO: ${resposta}`);
                     });
 
             })

@@ -145,6 +145,7 @@
 
     let temMinuscula = false;
     let temMaiuscula = false;
+    let temNumero = false;
 
     for (let i = 0; i < senhaVar.length; i++) {
 
@@ -167,21 +168,29 @@
       mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 letra maiúscula.";
       return false;
 
-    } if (!/[0-9]/.test(senhaVar)) {
-      alertaErro.style.display = "flex";
-      mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 número."
+    }
 
-      return false;;
+    for (let i = 0; i < senhaVar.length; i++) {
 
-    } if (!/[^a-zA-Z0-9]/.test(senhaVar)) {
+      if (senhaVar[i] >= '0' && senhaVar[i] <= '9') {
+        temNumero = true;
+        break;
+      }
+
+    } if (!temNumero) {
       alertaErro.style.display = "flex";
-      mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 caractere especial."
+      mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 número.";
 
       return false;
+    }
 
-    } return true;
+  } if (!/[^a-zA-Z0-9]/.test(senhaVar)) {
+    alertaErro.style.display = "flex";
+    mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 caractere especial."
+    return false;
 
-  }
+  } return true;
+
 
   function cadastrar() {
     // aguardar();

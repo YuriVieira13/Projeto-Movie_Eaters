@@ -7,7 +7,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: 'DM Sans', sans-serif;
-    background-color: #20223a;
+    background-color: #0f1122;
     font-weight: 900;
     color:white;
     
@@ -33,13 +33,17 @@ body {
     width: 100%;
     font-family: 'DM Sans', sans-serif;
     font-size: 10.8px;
-    padding: 0 20px;
+    padding-left: 20px;
 }
 
+.header .left {
+
+    margin-left: 20px;
+}
 
 .navbar {
 
-    margin-right: 100px;
+    margin-right: 35px;
 
     display: flex;
     flex-direction: row;
@@ -93,9 +97,10 @@ font-weight: 900;
 
 .card-cadastro {
 
-    width: 370px;
-    height: 410px;
+    width: 410px;
+    height: 450px;
     background-color: rgba(0, 0, 0, 0.86);
+    border: solid 2px #ffde59;
 
     padding-top: 20px;
 
@@ -260,5 +265,11 @@ button {
     font-size: 14.6px;
 
     width: 80%;
+
+}
+
+.frase {
+
+    color: #ffde59;
 
 }

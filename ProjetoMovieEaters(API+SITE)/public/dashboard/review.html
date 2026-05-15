@@ -70,16 +70,17 @@
 
         var nomeUsuario = sessionStorage.NOME_USUARIO;
         document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+        let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
 
-        fetch("/filmes/listar")
+        fetch(`/filmes/listar/${idGrupo}`)
             .then(res => res.json())
             .then(dados => {
 
                 console.log(dados);
                 var filme = dados[0];
                 let idFilme = filme.idfilme;
+                sessionStorage.ID_FILME = idFilme;
                 console.log(idFilme)
-
                 carregarReview(idFilme, nomeUsuario)
 
             })
@@ -95,6 +96,7 @@
         var nota = nota_input.value;
         var review = review_input.value;
         var idFilme = Number(sessionStorage.ID_FILME);
+        console.log(sessionStorage.ID_FILME)
         console.log(idFilme)
         var idUsuario = sessionStorage.ID_USUARIO;
 
@@ -256,7 +258,7 @@
 
 function curtir(fkUsuario, idFilme) {
 
-    var idGrupo = 1;
+    var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
     var pontos = 5;
     var tipo = "curtida_review";
     var idReferencia = idFilme;

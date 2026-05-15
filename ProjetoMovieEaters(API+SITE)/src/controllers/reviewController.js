@@ -13,7 +13,7 @@ function listar(req, res) {
 function cadastrar(req, res) {
     var nota = req.body.nota;
     var review = req.body.review;
-    var idFilme = req.body.idFilme;
+    var idFilme = Number(req.body.idFilme);
     var idUsuario = req.body.idUsuario;
 
     if (nota == undefined) {

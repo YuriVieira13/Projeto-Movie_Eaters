@@ -41,6 +41,8 @@ CREATE TABLE usuarioGrupo (
 );
 
 	SELECT * from usuarioGrupo;
+    
+    UPDATE usuarioGrupo set papel = "diretor" WHERE fkUsuario = 1;
 
     
     SELECT papel from usuarioGrupo where fkUsuario = 1 AND fkGrupo = 1;
@@ -179,7 +181,7 @@ FROM review r JOIN filme f
 ON r.fkFilme = f.idFilme
 JOIN usuario u
 ON r.fkUsuario = u.id
-WHERE IDfilme = 11;
+WHERE IDfilme = 12;
 
 DESC historico_pontos;
 
@@ -222,3 +224,26 @@ SELECT * FROM filme;
 		(fkUsuario, fkGrupo, pontos, tipo, dataPontuacao)
 		VALUES
 		(2, 11, 200, 'curtida_review', '2026-05-12 10:00:00');
+        
+		INSERT INTO historico_pontos
+		(fkUsuario, fkGrupo, pontos, tipo, dataPontuacao)
+		VALUES
+		(1, 11, 250, 'curtida_review', '2026-05-12 10:00:00');
+        
+        
+		SELECT r.idReview, u.nome as Usuario, f.nome as Filme, r.nota, r.review, r.fkUsuario, fkFilme
+        FROM review r JOIN filme f
+        ON r.fkFilme = f.idFilme
+        JOIN grupo g
+        ON g.idGrupo = f.fkGrupo
+        JOIN usuario u
+        ON r.fkUsuario = u.id
+        WHERE idfilme = 12 AND
+        fkGrupo = 11;
+        
+        select * from filme;
+        
+        SELECT * FROM review;
+        
+        
+    

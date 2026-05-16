@@ -25,8 +25,22 @@ function entrar(idUsuario, idGrupo, papel) {
     return database.executar(instrucao);
 }
 
+function listarGrupos(idUsuario) {
+    var instrucao = `
+        SELECT g.nome, g.codigo FROM grupo g
+        JOIN usuarioGrupo ug ON
+        ug.FKgrupo = g.idGrupo
+        JOIN usuario u ON
+        ug.FKusuario = u.id
+        WHERE id = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     cadastrar,
     listar,
-    entrar
+    entrar,
+    listarGrupos
 };

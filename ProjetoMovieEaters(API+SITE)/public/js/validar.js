@@ -13,4 +13,8 @@ function sair() {
     window.location = "../login.html";
 }
 
+function sairGrupo() {
+    window.location = "./grupo.html";
+}
+
 

@@ -62,8 +62,18 @@ function entrar(req, res) {
     })
 }
 
+function listarGrupos(req, res) {
+      var idUsuario = req.params.idUsuario
+    grupoModel.listarGrupos(idUsuario).then(function(resultado){
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     listar,
     cadastrar,
-    entrar
+    entrar,
+    listarGrupos
 }

@@ -25,7 +25,6 @@ id INT PRIMARY KEY AUTO_INCREMENT,
     
 	INSERT INTO grupo VALUES
 	(default, 'Turma A', '4');
-    
 	UPDATE grupo set codigo = "teste" WHERE idGrupo = 1;
     
     SELECT idGrupo FROM grupo WHERE codigo = "123";
@@ -43,6 +42,7 @@ CREATE TABLE usuarioGrupo (
 	SELECT * from usuarioGrupo;
     
     UPDATE usuarioGrupo set papel = "diretor" WHERE fkUsuario = 1;
+       UPDATE usuarioGrupo set papel = "diretor" WHERE fkUsuario = 8;
 
     
     SELECT papel from usuarioGrupo where fkUsuario = 1 AND fkGrupo = 1;
@@ -245,5 +245,10 @@ SELECT * FROM filme;
         
         SELECT * FROM review;
         
-        
+        SELECT g.nome, g.codigo FROM grupo g
+        JOIN usuarioGrupo ug ON
+        ug.FKgrupo = g.idGrupo
+        JOIN usuario u ON
+        ug.FKusuario = u.id
+        WHERE id = 2;
     

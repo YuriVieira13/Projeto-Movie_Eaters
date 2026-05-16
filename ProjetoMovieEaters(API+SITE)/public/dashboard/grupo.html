@@ -45,7 +45,7 @@
                         </div>
                         <button onclick="entrarGrupo()" class="botaoE">ENTRAR</button>
                     </div>
-                    <div id = "blocoEntrar" class="textosA">
+                    <div id="blocoEntrar" class="textosA">
                         <span> Digite o <tag style="color:#ffc500"> código</tag> para acessar o grupo.</span> <br>
                         <span> Assitir filmes, boas indicações e boas reviews te garantem pontos.</span> <br>
                         <span> O vencedor é o primeiro que atingir 500 pontos no ranking geral.</span> <br>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="botoes">
                             <button onclick="cadastrarGrupo()" class="botaoC">CRIAR</button>
-                            <button onclick="cadastrarFilme()" class="botaoV">VER GRUPOS</button>
+                            <button onclick="verGrupos()" class="botaoV">VER GRUPOS</button>
                         </div>
                         <div id="grupo" class="textos">
                             <span> O primeiro passo é criar um grupo para poder jogar com seus amigos.</span> <br>
@@ -120,7 +120,7 @@
 
                 if (resposta.ok) {
 
-                    grupo.innerHTML = `Anote: <br> o código do grupo <tag style="color:#ffc500"> ${nomeGrupo} </tag> é <tag style="color:#ffc500"> ${codigo} </tag>`;
+                    grupo.innerHTML = `<div> Anote: <br> o código do grupo <tag style="color:#ffc500"> ${nomeGrupo} </tag> é <tag style="color:#ffc500"> ${codigo} </tag> </div>`;
 
                 } else {
                     throw "Houve um erro ao tentar realizar a avaliaçao!";
@@ -210,7 +210,7 @@
 
                 console.log(dados);
                 sessionStorage.ID_GRUPO = dados[0].idGrupo;
-                let idGrupo =  sessionStorage.getItem("ID_GRUPO");
+                let idGrupo = sessionStorage.getItem("ID_GRUPO");
                 let idUsuario = sessionStorage.getItem("ID_USUARIO");
                 let papel = "watcher";
 
@@ -231,9 +231,9 @@
 
                         if (resposta.ok) {
 
-                        setTimeout(function () {
-                         window.location = "./ranking.html"
-                    }, 1000);
+                            setTimeout(function () {
+                                window.location = "./ranking.html"
+                            }, 1000);
 
                         } else {
 
@@ -251,6 +251,43 @@
 
         return false;
     }
+
+    function verGrupos() {
+
+        let idUsuario = Number(sessionStorage.getItem("ID_USUARIO"));
+        grupo.innerHTML = ""
+        let id = document.getElementById("grupo")
+
+        id.classList.remove("textos")
+        id.classList.add("verGrupos")
+
+        fetch(`/grupo/listarGrupos/${idUsuario}`)
+            .then(res => res.json())
+            .then(dados => {
+                console.log(dados)
+
+                for (let i = 0; i < dados.length; i++) {
+                    console.log(dados[i].nome)
+                    grupo.innerHTML += `
+                     <div>
+                    Grupo: <span style="color:#ffc500">${dados[i].nome}</span> - // -
+                    Código: <span style="color:#ffc500">${dados[i].codigo}</span>
+                    </div> <br>
+                    `
+                }
+
+                setTimeout(function () {
+                grupo.innerHTML = ""
+                            }, 3000);
+
+            })
+            .catch(erro => {
+                console.log("Erro:", erro);
+            });
+
+        return;
+    }
+
 
 
 </script>

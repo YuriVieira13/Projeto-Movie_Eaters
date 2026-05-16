@@ -184,13 +184,15 @@
       return false;
     }
 
-  } if (!/[^a-zA-Z0-9]/.test(senhaVar)) {
+    if (!/[^a-zA-Z0-9]/.test(senhaVar)) {
     alertaErro.style.display = "flex";
     mensagem_erro.innerHTML = "A senha deve conter pelo menos 1 caractere especial."
     return false;
+  }
 
-  } return true;
+  return true;
 
+  }
 
   function cadastrar() {
     // aguardar();
@@ -228,7 +230,7 @@
 
         if (resposta.ok) {
           alertaErro.style.display = "flex";
-
+          cardErro.innerHTML = ""
           mensagem_erro.innerHTML =
             "Cadastro realizado! Redirecionando para tela de Login...";
 

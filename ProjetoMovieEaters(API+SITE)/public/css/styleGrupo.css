@@ -273,3 +273,17 @@ button {
     color: #ffde59;
 
 }
+
+.verGrupos {
+
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    font-size: 14.6px;
+
+    width: 80%;
+
+}

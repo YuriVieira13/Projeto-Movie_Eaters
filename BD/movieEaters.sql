@@ -265,7 +265,9 @@ SELECT * FROM filme;
         
         SELECT * from filme;
         
-        SELECT nome, poster,  CONCAT(WEEK(dtVenda), 'ª semana') AS semana from filme;
+        SELECT idFilme, nome, poster,  CONCAT(WEEK(dt_insercao), 'ª semana') AS semana from filme WHERE fkGrupo = 1;
         
         delete from filme where idFilme in (1,2,3,4,5,6,7);
+        
+		delete from filme where idFilme = 8;
     

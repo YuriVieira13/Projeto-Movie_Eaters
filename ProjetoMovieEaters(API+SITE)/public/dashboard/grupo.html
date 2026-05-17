@@ -209,6 +209,7 @@
 
                 console.log(dados);
                 sessionStorage.ID_GRUPO = dados[0].idGrupo;
+                 sessionStorage.NOME_GRUPO = dados[0].nome;
                 let idGrupo = sessionStorage.getItem("ID_GRUPO");
                 let idUsuario = sessionStorage.getItem("ID_USUARIO");
                 let papel = "watcher";

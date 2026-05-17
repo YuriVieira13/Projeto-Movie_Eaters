@@ -229,10 +229,12 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          alertaErro.style.display = "flex";
-          cardErro.innerHTML = ""
-          mensagem_erro.innerHTML =
-            "Cadastro realizado! Redirecionando para tela de Login...";
+       alertaErro.style.display = "flex";
+
+      cardErro.innerHTML = `
+      <h2>Obrigado por participar!</h2>
+      <span>Cadastro realizado! Redirecionando para tela de Login...</span>
+      `;
 
           setTimeout(() => {
             window.location = "login.html";

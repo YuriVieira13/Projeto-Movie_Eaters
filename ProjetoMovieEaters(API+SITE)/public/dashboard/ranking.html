@@ -37,6 +37,8 @@
             </div>
         </div>
 
+        <div class="nomeGrupo" id="nome_Grupo"><H3>Grupo: Os assistidores</H3></div>
+
         <div class="kpis">
 
             <div class="indicativo">
@@ -83,6 +85,10 @@
         var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
         let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
         console.log(idGrupo)
+
+        let nomeGrupo = sessionStorage.NOME_GRUPO;
+        console.log(nomeGrupo)
+        nome_Grupo.innerHTML = `Grupo: <tag style="color:#ffc500">${nomeGrupo}</tag>`
 
         fetch(`/pontuacao/listar/${idGrupo}`)
             .then(res => res.json())

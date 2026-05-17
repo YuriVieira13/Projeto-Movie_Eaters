@@ -37,7 +37,7 @@
 
     <div class="banner">
 
-        <button class="button" onclick="location.href='../Public/login.html'"> Dê o play - é gratuito</button>
+        <button class="button" onclick="location.href='../login.html'"> Dê o play - é gratuito</button>
 
         <div class="posters">
 
@@ -135,17 +135,6 @@
 </html>
 
 <script>
-
-    function copiarLink() {
-
-        let link = window.location.href;
-
-        navigator.clipboard.writeText(link)
-            .then(() => {
-                alert("Link copiado!");
-            })
-    }
-
 
     const video = document.getElementById('videoIntro'); // pega um objeto no html inteiro (document)
     const home_fundo = document.getElementById('homeContainer');

@@ -103,7 +103,7 @@ display: grid;
 
 .indicativo {
 
-    margin-top: 50px;
+    margin-top: 20px;
     width: 280px;
     height: 130px;
     display: flex;
@@ -158,3 +158,10 @@ display: grid;
 }
 
 */
+
+.nomeGrupo {
+
+    margin-top: 20px;
+
+
+}

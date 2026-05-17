@@ -3,7 +3,7 @@ var database = require("../database/config")
 
 function listar(codigo) {
     var instrucao = `
-        SELECT idGrupo FROM grupo WHERE codigo = '${codigo}';
+        SELECT nome, idGrupo FROM grupo WHERE codigo = '${codigo}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

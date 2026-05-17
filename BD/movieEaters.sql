@@ -250,11 +250,22 @@ SELECT * FROM filme;
         ug.FKusuario = u.id
         WHERE id = 2;
         
-		SELECT r.idReview, f.nome as Filme, r.nota, r.review, r.fkUsuario, fkFilme 
+		SELECT r.idReview, f.fkGrupo, f.fkUsuario, f.nome as Filme, r.nota, r.review
+        from Review r
+        JOIN filme f ON
+        r.fkFilme = f.idFilme;
+        
+        SELECT * FROM Review;
+        
+         SELECT r.idReview, f.nome as Filme, r.nota, r.review 	
         from Review r
         JOIN filme f ON
         r.fkFilme = f.idFilme
         WHERE r.fkUsuario = 1 AND f.fkGrupo = 1;
         
-        SELECT * FROM Review;
+        SELECT * from filme;
+        
+        SELECT nome, poster,  CONCAT(WEEK(dtVenda), 'ª semana') AS semana from filme;
+        
+        delete from filme where idFilme in (1,2,3,4,5,6,7);
     

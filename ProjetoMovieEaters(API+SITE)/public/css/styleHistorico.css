@@ -152,3 +152,25 @@ option {
     background-color: white;
     color: black;
 }
+
+.publicacao-imagem {
+
+    width: 250px;
+    height: auto    ;
+
+}
+
+.publicacao_filme {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.filmes_feed-container {
+
+    display: grid;
+    grid-template-columns: repeat(4, 3fr);
+    gap:50px
+
+}

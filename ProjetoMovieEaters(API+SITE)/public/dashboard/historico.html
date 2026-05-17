@@ -28,7 +28,7 @@
                     <a href="#" onclick="conferir()">FILME DA SEMANA</a>
                     <li><a href="../dashboard/ranking.html">RANKING</a></li>
                     <li class="ativo"><a href="">HISTÓRICO</a></li>
-                    <li><a href="../dashboard/reviews.html">REVIEWS</a></li>
+                    <li><a href="../dashboard/review.html">REVIEWS</a></li>
                     <li class="direita"><a href="#" onclick="sairGrupo()">SAIR</a></li>
                 </ul>
             </div>
@@ -36,19 +36,20 @@
 
 
         <select class="comboBox" name="decisao" id="sel_decisao">
+            <option value="selecione">Selecione</option>
             <option value="filmes">Filmes</option>
             <option value="review">Reviews</option>
         </select>
 
         <div id="galeria" class="galeria">
-            <h4>Galeria de Filmes</h4>
+            <h4>Galeria de Filmes desse grupo</h4>
             <div id="filmes_feed_container" class="filmes_feed-container">
             </div>
         </div>
 
 
         <div id="mural" class="mural">
-            <h4>Mural das suas Reviews</h4>
+            <h4>Mural das suas Reviews nesse grupo</h4>
             <div id="feed_container" class="feed-container">
             </div>
         </div>
@@ -59,6 +60,7 @@
             function iniciar() {
 
                 mural.style.display = "none";
+                galeria.style.display = "none";
 
                 // função para deixar dinâmico a troca na comboBox
                 sel_decisao.addEventListener("change", function () {
@@ -70,12 +72,20 @@
                         mural.style.display = "none";
                         galeria.style.display = "block";
 
-                    } else {
+                        carregarFilmes();
+
+                    }else if (decisao == "review") {
 
                         galeria.style.display = "none";
                         mural.style.display = "block";
 
                         carregarReview();
+
+                    } else if (decisao == "selecione") {
+
+                        galeria.style.display = "none";
+                        mural.style.display = "none";
+
                     }
 
                 });
@@ -87,6 +97,63 @@
                 document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
             }
 
+                  function carregarFilmes() {
+
+                let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+                console.log(idGrupo);
+
+
+                fetch(`/historico/listarFilmes/${idGrupo}`)
+                    .then(res => res.json())
+                    .then(dados => {
+
+                        console.log(dados);
+
+                        var filmes = dados;
+
+                        var feed = document.getElementById("filmes_feed_container");
+                        feed.innerHTML = "";
+
+                        filmes.forEach((publicacao) => { // função específica que considera um item de cada vez para criar elementos, então para cada objeto no meu vetor review ele vai trabalhar isoladamente + função arrow
+
+                            var divPublicacao = document.createElement("div");
+                            var spanTitulo = document.createElement("span");
+                            var spanData = document.createElement("span");
+                            var divImagem = document.createElement("img");
+
+                            // var divImagem = document.createElement("div");
+
+                            // -- criando texto
+                            // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";
+                            spanTitulo.innerHTML = "Título: <b>" + publicacao.nome + "</b>";
+                            spanData.innerHTML = "Semana: <b>" + publicacao.semana + "</b>";
+                           
+                            // -- criando classe e Id
+                            divPublicacao.className = "publicacao_filme";
+                            divImagem.id = "id_imagem" + publicacao.idFilme;
+                            spanData.className = "publicacao-semana";
+                            spanTitulo.className = "publicacao-titulo";
+                            divImagem.className = "publicacao-imagem";
+                    
+                            divImagem.src = "../uploads/" + publicacao.poster
+
+                            // Definindo a hierarquia
+                            divPublicacao.appendChild(spanTitulo);
+                            divPublicacao.appendChild(spanData);
+                            divPublicacao.appendChild(divImagem);
+                            
+                            feed.appendChild(divPublicacao);
+
+                        })
+
+                    })
+                    .catch(erro => {
+                        console.log("Erro:", erro);
+                    });
+
+
+            }
+
             function carregarReview() {
 
                 let idUsuario = Number(sessionStorage.getItem("ID_USUARIO"));
@@ -95,7 +162,7 @@
                 console.log(idGrupo);
 
 
-                fetch(`/historico/listarFilmes/${idUsuario}/${idGrupo}`)
+                fetch(`/historico/listarReview/${idUsuario}/${idGrupo}`)
                     .then(res => res.json())
                     .then(dados => {
 
@@ -113,11 +180,14 @@
                             var spanNota = document.createElement("span");
                             var divDescricao = document.createElement("div");
 
+                            // var divImagem = document.createElement("div");
+
                             // -- criando texto
                             // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";
                             spanTitulo.innerHTML = "Título: <b>" + publicacao.Filme + "</b>";
                             spanNota.innerHTML = "Nota: <b>" + publicacao.nota + "</b>";
                             divDescricao.innerHTML = "Descrição: <b>" + publicacao.review + "</b>";
+                                            //document.getElementById("divImagem").src = "../uploads/" + publicacao.poster
 
                             // -- criando classe e Id
                             divPublicacao.className = "publicacao";
@@ -125,7 +195,7 @@
                             spanNota.className = "publicacao-nota";
                             spanTitulo.className = "publicacao-titulo";
                             divDescricao.className = "publicacao-descricao";
-
+                                            //divImagem.id = "inputImagem" + publicacao.idReview;
 
                             // Definindo a hierarquia
                             divPublicacao.appendChild(spanTitulo);

@@ -4,21 +4,12 @@ var router = express.Router();
 var historicoController = require("../controllers/historicoController");
 
 
-router.post("/cadastrar", function (req, res) {
-    // função a ser chamada quando acessar /filmes/cadastrar
-    historicoController.cadastrar(req, res);
+router.get("/listarReview/:idUsuario/:idGrupo",  function (req, res) {
+    historicoController.listarReview(req, res);
 });
 
-router.get("/listarFilmes/:idUsuario/:idGrupo",  function (req, res) {
+router.get("/listarFilmes/:idGrupo",  function (req, res) {
     historicoController.listarFilmes(req, res);
-});
-
-router.delete("/deletar/:idhistorico", function (req, res) {
-    historicoController.deletar(req, res);
-});
-
-router.post("/curtir",  function (req, res) {
-    historicoController.curtir(req, res);
 });
 
 

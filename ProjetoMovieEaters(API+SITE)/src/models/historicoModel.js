@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
 
-function listarFilmes(idUsuario, idGrupo) {
+function listarReview(idUsuario, idGrupo) {
     var instrucao = `
         SELECT r.idReview, f.nome as Filme, r.nota, r.review
         from Review r
@@ -13,6 +13,16 @@ function listarFilmes(idUsuario, idGrupo) {
     return database.executar(instrucao);
 }
 
+function listarFilmes(idGrupo) {
+    var instrucao = `
+        SELECT idFilme, nome, poster,  CONCAT(WEEK(dt_insercao), 'ª semana') AS semana from filme
+        WHERE fkGrupo = ${idGrupo};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
-    listarFilmes
+    listarFilmes,
+    listarReview
 }

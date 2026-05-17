@@ -1,0 +1,18 @@
+var database = require("../database/config")
+
+
+function listarFilmes(idUsuario, idGrupo) {
+    var instrucao = `
+        SELECT r.idReview, f.nome as Filme, r.nota, r.review
+        from Review r
+        JOIN filme f ON
+        r.fkFilme = f.idFilme
+        WHERE r.fkUsuario = ${idUsuario} AND f.fkGrupo = ${idGrupo};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+module.exports = {
+    listarFilmes
+}

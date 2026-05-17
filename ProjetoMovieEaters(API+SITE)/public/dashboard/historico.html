@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico</title>
+
+    <script src="../js/validar.js"></script>
+    <link rel="stylesheet" href="../css/styleHistorico.css" />
+    <link rel="icon" href="/assets/logonova.png">
+
+
+</head>
+
+<body onload="carregarDados(), iniciar()">
+
+    <div class="container1">
+
+        <div class="header">
+
+            <div class="left">
+                Bem vindo, Yuri
+            </div>
+
+            <div class="center">
+                <ul class="navbar">
+                    <a href="#" onclick="conferir()">FILME DA SEMANA</a>
+                    <li><a href="../dashboard/ranking.html">RANKING</a></li>
+                    <li class="ativo"><a href="">HISTÓRICO</a></li>
+                    <li><a href="../dashboard/reviews.html">REVIEWS</a></li>
+                    <li class="direita"><a href="#" onclick="sairGrupo()">SAIR</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <select class="comboBox" name="decisao" id="sel_decisao">
+            <option value="filmes">Filmes</option>
+            <option value="review">Reviews</option>
+        </select>
+
+        <div id="galeria" class="galeria">
+            <h4>Galeria de Filmes</h4>
+            <div id="filmes_feed_container" class="filmes_feed-container">
+            </div>
+        </div>
+
+
+        <div id="mural" class="mural">
+            <h4>Mural das suas Reviews</h4>
+            <div id="feed_container" class="feed-container">
+            </div>
+        </div>
+
+
+        <script>
+
+            function iniciar() {
+
+                mural.style.display = "none";
+
+                // função para deixar dinâmico a troca na comboBox
+                sel_decisao.addEventListener("change", function () {
+
+                    let decisao = sel_decisao.value;
+
+                    if (decisao == "filmes") {
+
+                        mural.style.display = "none";
+                        galeria.style.display = "block";
+
+                    } else {
+
+                        galeria.style.display = "none";
+                        mural.style.display = "block";
+
+                        carregarReview();
+                    }
+
+                });
+
+            }
+            function carregarDados() {
+
+                var nomeUsuario = sessionStorage.NOME_USUARIO;
+                document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+            }
+
+            function carregarReview() {
+
+                let idUsuario = Number(sessionStorage.getItem("ID_USUARIO"));
+                let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+                console.log(idUsuario);
+                console.log(idGrupo);
+
+
+                fetch(`/historico/listarFilmes/${idUsuario}/${idGrupo}`)
+                    .then(res => res.json())
+                    .then(dados => {
+
+                        console.log(dados);
+
+                        var review = dados;
+
+                        var feed = document.getElementById("feed_container");
+                        feed.innerHTML = "";
+
+                        review.forEach((publicacao) => { // função específica que considera um item de cada vez para criar elementos, então para cada objeto no meu vetor review ele vai trabalhar isoladamente + função arrow
+
+                            var divPublicacao = document.createElement("div");
+                            var spanTitulo = document.createElement("span");
+                            var spanNota = document.createElement("span");
+                            var divDescricao = document.createElement("div");
+
+                            // -- criando texto
+                            // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";
+                            spanTitulo.innerHTML = "Título: <b>" + publicacao.Filme + "</b>";
+                            spanNota.innerHTML = "Nota: <b>" + publicacao.nota + "</b>";
+                            divDescricao.innerHTML = "Descrição: <b>" + publicacao.review + "</b>";
+
+                            // -- criando classe e Id
+                            divPublicacao.className = "publicacao";
+                            spanTitulo.id = "inputNumero" + publicacao.idReview;
+                            spanNota.className = "publicacao-nota";
+                            spanTitulo.className = "publicacao-titulo";
+                            divDescricao.className = "publicacao-descricao";
+
+
+                            // Definindo a hierarquia
+                            divPublicacao.appendChild(spanTitulo);
+                            divPublicacao.appendChild(spanNota);
+                            divPublicacao.appendChild(divDescricao);
+                            feed.appendChild(divPublicacao);
+
+                        })
+
+                    })
+                    .catch(erro => {
+                        console.log("Erro:", erro);
+                    });
+
+
+            }
+
+        </script>
+
+</body>
+
+</html>

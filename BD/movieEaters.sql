@@ -219,7 +219,6 @@ SELECT * FROM filme;
 
         ORDER BY semana ASC, total DESC;
         
-        
         INSERT INTO historico_pontos
 		(fkUsuario, fkGrupo, pontos, tipo, dataPontuacao)
 		VALUES
@@ -229,7 +228,6 @@ SELECT * FROM filme;
 		(fkUsuario, fkGrupo, pontos, tipo, dataPontuacao)
 		VALUES
 		(1, 11, 250, 'curtida_review', '2026-05-12 10:00:00');
-        
         
 		SELECT r.idReview, u.nome as Usuario, f.nome as Filme, r.nota, r.review, r.fkUsuario, fkFilme
         FROM review r JOIN filme f
@@ -251,4 +249,12 @@ SELECT * FROM filme;
         JOIN usuario u ON
         ug.FKusuario = u.id
         WHERE id = 2;
+        
+		SELECT r.idReview, f.nome as Filme, r.nota, r.review, r.fkUsuario, fkFilme 
+        from Review r
+        JOIN filme f ON
+        r.fkFilme = f.idFilme
+        WHERE r.fkUsuario = 1 AND f.fkGrupo = 1;
+        
+        SELECT * FROM Review;
     

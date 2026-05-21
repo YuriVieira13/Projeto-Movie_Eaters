@@ -61,7 +61,7 @@
                     </p>
                 </div>
 
-                <div class="avaliacao">
+                <div class="avaliacao" id="avaliacao">
                     <h2>O QUE VOCÊ ACHOU DO FILME:</h2>
                     <div class="alinhar">
                         <div class="bloco1">
@@ -79,14 +79,13 @@
                     </div>
 
                 </div>
-
+                         <button onclick="sortearDiretor()">Encerrar Semana</button>
 
             </div>
-
+                   
         </div>
 
     </div>
-</body>
 
 </html>
 
@@ -121,6 +120,7 @@
         document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
 
         document.getElementById("imagem").src = "../uploads/" + filme.poster
+        esconderAvaliacao()
 
     })
     .catch(erro => {
@@ -168,12 +168,6 @@ function mandarPontuacao(pontuacao, motivo) {
 
           alert("Boa avaliação")
 
-         /* setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar(); */
         } else {
           throw "Houve um erro ao tentar realizar a avaliaçao!";
         }
@@ -190,7 +184,74 @@ function mandarPontuacao(pontuacao, motivo) {
         alert("Ainda dá tempo de assistir, você não quer ficar para trás na competição né")
     }
 
+      function sortearDiretor() {
+
+        var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+
+        fetch(`/sortear/editar/${idGrupo}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("A semana terminou! Um novo direitor foi sorteado");
+            } else if (resposta.status == 404) {
+                window.alert("Erro");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function esconderAvaliacao() {
+
+    var idUsuario = sessionStorage.getItem("ID_USUARIO");
+    console.log(idDiretor1)
+    console.log(idUsuario)
+
+    if(idUsuario == idDiretor1) {
+
+           //document.getElementById('avaliacao').style.display = "none"
+             document.getElementById('avaliacao').innerHTML = `<h3> ESCREVEU ALGO ERRADO?</h3>
+                    <div class="alinhar">
+                        <div class="bloco2">
+                            <img src="../assets/icons/x.png" alt="botão excluir" onclick="deletarIndicacao()">
+                            <span>Deletar Indicação</span>`
+
+    }
+
+    }
+
+    function deletarIndicacao() {
+
+        let idFilme = sessionStorage.getItem("ID_FILME");
+        console.log(idFilme)
+
+        fetch(`/filmes/deletar/${idFilme}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Filme deletado com sucesso");
+                window.location = "./filme_diretor.html"
+            } else {
+                throw ("Houve um erro ao tentar deletar a postagem!")
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }     
+
+
 </script>
 
 
-  
+</body>

@@ -54,7 +54,26 @@ function cadastrar(req, res) {
     })
 }
 
+function deletar(req, res) {
+    var idFilme = req.params.idFilme;
+
+    filmeModel.deletar(idFilme)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    deletar
 }

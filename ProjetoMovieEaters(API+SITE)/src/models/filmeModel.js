@@ -20,7 +20,17 @@ function cadastrar(nome, diretor, ano, ondeAssistir, idUsuario, idGrupo, poster)
     return database.executar(instrucao);
 }
 
+function deletar(idFilme) {
+    var instrucaoSql = `
+        DELETE FROM filme WHERE idFilme = ${idFilme};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     cadastrar,
-    listar
+    listar,
+    deletar
 };

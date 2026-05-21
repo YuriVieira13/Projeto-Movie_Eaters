@@ -66,6 +66,7 @@ CREATE TABLE usuarioGrupo (
 	Select u.id, u.nome, u.email, ug.papel
     FROM usuario AS u JOIN usuarioGrupo as ug
     ON u.id = ug.fkUsuario;
+    
 
 CREATE TABLE filme (
     idfilme INT PRIMARY KEY AUTO_INCREMENT,
@@ -270,4 +271,29 @@ SELECT * FROM filme;
         delete from filme where idFilme in (1,2,3,4,5,6,7);
         
 		delete from filme where idFilme = 8;
+        
+     -- testando a parte de fazer aleatorio
+    ALTER TABLE usuarioGrupo ADD COLUMN vezes_diretor int;
+    SELECT * FROM usuarioGrupo WHERE fkGrupo = 1;
     
+    UPDATE usuarioGrupo set papel = "watcher" WHERE fkGrupo = 1;
+    UPDATE usuarioGrupo set vezes_diretor = "0" WHERE fkGrupo = 1;
+    
+   UPDATE usuarioGrupo 
+	SET papel = 'diretor'
+	WHERE fkGrupo = 1 
+	AND fkUsuario = (
+    SELECT fkUsuario FROM (
+        SELECT fkUsuario
+        FROM usuarioGrupo
+        WHERE fkGrupo = 1
+        ORDER BY vezes_diretor ASC, RAND()
+        LIMIT 1
+    ) as manter
+);
+    
+	UPDATE usuarioGrupo SET vezes_diretor = vezes_diretor + 1
+    WHERE fkGrupo = 1 AND
+   papel = "diretor";
+    
+    -- -------------------------------------

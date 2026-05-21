@@ -15,4 +15,8 @@ router.get("/listar/:idGrupo",  function (req, res) {
     filmeController.listar(req, res);
 });
 
+router.delete("/deletar/:idFilme", function (req, res) {
+   filmeController.deletar(req, res);
+});
+
 module.exports = router;

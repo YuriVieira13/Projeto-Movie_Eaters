@@ -27,6 +27,7 @@ var rankingRouter = require("./src/routes/ranking");
 var reviewRouter =  require("./src/routes/review");
 var grupoRouter =  require("./src/routes/grupo");
 var historicoRouter = require("./src/routes/historico");
+var sortearRouter = require("./src/routes/sortear");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -46,6 +47,7 @@ app.use("/ranking", rankingRouter);
 app.use("/review", reviewRouter);
 app.use("/grupo", grupoRouter);
 app.use("/historico", historicoRouter);
+app.use("/sortear", sortearRouter);
 
 
 app.listen(PORTA_APP, function () {

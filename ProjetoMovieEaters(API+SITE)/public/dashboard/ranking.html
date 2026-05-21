@@ -123,12 +123,12 @@
 
                 // 
 
-                    let labels = [];
+                    let nomes = [];
                     let valores = [];
 
                     for (let i = 0; i < dados.length; i++) {
 
-                    labels.push(dados[i].nome);
+                    nomes.push(dados[i].nome);
                     valores.push(dados[i].total);
 
                     }
@@ -140,7 +140,7 @@
                     type: 'bar', //
 
                     data: {
-                        labels: labels, // eixo y
+                        labels: nomes, // eixo y dos nomes
 
                         datasets: [{
                             label: 'Pontuação', // eixo x
@@ -240,9 +240,11 @@
                 let nome2 = dados[1].nome || "Player 2"
                 let nome3 = dados[2].nome || "Player 3"
                 let nome4 = dados[3].nome || "Player 4"
-                let qntSemanas = dados[0].qtdSemanas;
+
 
                 // automatizar o número de semanas no gráfico
+
+                    let qntSemanas = dados[0].qtdSemanas;
                 for (let i = 1; i <= qntSemanas; i++) {
                     semanas.push("Semana " + i)
 

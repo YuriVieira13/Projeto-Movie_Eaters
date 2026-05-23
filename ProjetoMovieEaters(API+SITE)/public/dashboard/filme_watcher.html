@@ -198,6 +198,7 @@ function mandarPontuacao(pontuacao, motivo) {
 
             if (resposta.ok) {
                 window.alert("A semana terminou! Um novo direitor foi sorteado");
+                      window.location = "./ranking.html"
             } else if (resposta.status == 404) {
                 window.alert("Erro");
             } else {

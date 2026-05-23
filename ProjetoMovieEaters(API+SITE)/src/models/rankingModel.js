@@ -11,14 +11,14 @@
         (
             SELECT COUNT(DISTINCT YEARWEEK(dataPontuacao, 1))
             FROM historico_pontos
-            WHERE fkGrupo = 1
+            WHERE fkGrupo = 11
         ) AS qtdSemanas
 
         FROM usuario u
         JOIN historico_pontos hp
         ON u.id = hp.fkUsuario
 
-        WHERE fkGrupo = 1
+        WHERE fkGrupo = 11
 
         GROUP BY nome, semana, fkUsuario
 

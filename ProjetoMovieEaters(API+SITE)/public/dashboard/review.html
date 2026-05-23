@@ -157,7 +157,8 @@
                 var feed = document.getElementById("feed_container");
                 feed.innerHTML = "";
 
-                review.forEach((publicacao) => { // função específica que considera um item de cada vez para criar elementos, então para cada objeto no meu vetor review ele vai trabalhar isoladamente + função arrow
+                for (let i = 0; i < review.length; i++) {
+                var publicacao = review[i];
 
 
                     var divPublicacao = document.createElement("div");
@@ -223,7 +224,7 @@
                         Curtir.style.display = "none"
                     }
 
-                })
+                }
 
             })
             .catch(erro => {

@@ -14,7 +14,7 @@
 
 </head>
 
-<body onload="carregadorDados(), carregarGrafico(), descobrirPapel()">
+<body onload="carregadorDados(), descobrirPapel()">
 
     <div class="container">
 
@@ -211,7 +211,7 @@
                     }
                 });
 
-
+                carregarGrafico()
 
             })
             .catch(erro => {
@@ -223,10 +223,10 @@
 
     function carregarGrafico() {
 
-        let play1 = []
-        let play2 = []
-        let play3 = []
-        let play4 = []
+        let play1 = [0, 0, 0, 0]
+        let play2 = [0, 0, 0, 0]
+        let play3 = [0, 0, 0, 0]
+        let play4 = [0, 0, 0, 0]
         let semanas = []
         let layout = ["semana 1", "semana 2", "semana 3", "semana 4"]
 
@@ -235,6 +235,7 @@
             .then(dados => {
 
                 console.log(dados)
+
 
                 let nome1 = dados[0].nome || "Player 1";
                 let nome2 = dados[1].nome || "Player 2"
@@ -258,16 +259,16 @@
 
                     if (dados[i].nome == nome1) {
                         let posicao = i % 4 + 1;
-                        play1.push(posicao)
+                        play1[i] = posicao
                     } else if (dados[i].nome == nome2) {
                         let posicao = i % 4 + 1;
-                        play2.push(posicao)
+                        play2[i] = posicao
                     } else if (dados[i].nome == nome3) {
                         let posicao = i % 4 + 1;
-                        play3.push(posicao)
+                        play3[i] = posicao
                     } else {
                         let posicao = i % 4 + 1;
-                        play4.push(posicao)
+                        play4[i] = posicao
                     }
                 }
 

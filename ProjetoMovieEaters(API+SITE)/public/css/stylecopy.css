@@ -429,12 +429,15 @@ p {
 /* ======================= footer ======================= */
 
 .footer {
+    
     height: 80px;
     display: flex;
     flex-direction: column;
     padding: 20px 50px;
     background-color: black;
     gap: 1px;
+
+    font-family: 'DM Sans', sans-serif;
 }
 
 .footer-top {
@@ -491,7 +494,8 @@ p {
 
 .footer span {
 
-font-family: 'Courier New', Courier, monospace;
+
+font-family: 'DM Sans', sans-serif;
 color: white;
 
 

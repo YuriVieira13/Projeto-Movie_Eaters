@@ -66,13 +66,18 @@ function cadastrar(req, res) {
                 }
             ).catch(
                 function (erro) {
-                    console.log(erro);
+                     console.log(erro);
+                if (erro.code == "ER_DUP_ENTRY") {
+                    res.status(409).send("Este email já está cadastrado!");
+                } else {
                     console.log(
                         "\nHouve um erro ao realizar o cadastro! Erro: ",
                         erro.sqlMessage
                     );
+
                     res.status(500).json(erro.sqlMessage);
                 }
+            }
             );
     }
 }

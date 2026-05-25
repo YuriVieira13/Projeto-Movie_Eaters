@@ -1,9 +1,9 @@
     var database = require("../database/config");
 
     // função responsável por gerar dados para o gráfico 1
-    function listar() {
+    function listar(idGrupo) {
         var instrucao = `
-        SELECT
+       	SELECT
         nome,
         YEARWEEK(dataPontuacao, 1) AS semana,
         fkUsuario AS player,
@@ -11,14 +11,14 @@
         (
             SELECT COUNT(DISTINCT YEARWEEK(dataPontuacao, 1))
             FROM historico_pontos
-            WHERE fkGrupo = 11
+            WHERE fkGrupo = ${idGrupo}
         ) AS qtdSemanas
 
         FROM usuario u
         JOIN historico_pontos hp
         ON u.id = hp.fkUsuario
 
-        WHERE fkGrupo = 11
+        WHERE fkGrupo = ${idGrupo}
 
         GROUP BY nome, semana, fkUsuario
 

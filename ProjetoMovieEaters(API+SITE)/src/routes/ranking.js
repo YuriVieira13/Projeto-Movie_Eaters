@@ -4,7 +4,7 @@ var router = express.Router();
 var rankingController = require("../controllers/rankingController");
 
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:idGrupo", function (req, res) {
     rankingController.listar(req, res);
 });
 

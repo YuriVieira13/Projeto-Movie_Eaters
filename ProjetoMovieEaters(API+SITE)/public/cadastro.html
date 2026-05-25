@@ -258,12 +258,17 @@
 
           limparFormulario();
           finalizarAguardar();
+        } else if (resposta.status == 409) {
+             alertaErro.style.display = "flex";
+            mensagem_erro.innerHTML = "Esse e-mail já está cadastrado";
+          throw "Este email já está cadastrado!";
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
+
         finalizarAguardar();
       });
 

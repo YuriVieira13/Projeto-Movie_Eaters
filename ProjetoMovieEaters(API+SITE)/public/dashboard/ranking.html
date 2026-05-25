@@ -21,7 +21,7 @@
         <div class="header">
 
             <div class="left">
-                Bem vindo, Yuri
+                Bem vindo
             </div>
 
             <div class="center">
@@ -37,7 +37,9 @@
             </div>
         </div>
 
-        <div class="nomeGrupo" id="nome_Grupo"><H3>Grupo: Os assistidores</H3></div>
+        <div class="nomeGrupo" id="nome_Grupo">
+            <H3>Grupo: Os assistidores</H3>
+        </div>
 
         <div class="kpis">
 
@@ -83,7 +85,7 @@
 
     function carregadorDados() {
         var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
-        let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
+        let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
         console.log(idGrupo)
 
         let nomeGrupo = sessionStorage.NOME_GRUPO;
@@ -123,19 +125,19 @@
 
                 // 
 
-                    let nomes = [];
-                    let valores = [];
+                let nomes = [];
+                let valores = [];
 
-                    for (let i = 0; i < dados.length; i++) {
+                for (let i = 0; i < dados.length; i++) {
 
                     nomes.push(dados[i].nome);
                     valores.push(dados[i].total);
 
-                    }
+                }
 
-                    const grafico2 = document.getElementById('graficoRanking');
+                const grafico2 = document.getElementById('graficoRanking');
 
-                    new Chart(grafico2, { // Cria um novo gráfico usando o canvas 'grafico2'
+                new Chart(grafico2, { // Cria um novo gráfico usando o canvas 'grafico2'
 
                     type: 'bar', //
 
@@ -220,32 +222,51 @@
 
     }
 
-
     function carregarGrafico() {
 
-        let play1 = [0, 0, 0, 0]
-        let play2 = [0, 0, 0, 0]
-        let play3 = [0, 0, 0, 0]
-        let play4 = [0, 0, 0, 0]
+     let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+
+        let play1 = []
+        let play2 = []
+        let play3 = []
+        let play4 = []
+
         let semanas = []
         let layout = ["semana 1", "semana 2", "semana 3", "semana 4"]
 
-        fetch("/ranking/listar")
+        let nome1 = "Convide um amigo"
+        let nome2 = "Convide um amigo"
+        let nome3 = "Convide um amigo"
+        let nome4 = "Convide um amigo"
+
+        fetch(`/ranking/listar/${idGrupo}`)
             .then(res => res.json())
             .then(dados => {
 
                 console.log(dados)
 
+                if (dados.length > 0) {
+                    nome1 = dados[0]?.nome 
+                }
 
-                let nome1 = dados[0].nome || "Player 1";
-                let nome2 = dados[1].nome || "Player 2"
-                let nome3 = dados[2].nome || "Player 3"
-                let nome4 = dados[3].nome || "Player 4"
+                if (dados.length > 1) {
+                    nome2 = dados[1]?.nome 
+                }
+
+                if (dados.length > 2) {
+                    nome3 = dados[2]?.nome 
+                }
+
+                if (dados.length > 3) {
+                    nome4 = dados[3]?.nome 
+                }
 
 
                 // automatizar o número de semanas no gráfico
 
-                    let qntSemanas = dados[0].qtdSemanas;
+                let qntSemanas = dados[0].qtdSemanas;
+                console.log(qntSemanas)
+
                 for (let i = 1; i <= qntSemanas; i++) {
                     semanas.push("Semana " + i)
 
@@ -259,16 +280,16 @@
 
                     if (dados[i].nome == nome1) {
                         let posicao = i % 4 + 1;
-                        play1[i] = posicao
+                        play1.push(posicao)
                     } else if (dados[i].nome == nome2) {
                         let posicao = i % 4 + 1;
-                        play2[i] = posicao
+                        play2.push(posicao)
                     } else if (dados[i].nome == nome3) {
                         let posicao = i % 4 + 1;
-                        play3[i] = posicao
+                          play3.push(posicao)
                     } else {
                         let posicao = i % 4 + 1;
-                        play4[i] = posicao
+                           play4.push(posicao)
                     }
                 }
 

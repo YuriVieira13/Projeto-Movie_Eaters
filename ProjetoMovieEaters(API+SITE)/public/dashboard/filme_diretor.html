@@ -150,8 +150,9 @@
         fetch(`/filmes/listar/${idGrupo}`)
             .then(res => res.json())
             .then(dados => {
+            console.log(dados)
 
-            if (idGrupo == dados[0].fkUsuario) {
+            if (idUsuario == dados[0].fkUsuario) {
                 alert("Você já escolheu o filme da semana")
                 window.location = "./filme_watcher.html"
             }

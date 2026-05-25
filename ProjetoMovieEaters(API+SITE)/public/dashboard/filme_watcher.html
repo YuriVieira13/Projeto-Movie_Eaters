@@ -65,7 +65,7 @@
                     <h2>O QUE VOCÊ ACHOU DO FILME:</h2>
                     <div class="alinhar">
                         <div class="bloco1">
-                            <img src="../assets/icons/pipoca.webp" alt="botão pipoca" onclick="mandarPontuacao(10, 'curtida_filme')">
+                            <img src="../assets/icons/pipoca.webp" alt="botão pipoca" onclick="mandarPontuacao(10, 'avaliou_filme')">
                             <span>CURTI MUITO</span>
                         </div>
                         <div class="bloco2">
@@ -73,7 +73,7 @@
                             <span>NÃO ASSISTI</span>
                         </div>
                         <div class="bloco3">
-                            <img src="../assets/icons/tomate.png" alt="botão tomate" onclick="mandarPontuacao(-5, 'detestou_filme')">
+                            <img src="../assets/icons/tomate.png" alt="botão tomate" onclick="mandarPontuacao(-5, 'avaliou_filme')">
                             <span>NÃO CURTI</span>
                         </div>
                     </div>
@@ -167,10 +167,14 @@ function mandarPontuacao(pontuacao, motivo) {
         if (resposta.ok) {
 
           alert("Boa avaliação")
+          console.log(pontosDiretor)
 
-        } else {
-          throw "Houve um erro ao tentar realizar a avaliaçao!";
-        }
+        } else if (resposta.status == 409) {
+                    alert("Você já avaliou esse filme")
+                    throw "Review Repetida";
+                } else {
+                    throw "Houve um erro ao tentar realizar a avaliação!";
+                }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);

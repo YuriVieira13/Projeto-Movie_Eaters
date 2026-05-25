@@ -70,7 +70,7 @@
 
         var nomeUsuario = sessionStorage.NOME_USUARIO;
         document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
-        let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
+        let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
 
         fetch(`/filmes/listar/${idGrupo}`)
             .then(res => res.json())
@@ -127,26 +127,24 @@
                     alert("Review realizada com sucesso")
                     window.location = "./review.html";
 
+                } else if (resposta.status == 409) {
+                    alert("Você já fez uma review desse filme")
+                    throw "Review Repetida";
                 } else {
-
-                    return resposta.text().then(texto => { // resposta é o que vem do controller em caso de erro, mas vem como objeto, preciso transformar em texto;
-                        throw new Error(texto); // faz parte do try catch, manda o erro para o catch
-                    });
-
+                    throw "Houve um erro ao tentar realizar a avaliação!";
                 }
             })
 
             .catch(function (erro) {
 
                 console.log(erro);
-                alert(erro);
 
             });
     }
 
-    function carregarReview(variavel, nome) {
+    function carregarReview(idFilme, nome) {
 
-        fetch(`/review/listar/${variavel}`)
+        fetch(`/review/listar/${idFilme}`)
             .then(res => res.json())
             .then(dados => {
 
@@ -158,7 +156,7 @@
                 feed.innerHTML = "";
 
                 for (let i = 0; i < review.length; i++) {
-                var publicacao = review[i];
+                    var publicacao = review[i];
 
 
                     var divPublicacao = document.createElement("div");
@@ -218,7 +216,7 @@
                         deletar.style.display = "none"
                     }
 
-                     if (nome == publicacao.Usuario) {
+                    if (nome == publicacao.Usuario) {
                         console.log(publicacao.Usuario)
                         let Curtir = document.getElementById("btnCurtir" + publicacao.idReview);
                         Curtir.style.display = "none"
@@ -234,8 +232,8 @@
 
     }
 
-      function deletar(idReview) {
-        
+    function deletar(idReview) {
+
         fetch(`/review/deletar/${idReview}`, {
             method: "DELETE",
             headers: {
@@ -254,41 +252,45 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    }     
+    }
 
 
-function curtir(fkUsuario, idFilme) {
+    function curtir(fkUsuario, idFilme) {
 
-    var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
-    var pontos = 5;
-    var tipo = "curtida_review";
-    var idReferencia = idFilme;
+        var idUsuario = sessionStorage.ID_USUARIO;
+        var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+        var pontos = 5;
+        var tipo = `curtida_review${idUsuario}`
+        var idReferencia = idFilme;
 
-    fetch("/review/curtir", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            fkUsuario: fkUsuario,
-            idGrupo: idGrupo,
-            pontos: pontos,
-            tipo: tipo,
-            idReferencia: idReferencia
-        }),
-    })
-    .then(resposta => {
-        console.log("resposta: ", resposta);
+        fetch("/review/curtir", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkUsuario: fkUsuario,
+                idGrupo: idGrupo,
+                pontos: pontos,
+                tipo: tipo,
+                idReferencia: idReferencia
+            }),
+        })
+            .then(resposta => {
+                console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
-            alert("Boa avaliação");
-        } else {
-            throw "Houve um erro ao tentar realizar a avaliação!";
-        }
-    })
-    .catch(erro => {
-        console.log(`#ERRO: ${erro}`);
-    });
-}
+                if (resposta.ok) {
+                    alert("Boa avaliação");
+                } else if (resposta.status == 409) {
+                    alert("Você já curtiu essa review")
+                    throw "Este email já está cadastrado!";
+                } else {
+                    throw "Houve um erro ao tentar realizar a avaliação!";
+                }
+            })
+            .catch(erro => {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
 
 </script>

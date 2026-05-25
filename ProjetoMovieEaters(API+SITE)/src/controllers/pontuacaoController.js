@@ -54,7 +54,11 @@ function cadastrar(req, res) {
     pontuacaoModel.cadastrar(idDiretor, idGrupo, idUsuario, pontosDiretor, pontosUsuario, tipo, tipoUsuario, idReferencia).then(function (resposta) {
         res.status(200).send("Avaliado com sucesso");
     }).catch(function (erro) {
-        res.status(500).json(erro.sqlMessage);
+        if (erro.code == "ER_DUP_ENTRY") {
+            res.status(409).send("Você já avaliou esse filme!");
+        } else {
+            res.status(500).json(erro.sqlMessage);
+        }
     })
 }
 

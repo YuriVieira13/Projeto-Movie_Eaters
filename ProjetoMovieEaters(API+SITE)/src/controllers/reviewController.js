@@ -38,7 +38,7 @@ function cadastrar(req, res) {
         
        if (erro.code == "ER_DUP_ENTRY") { // erro para testar se não tem duplicação das revies
 
-        res.status(400).send("Você não pode fazer duas reviews do mesmo filme"); // res vai ser a resposta que eu vou enviar para meu front
+        res.status(409).send("Você não pode fazer duas reviews do mesmo filme"); // res vai ser a resposta que eu vou enviar para meu front
 
     } else {
 
@@ -97,7 +97,11 @@ function curtir(req, res) {
     reviewModel.curtir(fkUsuario, idGrupo, pontos, tipo, idReferencia).then(function(resposta){
         res.status(200).send("Filme cadastrado com sucesso");
     }).catch(function(erro){
-        res.status(500).json(erro.sqlMessage);
+        if (erro.code == "ER_DUP_ENTRY") {
+            res.status(409).send("Você já avaliou essa review!");
+        } else {
+            res.status(500).json(erro.sqlMessage);
+        }
     })
 }
 

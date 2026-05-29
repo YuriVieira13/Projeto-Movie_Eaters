@@ -302,8 +302,19 @@ SELECT * FROM filme;
         ORDER BY vezes_diretor ASC, RAND()
         LIMIT 1;
     -- -------------------------------------
-    select * from usuarioGrupo;
     
-    DELETE FROM usuarioGrupo WHERE fkUsuario = 5;
+    select * from usuarioGrupo where fkUsuario = 2;
     
+    select * from historico_pontos;
+    
+    ALTER TABLE historico_pontos ADD constraint unique_Pontos
+    unique (fkUsuario, tipo, idReferencia);
+    
+    DESC historico_pontos;
+    
+    SELECT * FROM usuarioGrupo
+    WHERE fkGrupo = 1;
+    
+     SELECT idFilme, nome, poster,  DATE_FORMAT(dt_insercao, "%d/%m/%y") AS semana from filme
+        WHERE fkGrupo = ${idGrupo};
     

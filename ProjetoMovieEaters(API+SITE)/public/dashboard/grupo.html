@@ -46,9 +46,9 @@
                         <button onclick="entrarGrupo()" class="botaoE">ENTRAR</button>
                     </div>
                     <div id="blocoEntrar" class="textosA">
-                        <span> Digite o <tag style="color:#ffc500"> código</tag> para acessar o grupo.</span> <br>
                         <span> Assitir filmes, boas indicações e boas reviews te garantem pontos.</span> <br>
-                        <span> O vencedor é o primeiro que atingir 500 pontos no ranking geral.</span> <br>
+                        <span> O vencedor será aquele no topo após 12 semanas.</span> <br>
+                         <span> Digite o <tag style="color:#ffc500"> código</tag> para acessar o grupo.</span> <br>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="botoes">
                             <button onclick="cadastrarGrupo()" class="botaoC">CRIAR</button>
-                            <button onclick="verGrupos()" class="botaoV">VER GRUPOS</button>
+                            <button onclick="verGrupos()" class="botaoV">VER SEUS GRUPOS</button>
                         </div>
                         <div id="grupo" class="textos">
                             <span> O primeiro passo é criar um grupo para poder jogar com seus amigos.</span> <br>
@@ -161,38 +161,7 @@
 
         return codigo;
     }
-
-    /* não funcionou porque faltou a parte do wait e assincrona
-    function validarCodigo() {
-
-        let codigo = inp_codigo.value;
-
-        if (codigo == "") {
-
-            alert("Esqueceu de preencher o código")
-            return;
-
-        }
-
-        fetch(`/grupo/listar/${codigo}`)
-            .then(res => res.json())
-            .then(dados => {
-
-                console.log(dados)
-                sessionStorage.ID_GRUPO = dados[0].idGrupo;
-                console.log(sessionStorage.ID_GRUPO)
-
-                let idGrupo = sessionStorage.ID_GRUPO
-                
-                return idGrupo
-
-            })
-            .catch(erro => {
-                console.log("Erro:", erro);
-            });
-
-    }   */
-
+    
     function entrarGrupo() {
 
         let codigo = inp_codigo.value;
@@ -213,6 +182,7 @@
                 let idGrupo = sessionStorage.getItem("ID_GRUPO");
                 let idUsuario = sessionStorage.getItem("ID_USUARIO");
                 let papel = "watcher";
+                let vezesDiretor = 0;
 
                 fetch("/grupo/entrar", {
                     method: "POST",
@@ -222,7 +192,8 @@
                     body: JSON.stringify({
                         idGrupo: idGrupo,
                         idUsuario: idUsuario,
-                        papel: papel
+                        papel: papel,
+                        vezesDiretor: vezesDiretor
                     }),
                 })
                     .then(function (resposta) {

@@ -17,9 +17,9 @@ function cadastrar(nomeGrupo, codigo) {
     return database.executar(instrucao);
 }
 
-function entrar(idUsuario, idGrupo, papel) {
+function entrar(idUsuario, idGrupo, papel, vezesDiretor) {
     var instrucao = `
-        INSERT INTO usuarioGrupo (fkUsuario, fkGrupo, papel) VALUES (${idUsuario}, ${idGrupo}, '${papel}');
+        INSERT INTO usuarioGrupo (fkUsuario, fkGrupo, papel, vezes_diretor) VALUES (${idUsuario}, ${idGrupo}, '${papel}', '${vezesDiretor}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

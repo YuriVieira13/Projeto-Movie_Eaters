@@ -71,7 +71,7 @@
 
         <img src="./ASSETS/Sofas/sofa1.jpg" alt="">
 
-        <p>Você cria seu grupo de filmes e, a cada semana, um membro é sorteado para definir o que todos irão
+        <p>Você cria um grupo com amigos e, a cada semana, um membro é sorteado para definir o que todos irão
             assistir. A proposta é simples: cada pessoa tem sua vez de escolher, enquanto o restante do grupo vive a
             experiência junto. Assim, escolher o filme passa a fazer parte da diversão, incentivando a conhecer
             novos gêneros, gostos e histórias, além de aproximar as pessoas, mesmo à distância. </p>
@@ -84,7 +84,7 @@
 
         <img src="./ASSETS/Sofas/sofa2.jpg" alt="">
 
-        <p>E tem mais: rola uma competição. Assistiu o filme da semana, pontuou. Foi o melhor na review, pontuou
+        <p>E tem mais: rola uma competição. Assistiu o filme da semana, pontuou. Foi bem na review, pontuou
             mais. Escolheu um filme que a galera curtiu, ganhou de novo. Simples assim. No fim, quanto mais você
             participa, mais você ganha. E cabe a vocês decidirem qual vai ser o prêmio de quem estiver no topo. </p>
 
@@ -127,9 +127,6 @@
 
     </div>
 
-
-
-
 </body>
 
 </html>
@@ -141,10 +138,10 @@
     const overlay = document.getElementById('overlay');
 
     video.addEventListener('ended', function () {
-        // adiciona o video estático na home fundo
+        // adiciona a classe do banner
         home_fundo.classList.add('finalizado');
 
-        // garante que ele vai ficar invisivel antes de ser excluido e parar de ocupar esaço
+        // deixar opaco antes de remover
         video.style.opacity = '0';
 
         // remove o video e a overlay

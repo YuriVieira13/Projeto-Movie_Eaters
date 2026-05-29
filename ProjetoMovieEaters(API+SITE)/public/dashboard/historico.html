@@ -98,7 +98,7 @@
 
             }
 
-                  function carregarFilmes() {
+                function carregarFilmes() {
 
                 let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
                 console.log(idGrupo);
@@ -128,7 +128,7 @@
                             // -- criando texto
                             // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";
                             spanTitulo.innerHTML = "Título: <b>" + publicacao.nome + "</b>";
-                            spanData.innerHTML = "Semana: <b>" + publicacao.semana + "</b>";
+                            spanData.innerHTML = "Data da rodada: <b>" + publicacao.semana + "</b>";
                            
                             // -- criando classe e Id
                             divPublicacao.className = "publicacao_filme";
@@ -179,7 +179,6 @@
                           for (let i = 0; i < review.length; i++) {
                           var publicacao =  review[i];
 
-
                             var divPublicacao = document.createElement("div");
                             var spanTitulo = document.createElement("span");
                             var spanNota = document.createElement("span");
@@ -207,7 +206,6 @@
                             divPublicacao.appendChild(spanNota);
                             divPublicacao.appendChild(divDescricao);
                             feed.appendChild(divPublicacao);
-
                         }
 
                     })

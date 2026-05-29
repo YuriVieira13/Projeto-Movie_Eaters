@@ -92,13 +92,13 @@
         console.log(nomeGrupo)
         nome_Grupo.innerHTML = `Grupo: <tag style="color:#ffc500">${nomeGrupo}</tag>`
 
-        fetch(`/pontuacao/listar/${idGrupo}`)
+        fetch(`/pontuacao/listar/${idGrupo}`) 
             .then(res => res.json())
             .then(dados => {
 
                 console.log(dados);
 
-                // validando se não veio vazio
+                // validando se não veio vazio 
                 if (dados.length == 0) {
 
                     document.getElementById("posicao").innerText = "-";
@@ -108,6 +108,7 @@
                     return;
                 }
 
+                // for para pegar a posição de cada usuário a partir do nome
                 for (let i = 0; i < dados.length; i++) {
 
                     if (dados[i].nome == nomeUsuario) {
@@ -117,17 +118,18 @@
 
                 }
 
-                document.getElementById("posicao").innerText = posicao;
-                document.getElementById("total").innerText = dados[index].total;
-                document.getElementById("lider").innerText = dados[0].nome.toUpperCase(); // dados 0 pq no order by desc o lider sempre vem 1º
-                document.getElementById("distancia").innerText = (dados[0].total - dados[index].total) + ' pontos';
-                document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+                // dados da KPI
+                document.getElementById("posicao").innerHTML = posicao;
+                document.getElementById("total").innerHTML = dados[index].total;
+                document.getElementById("lider").innerHTML = dados[0].nome.toUpperCase(); // dados 0 pq no order by desc o lider sempre vem 1º
+                document.getElementById("distancia").innerHTML = (dados[0].total - dados[index].total) + ' pontos';
+                document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
 
-                // 
-
+                // vetores para a criação do gráfico de ranking
                 let nomes = [];
                 let valores = [];
 
+                // preenchendo nome e valores que vão alimentar o gráfico, como na query eu ordeno pelo desc, eu sempre seleciono o lider como 0
                 for (let i = 0; i < dados.length; i++) {
 
                     nomes.push(dados[i].nome);
@@ -137,7 +139,7 @@
 
                 const grafico2 = document.getElementById('graficoRanking');
 
-                new Chart(grafico2, { // Cria um novo gráfico usando o canvas 'grafico2'
+                new Chart(grafico2, {
 
                     type: 'bar', //
 
@@ -160,24 +162,24 @@
                     options: {
                         indexAxis: 'y', // Faz o gráfico ficar horizontal (eixo principal vira o Y)
 
-                        responsive: true, // Faz o gráfico se adaptar ao tamanho da tela/container
+                        responsive: true, 
 
                         plugins: {
                             legend: {
-                                display: false // Esconde a legenda (já que só tem um dataset)
+                                display: false
                             },
 
                             title: {
-                                display: true, // Mostra o título
-                                text: 'Ranking geral da competição', // Texto do título
-                                color: '#ffffff', // Cor do título
+                                display: true, 
+                                text: 'Ranking geral da competição', 
+                                color: '#ffffff',
                                 font: {
-                                    size: 20 // Tamanho da fonte do título
+                                    size: 20 
                                 }
                             },
 
                             tooltip: {
-                                enabled: true // Ativa o tooltip ao passar o mouse nas barras
+                                enabled: true // hover do gráfico, padrão do chartjs
                             }
                         },
 
@@ -195,14 +197,14 @@
 
                                 title: {
                                     display: true, // Mostra o título do eixo X
-                                    text: 'Pontuação', // Texto do eixo
-                                    color: '#ccc' // Cor do texto
+                                    text: 'Pontuação',
+                                    color: '#ccc' 
                                 }
                             },
 
                             y: {
                                 ticks: {
-                                    color: '#ccc' // Cor dos nomes (Yuri, Ana, etc.)
+                                    color: '#ccc' // Cor dos nomes
                                 },
 
                                 grid: {
@@ -222,16 +224,16 @@
 
     }
 
-    function carregarGrafico() {
+    function carregarGrafico() { // função para carregar o gráfico de progresso semanal
 
      let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
 
-        let play1 = []
+        let play1 = [] // vetores para salvar a posição em cada semana de cada usuário
         let play2 = []
         let play3 = []
         let play4 = []
 
-        let semanas = []
+        let semanas = [] // recebe as semanas caso passe do layout
         let layout = ["semana 1", "semana 2", "semana 3", "semana 4"]
 
         let nome1 = "Convide um amigo"
@@ -246,26 +248,28 @@
                 console.log(dados)
 
                 if (dados.length > 0) {
-                    nome1 = dados[0]?.nome 
+                    nome1 = dados[0].nome 
                 }
 
                 if (dados.length > 1) {
-                    nome2 = dados[1]?.nome 
+                    nome2 = dados[1].nome 
                 }
 
                 if (dados.length > 2) {
-                    nome3 = dados[2]?.nome 
+                    nome3 = dados[2].nome 
                 }
 
                 if (dados.length > 3) {
-                    nome4 = dados[3]?.nome 
+                    nome4 = dados[3].nome 
                 }
 
 
                 // automatizar o número de semanas no gráfico
 
                 let qntSemanas = dados[0].qtdSemanas;
+                definirVencedor(qntSemanas)
                 console.log(qntSemanas)
+
 
                 for (let i = 1; i <= qntSemanas; i++) {
                     semanas.push("Semana " + i)
@@ -345,16 +349,16 @@
                             },
 
                             title: {
-                                display: true, // Mostra o título
+                                display: true, 
                                 text: 'Classificação Semanal (Quem fez mais pontos naquela semana)', // Texto do título
-                                color: '#ffffff', // Cor do título
+                                color: '#ffffff', 
                                 font: {
-                                    size: 20 // Tamanho da fonte do título
+                                    size: 20
                                 }
                             },
 
                             tooltip: {
-                                enabled: true // Ativa o tooltip ao passar o mouse nas barras
+                                enabled: true
                             }
                         },
                         scales: {
@@ -364,7 +368,7 @@
                                 max: 5,
                                 ticks: {
                                     stepSize: 1,
-                                    callback: function (value) {
+                                    callback: function (value) { // função usada para desaparecer o 0 e o 5 no gráfico, questão estética
                                         if (value == 0 || value == 5) {
                                             return "";
                                         }
@@ -386,7 +390,7 @@
 
     }
 
-    function descobrirPapel() {
+    function descobrirPapel() { // função para salvar no sessionStorage o papel no grupo e fazer a validação no "filme da semana"
 
         let idGrupo = sessionStorage.ID_GRUPO;
         let idUsuario = sessionStorage.ID_USUARIO;
@@ -406,5 +410,15 @@
 
     }
 
+    function definirVencedor(semanas) {
 
+        if (semanas == 12) {
+
+        alert("O jogo foi finalizado! Caso ainda queiram manter o mesmo grupo, podem dar seguimento a competição!")
+        }
+
+
+
+
+    }
 </script>

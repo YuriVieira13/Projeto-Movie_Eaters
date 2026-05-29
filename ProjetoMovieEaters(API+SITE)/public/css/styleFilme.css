@@ -360,3 +360,11 @@ transform: scale(1.2);
 cursor: pointer;
 
 }
+
+.imagemFinal {
+    display: flex;
+    width: 200px;
+    height: auto;
+
+    align-self: flex-end;
+}

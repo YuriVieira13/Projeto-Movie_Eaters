@@ -1,262 +1,283 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filme da semana</title>
-    
-    <script src="../js/validar.js"></script>
-    <link rel="stylesheet" href="../css/styleFilme.css" />
-    <link rel="icon" href="/assets/logonova.png">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Filme da semana</title>
+
+        <script src="../js/validar.js"></script>
+        <link rel="stylesheet" href="../css/styleFilme.css" />
+        <link rel="icon" href="/assets/logonova.png">
 
 
-</head>
+    </head>
 
-<body onload="carregadorDados()">
+    <body onload="carregadorDados()">
 
-    <div class="container2">
+        <div class="container2">
 
-        <div class="header2">
+            <div class="header2">
 
-            <div class="left">
-                Bem vindo
+                <div class="left">
+                    Bem vindo
+                </div>
+
+                <div class="center">
+                    <ul class="navbar">
+                        <a href="#" onclick="conferir()">FILME DA SEMANA</a>
+                        <li><a href="../dashboard/ranking.html">RANKING</a></li>
+                        <li><a href="../dashboard/historico.html">HISTÓRICO</a></li>
+                        <li><a href="./review.html">REVIEWS</a></li>
+                        <li class="direita"><a href="#" onclick="sairGrupo()">SAIR</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="center">
-                <ul class="navbar">
-                    <a href="#" onclick="conferir()">FILME DA SEMANA</a>
-                    <li><a href="../dashboard/ranking.html">RANKING</a></li>
-                    <li><a href="../dashboard/historico.html">HISTÓRICO</a></li>
-                    <li><a href="./review.html">REVIEWS</a></li>
-                    <li class="direita"><a href="#" onclick="sairGrupo()">SAIR</a></li>
-                </ul>
-            </div>
-        </div>
+            <div class="box">
 
-        <div class="box">
+                <div class="box_left">
+                    <img id="imagem" src="" alt="">
+                </div>
 
-            <div class="box_left">
-                <img id="imagem" src="" alt="">
-            </div>
+                <div class="box_right">
 
-            <div class="box_right">
+                    <div class="parte1">
+                        <div class="dados_filme">
+                            <h1>FILME: <span id="nome_filme"></span></h1><br>
+                            <p>DIRETOR: <span id="nome_diretor"></span> <br><br>
+                                ANO DE LANÇAMENTO: <span id="ano_filme"></span> <br><br>
+                                ONDE ASSISTIR: <span id="assistir_filme"></span>
+                            </p>
+                        </div>
+                        <button class="botao" onclick="window.location.href='./review.html'">FAZER REVIEW</button>
+                    </div>
 
-                <div class="parte1">
-                    <div class="dados_filme">
-                        <h1>FILME: <span id="nome_filme"></span></h1><br>
-                        <p>DIRETOR: <span id="nome_diretor"></span> <br><br>
-                            ANO DE LANÇAMENTO: <span id="ano_filme"></span> <br><br>
-                            ONDE ASSISTIR: <span id="assistir_filme"></span>
+                    <div class="sistema_pontos">
+                        <h2>SISTEMA DE PONTOS</h2>
+                        <p>GANHE 10 PONTOS AO ASSISTIR ESSE FILME. <br><br>
+                            SEU FEEDBACK PODE ADICIONAR OU REMOVER<br>
+                            PONTOS DO DIRETOR DA SEMANA.
                         </p>
                     </div>
-                        <button class="botao" onclick="window.location.href='./review.html'">FAZER REVIEW</button>
-                </div>
 
-                <div class="sistema_pontos">
-                    <h2>SISTEMA DE PONTOS</h2>
-                    <p>GANHE 10 PONTOS AO ASSISTIR ESSE FILME. <br><br>
-                        SEU FEEDBACK PODE ADICIONAR OU REMOVER<br>
-                        PONTOS DO DIRETOR DA SEMANA.
-                    </p>
-                </div>
-
-                <div class="avaliacao" id="avaliacao">
-                    <h2>O QUE VOCÊ ACHOU DO FILME:</h2>
-                    <div class="alinhar">
-                        <div class="bloco1">
-                            <img src="../assets/icons/pipoca.webp" alt="botão pipoca" onclick="mandarPontuacao(10, 'avaliou_filme')">
-                            <span>CURTI MUITO</span>
-                        </div>
-                        <div class="bloco2">
-                            <img src="../assets/icons/olho.png" alt="botão olho" onclick="aviso()">
-                            <span>NÃO ASSISTI</span>
-                        </div>
-                        <div class="bloco3">
-                            <img src="../assets/icons/tomate.png" alt="botão tomate" onclick="mandarPontuacao(-5, 'avaliou_filme')">
-                            <span>NÃO CURTI</span>
+                    <div class="avaliacao" id="avaliacao">
+                        <h2>O QUE VOCÊ ACHOU DO FILME:</h2>
+                        <div class="alinhar">
+                            <div class="bloco1">
+                                <img src="../assets/icons/pipoca.webp" alt="botão pipoca"
+                                    onclick="mandarPontuacao(10, 'avaliou_filme')">
+                                <span>CURTI MUITO</span>
+                            </div>
+                            <div class="bloco2">
+                                <img src="../assets/icons/olho.png" alt="botão olho" onclick="aviso()">
+                                <span>NÃO ASSISTI</span>
+                            </div>
+                            <div class="bloco3">
+                                <img src="../assets/icons/tomate.png" alt="botão tomate"
+                                    onclick="mandarPontuacao(-5, 'avaliou_filme')">
+                                <span>NÃO CURTI</span>
+                            </div>
                         </div>
                     </div>
+                    <button onclick="sortearDiretor()">Encerrar Semana</button>
 
                 </div>
-                         <button onclick="sortearDiretor()">Encerrar Semana</button>
 
             </div>
-                   
+
         </div>
 
-    </div>
+    </html>
 
-</html>
+    <script>
 
-<script>
+        let idDiretor1 = 0; // variáveis globais para usar em mais de uma função
+        let idFilme = 0;
 
-    let idDiretor1 = 0;
-    let idFilme = 0;
+        function carregadorDados() {
+            var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
+            let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+            console.log(idGrupo)
 
-    function carregadorDados () {
-    var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
-    let idGrupo =  Number(sessionStorage.getItem("ID_GRUPO"));
-    console.log(idGrupo)
+            fetch(`/filmes/listar/${idGrupo}`) // função para pegar o último filme cadastado naquele grupo
+                .then(res => res.json())
+                .then(dados => {
 
-    fetch(`/filmes/listar/${idGrupo}`)
-    .then(res => res.json())
-    .then(dados => {
+                    console.log(dados);
 
-        console.log(dados);
+                    if (dados.length == 0) {
 
-        var filme = dados[0];
+                        document.getElementById("nome_filme").innerHTML = "AINDA NÃO CADASTRADO";
+                        document.getElementById("nome_diretor").innerHTML = "AINDA NÃO CADASTRADO";
+                        document.getElementById("ano_filme").innerHTML = "AINDA NÃO CADASTRADO";
+                        document.getElementById("assistir_filme").innerHTML = "AINDA NÃO CADASTRADO";
 
-        sessionStorage.ID_FILME = filme.idfilme; // salvar id do Filme
-        console.log(sessionStorage.ID_FILME)
+                    } else {
 
-        idDiretor1 = filme.fkUsuario;
-        idFilme = filme.idfilme;
+                        var filme = dados[0];
 
-       document.getElementById("nome_filme").innerHTML = (filme.nome || "Ainda não cadastrado").toUpperCase();
-       document.getElementById("nome_diretor").innerHTML = (filme.diretor || "Ainda não cadastrado").toUpperCase();
-        document.getElementById("ano_filme").innerHTML = (filme.ano || "Ainda não cadastrado").toUpperCase();
-        document.getElementById("assistir_filme").innerHTML = (filme.onde_assistir || "Ainda não cadastrado").toUpperCase();
-        document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
+                        sessionStorage.ID_FILME = filme.idfilme; // salvar id do Filme
+                        console.log(sessionStorage.ID_FILME);
 
-        document.getElementById("imagem").src = "../uploads/" + filme.poster
-        esconderAvaliacao()
+                        idDiretor1 = filme.fkUsuario;
+                        idFilme = filme.idfilme;
 
-    })
-    .catch(erro => {
-        console.log("Erro:", erro);
-    });
+                        document.getElementById("nome_filme").innerHTML = filme.nome.toUpperCase();
+                        document.getElementById("nome_diretor").innerHTML = filme.diretor.toUpperCase();
+                        document.getElementById("ano_filme").innerHTML = filme.ano.toUpperCase();
+                        document.getElementById("assistir_filme").innerHTML = filme.onde_assistir.toUpperCase();
 
-}
+                        document.getElementById("imagem").src = "../uploads/" + filme.poster;
+                    }
 
-function mandarPontuacao(pontuacao, motivo) {
+                    document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
 
-    var idDiretor = idDiretor1; // ID DA PESSOA QUE INDICOU O FILME
-    var idUsuario = sessionStorage.getItem("ID_USUARIO"); // ID DE QUEM ESTÁ FAZENDO A AVALIAÇÃO
-    var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
-    var pontosDiretor = pontuacao;
-    var pontosUsuario = 10;
-    var tipo = motivo;
-    var tipoUsuario = "Assistiu_filme"
-    var idReferencia = idFilme; // filme que foi referenciado
-    
+                    esconderAvaliacao();
 
-    // Enviando o valor da nova input
-    fetch("/pontuacao/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        idDiretor: idDiretor,
-        idUsuario: idUsuario,
-        idGrupo: idGrupo,
-        pontosDiretor: pontosDiretor,
-        pontosUsuario: pontosUsuario,
-        tipo: tipo,
-        tipoUsuario: tipoUsuario,
-        idReferencia: idReferencia
+                })
+                .catch(erro => {
+                    console.log("Erro:", erro);
+                });
 
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
+        }
 
-        if (resposta.ok) {
+        function mandarPontuacao(pontuacao, motivo) {
 
-          alert("Boa avaliação")
-          console.log(pontosDiretor)
+            let resposta = confirm("Está certo do seu voto?");
 
-        } else if (resposta.status == 409) {
-                    alert("Você já avaliou esse filme")
-                    throw "Review Repetida";
+            if (!resposta) {
+                return;
+            }
+
+            var idDiretor = idDiretor1; // ID DA PESSOA QUE INDICOU O FILME
+            var idUsuario = sessionStorage.getItem("ID_USUARIO"); // ID DE QUEM ESTÁ FAZENDO A AVALIAÇÃO
+            var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+            var pontosDiretor = pontuacao;
+            var pontosUsuario = 10;
+            var tipo = motivo + idUsuario;
+            var tipoUsuario = "Assistiu_filme"
+            var idReferencia = idFilme; // filme que foi referenciado
+
+
+            // Enviando o valor da nova input
+            fetch("/pontuacao/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    idDiretor: idDiretor,
+                    idUsuario: idUsuario,
+                    idGrupo: idGrupo,
+                    pontosDiretor: pontosDiretor,
+                    pontosUsuario: pontosUsuario,
+                    tipo: tipo,
+                    tipoUsuario: tipoUsuario,
+                    idReferencia: idReferencia
+
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+
+                        alert("Boa avaliação")
+                        console.log(pontosDiretor)
+
+                        window.location.href = "./ranking.html"
+
+                    } else if (resposta.status == 409) {
+                        alert("Você já avaliou esse filme")
+                        throw "Review Repetida";
+                    } else {
+                        throw "Houve um erro ao tentar realizar a avaliação!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+            return false;
+        }
+
+        function aviso() {
+
+            alert("Ainda dá tempo de assistir, você não quer ficar para trás na competição né")
+        }
+
+        function sortearDiretor() {
+
+            var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
+
+            fetch(`/sortear/editar/${idGrupo}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+            }).then(function (resposta) {
+
+                if (resposta.ok) {
+                    window.alert("A semana terminou! Um novo direitor foi sorteado");
+                    window.location = "./ranking.html"
+                } else if (resposta.status == 404) {
+                    window.alert("Erro");
                 } else {
-                    throw "Houve um erro ao tentar realizar a avaliação!";
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
                 }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        }
 
-    return false;
-  }
+        function esconderAvaliacao() {
 
-    function aviso() {
+            var idUsuario = sessionStorage.getItem("ID_USUARIO");
+            console.log(idDiretor1)
+            console.log(idUsuario)
 
-        alert("Ainda dá tempo de assistir, você não quer ficar para trás na competição né")
-    }
+            if (idUsuario == idDiretor1) {
 
-      function sortearDiretor() {
+                //document.getElementById('avaliacao').style.display = "none"
+                document.getElementById('avaliacao').innerHTML = `<h3> ESCREVEU ALGO ERRADO?</h3>
+                        <div class="alinhar">
+                            <div class="bloco2">
+                                <img src="../assets/icons/x.png" alt="botão excluir" onclick="deletarIndicacao()">
+                                <span>Deletar Indicação</span>`
 
-        var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
-
-        fetch(`/sortear/editar/${idGrupo}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-        }).then(function (resposta) {
-
-            if (resposta.ok) {
-                window.alert("A semana terminou! Um novo direitor foi sorteado");
-                      window.location = "./ranking.html"
-            } else if (resposta.status == 404) {
-                window.alert("Erro");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
             }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
 
-    function esconderAvaliacao() {
+        }
 
-    var idUsuario = sessionStorage.getItem("ID_USUARIO");
-    console.log(idDiretor1)
-    console.log(idUsuario)
+        function deletarIndicacao() {
 
-    if(idUsuario == idDiretor1) {
+            let idFilme = sessionStorage.getItem("ID_FILME");
+            console.log(idFilme)
 
-           //document.getElementById('avaliacao').style.display = "none"
-             document.getElementById('avaliacao').innerHTML = `<h3> ESCREVEU ALGO ERRADO?</h3>
-                    <div class="alinhar">
-                        <div class="bloco2">
-                            <img src="../assets/icons/x.png" alt="botão excluir" onclick="deletarIndicacao()">
-                            <span>Deletar Indicação</span>`
+            fetch(`/filmes/deletar/${idFilme}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(function (resposta) {
 
-    }
-
-    }
-
-    function deletarIndicacao() {
-
-        let idFilme = sessionStorage.getItem("ID_FILME");
-        console.log(idFilme)
-
-        fetch(`/filmes/deletar/${idFilme}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
-
-            if (resposta.ok) {
-                window.alert("Filme deletado com sucesso");
-                window.location = "./filme_diretor.html"
-            } else {
-                throw ("Houve um erro ao tentar deletar a postagem!")
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }     
+                if (resposta.ok) {
+                    window.alert("Filme deletado com sucesso");
+                    window.location = "./filme_diretor.html"
+                } else {
+                    throw ("Houve um erro ao tentar deletar a postagem!")
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        }
 
 
-</script>
+    </script>
 
 
-</body>
+    </body>

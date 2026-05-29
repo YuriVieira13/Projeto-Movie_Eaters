@@ -39,6 +39,7 @@ function entrar(req, res) {
     var idGrupo = req.body.idGrupo;
     var idUsuario = req.body.idUsuario;
     var papel = req.body.papel;
+    var vezesDiretor = req.body.vezesDiretor;
 
     if (idGrupo == undefined) {
          return res.status(400).send("O idGrupo está undefined!");
@@ -51,7 +52,7 @@ function entrar(req, res) {
          return res.status(400).send("O papel está undefined!");
     }
 
-    grupoModel.entrar(idUsuario, idGrupo, papel).then(function (resposta) {
+    grupoModel.entrar(idUsuario, idGrupo, papel, vezesDiretor).then(function (resposta) {
         res.status(200).send("Entrou no grupo");
     }).catch(function (erro) {
 

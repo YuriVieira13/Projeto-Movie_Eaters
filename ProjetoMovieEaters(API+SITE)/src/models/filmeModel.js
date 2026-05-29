@@ -28,7 +28,6 @@ function deletar(idFilme) {
     return database.executar(instrucaoSql);
 }
 
-
 module.exports = {
     cadastrar,
     listar,

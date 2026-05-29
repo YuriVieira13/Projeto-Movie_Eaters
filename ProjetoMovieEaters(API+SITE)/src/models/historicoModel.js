@@ -15,7 +15,7 @@ function listarReview(idUsuario, idGrupo) {
 
 function listarFilmes(idGrupo) {
     var instrucao = `
-        SELECT idFilme, nome, poster,  CONCAT(WEEK(dt_insercao), 'ª semana') AS semana from filme
+        SELECT idFilme, nome, poster,  DATE_FORMAT(dt_insercao, "%d/%m/%y") AS semana from filme
         WHERE fkGrupo = ${idGrupo};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);

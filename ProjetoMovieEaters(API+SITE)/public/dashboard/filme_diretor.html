@@ -104,7 +104,7 @@
         let idGrupo = sessionStorage.getItem("ID_GRUPO");
         var poster = document.getElementById("poster_input").files[0];
 
-        if (!nome || !diretor || !ano || !ondeAssistir || !poster) // valida se for null, "", undefined 
+        if (nome == "" || diretor == "" || ano == "" || ondeAssistir == "" || poster == "")
         {
             alert("Preencha todos os campos e selecione uma imagem!");
             return;

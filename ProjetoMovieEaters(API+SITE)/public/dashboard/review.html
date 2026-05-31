@@ -66,13 +66,13 @@
 <script>
 
 
-    function carregarDados() {
+    function carregarDados() { 
 
         var nomeUsuario = sessionStorage.NOME_USUARIO;
-        document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+        document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
         let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
 
-        fetch(`/filmes/listar/${idGrupo}`)
+        fetch(`/filmes/listar/${idGrupo}`) // pegar o id do último filme
             .then(res => res.json())
             .then(dados => {
 
@@ -81,7 +81,7 @@
                 let idFilme = filme.idfilme;
                 sessionStorage.ID_FILME = idFilme;
                 console.log(idFilme)
-                carregarReview(idFilme, nomeUsuario)
+                carregarReview(idFilme, nomeUsuario) // carregar as reviews do último filme
 
             })
             .catch(erro => {
@@ -100,11 +100,18 @@
         console.log(idFilme)
         var idUsuario = sessionStorage.ID_USUARIO;
 
-        if (!nota || !review) // valida se for null, "", undefined 
+        if (!nota || !review)
         {
             alert("Preencha todos os campos!");
             return;
         }
+
+          if (nota < 0 || nota > 10)
+        {
+            alert("A nota tem que estar entre 0 e 10!");
+            return;
+        }
+
 
         fetch("/review/cadastrar", {
             method: "POST",
@@ -158,7 +165,7 @@
                 for (let i = 0; i < review.length; i++) {
                     var publicacao = review[i];
 
-
+                    // criando itens
                     var divPublicacao = document.createElement("div");
                     var spanID = document.createElement("span");
                     var spanTitulo = document.createElement("span");
@@ -168,9 +175,9 @@
                     var divButtons = document.createElement("div");
                     var btnCurtir = document.createElement("button");
                     var btnDeletar = document.createElement("button");
+
                     // -- criando texto
 
-                    // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";
                     spanTitulo.innerHTML = "Título: <b>" + publicacao.Filme + "</b>";
                     spanNome.innerHTML = "Autor: <b>" + publicacao.Usuario + "</b>";
                     spanNota.innerHTML = "Nota: <b>" + publicacao.nota + "</b>";
@@ -208,15 +215,13 @@
                     divButtons.appendChild(btnDeletar);
                     feed.appendChild(divPublicacao);
 
-                    // escondendo botão de quem não é o usuário
-
-                    if (nome != publicacao.Usuario) {
+                    if (nome != publicacao.Usuario) {   // escondendo botão de deletar
 
                         let deletar = document.getElementById("btnDeletar" + publicacao.idReview);
-                        deletar.style.display = "none"
+                        deletar.style.display = "none" 
                     }
 
-                    if (nome == publicacao.Usuario) {
+                    if (nome == publicacao.Usuario) {  // escondendo botão de curtir
                         console.log(publicacao.Usuario)
                         let Curtir = document.getElementById("btnCurtir" + publicacao.idReview);
                         Curtir.style.display = "none"
@@ -255,7 +260,7 @@
     }
 
 
-    function curtir(fkUsuario, idFilme) {
+    function curtir(fkUsuario, idFilme) { // função para mandar a pontuacao
 
         var idUsuario = sessionStorage.ID_USUARIO;
         var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));

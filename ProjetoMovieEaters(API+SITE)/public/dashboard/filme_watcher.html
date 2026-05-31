@@ -213,7 +213,7 @@
 
             var idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
 
-            fetch(`/sortear/editar/${idGrupo}`, {
+            fetch(`/sortear/editar/${idGrupo}`, { // conjunto de três updates para mudar o diretor da semana
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -242,12 +242,11 @@
 
             if (idUsuario == idDiretor1) {
 
-                //document.getElementById('avaliacao').style.display = "none"
                 document.getElementById('avaliacao').innerHTML = `<h3> ESCREVEU ALGO ERRADO?</h3>
                         <div class="alinhar">
                             <div class="bloco2">
                                 <img src="../assets/icons/x.png" alt="botão excluir" onclick="deletarIndicacao()">
-                                <span>Deletar Indicação</span>`
+                               <span>Deletar Indicação</span>`
 
             }
 

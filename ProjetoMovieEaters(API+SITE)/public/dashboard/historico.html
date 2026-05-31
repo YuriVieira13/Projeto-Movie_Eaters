@@ -94,7 +94,7 @@
             function carregarDados() {
 
                 var nomeUsuario = sessionStorage.NOME_USUARIO;
-                document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+                document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
 
             }
 
@@ -118,12 +118,12 @@
                           for (let i = 0; i < filmes.length; i++) {
                           var publicacao = filmes[i];
 
+                            // criando as variáveis
                             var divPublicacao = document.createElement("div");
                             var spanTitulo = document.createElement("span");
                             var spanData = document.createElement("span");
                             var divImagem = document.createElement("img");
 
-                            // var divImagem = document.createElement("div");
 
                             // -- criando texto
                             // spanID.innerHTML = "ID: <b>" + publicacao.idReview + "</b>";

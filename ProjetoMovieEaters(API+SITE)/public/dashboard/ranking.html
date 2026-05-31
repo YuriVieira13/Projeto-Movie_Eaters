@@ -92,7 +92,7 @@
         console.log(nomeGrupo)
         nome_Grupo.innerHTML = `Grupo: <tag style="color:#ffc500">${nomeGrupo}</tag>`
 
-        fetch(`/pontuacao/listar/${idGrupo}`) 
+        fetch(`/pontuacao/listar/${idGrupo}`) // trazer os dados que vão ser usado nas kpis e no gráfico 1
             .then(res => res.json())
             .then(dados => {
 
@@ -101,10 +101,10 @@
                 // validando se não veio vazio 
                 if (dados.length == 0) {
 
-                    document.getElementById("posicao").innerText = "-";
-                    document.getElementById("total").innerText = "0";
-                    document.getElementById("lider").innerText = "SEM LÍDER";
-                    document.getElementById("distancia").innerText = "0 pontos";
+                    document.getElementById("posicao").innerHTML = "-";
+                    document.getElementById("total").innerHTML = "0";
+                    document.getElementById("lider").innerHTML = "SEM LÍDER";
+                    document.getElementById("distancia").innerHTML = "0 pontos";
                     return;
                 }
 
@@ -185,18 +185,18 @@
 
                         scales: {
                             x: {
-                                beginAtZero: true, // Começa o eixo X no zero
+                                beginAtZero: true,
 
                                 ticks: {
-                                    color: '#ccc', // Cor dos números do eixo X
+                                    color: '#ccc', 
                                 },
 
                                 grid: {
-                                    color: 'rgba(255,255,255,0.1)' // Cor das linhas de fundo (grade)
+                                    color: 'rgba(255,255,255,0.1)' 
                                 },
 
                                 title: {
-                                    display: true, // Mostra o título do eixo X
+                                    display: true,
                                     text: 'Pontuação',
                                     color: '#ccc' 
                                 }
@@ -204,7 +204,7 @@
 
                             y: {
                                 ticks: {
-                                    color: '#ccc' // Cor dos nomes
+                                    color: '#ccc'
                                 },
 
                                 grid: {
@@ -215,7 +215,7 @@
                     }
                 });
 
-                carregarGrafico()
+                carregarGrafico1()
 
             })
             .catch(erro => {
@@ -224,7 +224,7 @@
 
     }
 
-    function carregarGrafico() { // função para carregar o gráfico de progresso semanal
+    function carregarGrafico1() { // função para carregar o gráfico de progresso semanal
 
      let idGrupo = Number(sessionStorage.getItem("ID_GRUPO"));
 
@@ -232,6 +232,7 @@
         let play2 = []
         let play3 = []
         let play4 = []
+        let play5 = []
 
         let semanas = [] // recebe as semanas caso passe do layout
         let layout = ["semana 1", "semana 2", "semana 3", "semana 4"]
@@ -240,30 +241,42 @@
         let nome2 = "Convide um amigo"
         let nome3 = "Convide um amigo"
         let nome4 = "Convide um amigo"
+        let nome5 = ""
 
-        fetch(`/ranking/listar/${idGrupo}`)
+        let quantidadePlayer = 0
+
+        fetch(`/ranking/listar/${idGrupo}`) // função para fazer o gráfico de histórico
             .then(res => res.json())
             .then(dados => {
 
                 console.log(dados)
 
                 if (dados.length > 0) {
-                    nome1 = dados[0].nome 
+                    nome1 = dados[0].nome
+                    quantidadePlayer = 1
                 }
 
                 if (dados.length > 1) {
                     nome2 = dados[1].nome 
+                    quantidadePlayer = 2
                 }
 
                 if (dados.length > 2) {
-                    nome3 = dados[2].nome 
+                    nome3 = dados[2].nome
+                     quantidadePlayer = 3
                 }
 
                 if (dados.length > 3) {
                     nome4 = dados[3].nome 
+                      quantidadePlayer = 4
                 }
 
+                 if (dados.length > 4 && nome5 != "") {
+                    nome5 = dados[4].nome 
+                    quantidadePlayer = 5
+                }
 
+                console.log(quantidadePlayer)
                 // automatizar o número de semanas no gráfico
 
                 let qntSemanas = dados[0].qtdSemanas;
@@ -273,27 +286,31 @@
 
                 for (let i = 1; i <= qntSemanas; i++) {
                     semanas.push("Semana " + i)
-
                     if (i > 4) { layout = semanas }
-
                 }
 
                 // lógica para definir a pontuação por semana
 
                 for (let i = 0; i < dados.length; i++) {
 
+                    console.log(dados.length)
+
                     if (dados[i].nome == nome1) {
-                        let posicao = i % 4 + 1;
+                        let posicao = i % quantidadePlayer + 1;
                         play1.push(posicao)
                     } else if (dados[i].nome == nome2) {
-                        let posicao = i % 4 + 1;
+                        let posicao = i % quantidadePlayer + 1;
                         play2.push(posicao)
                     } else if (dados[i].nome == nome3) {
-                        let posicao = i % 4 + 1;
+                        let posicao = i % quantidadePlayer + 1;
                           play3.push(posicao)
-                    } else {
-                        let posicao = i % 4 + 1;
+                    } else if (dados[i].nome == nome4) {
+                        let posicao = i % quantidadePlayer + 1
                            play4.push(posicao)
+                    }
+                    else if (dados[i].nome == nome5) {
+                        let posicao = i % quantidadePlayer+ 1;
+                           play5.push(posicao)
                     }
                 }
 
@@ -337,6 +354,14 @@
                                 backgroundColor: "#F8E71C",
                                 borderWidth: 3,
                                 tension: 0.3
+                            }, 
+                               {
+                                label: nome5,
+                                data: play5,
+                                borderColor: "#228B22",
+                                backgroundColor: "#228B22",
+                                borderWidth: 3,
+                                tension: 0.3
                             }
                         ]
                     },
@@ -365,11 +390,11 @@
                             y: {
                                 reverse: true,
                                 min: 0,
-                                max: 5,
+                                max: quantidadePlayer + 1,
                                 ticks: {
                                     stepSize: 1,
                                     callback: function (value) { // função usada para desaparecer o 0 e o 5 no gráfico, questão estética
-                                        if (value == 0 || value == 5) {
+                                        if (value == 0 || value == quantidadePlayer + 1) {
                                             return "";
                                         }
                                         return value + "º";
@@ -414,8 +439,6 @@
         if (semanas == 12) {
         alert("O jogo foi finalizado! Caso ainda queiram manter o mesmo grupo, podem dar seguimento a competição!")
         }
-
-
 
 
     }

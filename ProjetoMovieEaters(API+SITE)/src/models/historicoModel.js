@@ -4,7 +4,7 @@ var database = require("../database/config")
 function listarReview(idUsuario, idGrupo) {
     var instrucao = `
         SELECT r.idReview, f.nome as Filme, r.nota, r.review
-        from Review r
+        from review r
         JOIN filme f ON
         r.fkFilme = f.idFilme
         WHERE r.fkUsuario = ${idUsuario} AND f.fkGrupo = ${idGrupo};

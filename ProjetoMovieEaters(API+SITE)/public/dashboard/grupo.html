@@ -90,11 +90,11 @@
     function carregarNome() {
 
         var nomeUsuario = sessionStorage.getItem("NOME_USUARIO");
-        document.querySelector(".left").innerText = "Bem vindo, " + nomeUsuario;
+        document.querySelector(".left").innerHTML = "Bem vindo, " + nomeUsuario;
 
     }
 
-    function cadastrarGrupo() {
+    function cadastrarGrupo() { // função para cadastrar o gurpo
 
         var nomeGrupo = inp_nomeGrupo.value;
         var codigo = gerarCodigo()
@@ -134,7 +134,7 @@
     }
 
 
-    function gerarCodigo() {
+    function gerarCodigo() { // função para gerar o código
 
         let alfabeto = [
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
@@ -164,7 +164,7 @@
     
     function entrarGrupo() {
 
-        let codigo = inp_codigo.value;
+        let codigo = inp_codigo.value.toUpperCase();
 
         if (codigo == "") {
 
@@ -172,7 +172,7 @@
             return;
         }
 
-        fetch(`/grupo/listar/${codigo}`)
+        fetch(`/grupo/listar/${codigo}`) // função para descobrir o grupo do código inserido
             .then(res => res.json())
             .then(dados => {
 
@@ -184,7 +184,7 @@
                 let papel = "watcher";
                 let vezesDiretor = 0;
 
-                fetch("/grupo/entrar", {
+                fetch("/grupo/entrar", { // função para entrar no grupo / colocar dados na tabela intermediarria
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -223,7 +223,7 @@
         return false;
     }
 
-    function verGrupos() {
+    function verGrupos() { // função para ver os grupos
 
         let idUsuario = Number(sessionStorage.getItem("ID_USUARIO"));
         grupo.innerHTML = ""
@@ -249,10 +249,11 @@
 
                 setTimeout(function () {
                 grupo.innerHTML = ""
-                            }, 3000);
+                            }, 4000);
 
             })
             .catch(erro => {
+                alert("Grupo não encontrado")
                 console.log("Erro:", erro);
             });
 

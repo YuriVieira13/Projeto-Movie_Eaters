@@ -1,6 +1,6 @@
 var grupoModel = require("../models/grupoModel");
 
-function listar(req, res) {
+function listar(req, res) { // função para pegar o nome e o código do grupo
     var codigo = req.params.codigo
 
     grupoModel.listar(codigo).then(function (resultado) {
